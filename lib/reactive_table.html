@@ -1,0 +1,46 @@
+<template name="reactiveTable">
+    <table class="table table-striped table-hover reactive-table" reactive-table-id="{{identifier}}">
+        <thead>
+            <tr>
+            {{#each fields}}
+                {{#if isSortKey this ../identifier}}
+                    <th class="{{getKey}} sortable" key="{{getKey}}">{{getLabel}}&nbsp;&nbsp;
+                        {{#if isAscending ../../identifier}}
+                          &#x25BC;
+                        {{else}}
+                          &#x25B2;
+                        {{/if}}
+                    </th>
+                {{else}}
+                    {{#if isSortable}}
+                        <th class="{{getKey}} sortable" key="{{getKey}}">{{getLabel}}</th>
+                    {{else}}
+                        <th class="{{getKey}}" key="{{getKey}}">{{getLabel}}</th>
+                    {{/if}}
+                {{/if}}
+            {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+        {{#each sortedRows}}
+            <tr {{getAttrs ../attrs}}>
+            {{#each ../fields}}
+                <td class="{{key}}">{{getField ../this}}</td>
+            {{/each}}
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <div class="reactive-table-navigation" reactive-table-id="{{identifier}}">
+        <div class="rows-per-page">Show&nbsp;<input type="text" value="{{getRowsPerPage}}" />&nbsp;rows per page</div>
+        <div class="page-number">
+            {{#if isntFirstPage}}
+                <span class="previous-page">&lt;</span>&nbsp;&nbsp;
+            {{/if}}
+            <span class="current-page">Page&nbsp;<input type="text" value="{{getCurrentPage}}" />&nbsp;of {{getPageCount}}</span>
+            {{#if isntLastPage}}
+                &nbsp;&nbsp;<span class="next-page">&gt;</span>
+            {{/if}}
+        </div>
+    </div>
+</template>
