@@ -12,7 +12,7 @@ This package adds a handlebars helper called reactiveTable. Create and subscribe
 
     {{reactiveTable myCollection}}
     
-Make sure to pass in the collection object returned by new Meteor.Collection(), not the cursor returned by collection.find().
+When the whole collection should be in the table, it's best to pass in the Meteor collection object (returned by new Meteor.Collection()). You can also pass in the cursor returned by collection.find() to show a subset of the collection, or a plain array to show data that's not in a Meteor collection.
 
 ## Customization
 
