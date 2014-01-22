@@ -1,7 +1,7 @@
 # Reactive Table
 A reactive table designed for Meteor.
 
-## Quickstart
+## Quick Start
 
 Install reactive table:
 
@@ -29,6 +29,14 @@ To specify columns, pass in an additional fields argument:
 Fields can simply be an array of field names (attributes in the collection).
 
     ['name', 'location', 'year']
+    
+Define the fields in a helper for the template that calls reactiveTable:
+
+    Template.myTemplate.helpers({
+        fields: function () {
+            return ['name', 'location', 'year'];
+        }
+    });
     
 #### Setting column headers
     
