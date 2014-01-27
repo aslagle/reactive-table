@@ -1,4 +1,7 @@
 <template name="reactiveTable">
+     <div class="reactive-table-filter" reactive-table-id="{{identifier}}">
+        Filter:&nbsp;<input type="text" value="{{filter}}"></input>
+    </div>
     <table class="table table-striped table-hover reactive-table" reactive-table-id="{{identifier}}">
         <thead>
             <tr>

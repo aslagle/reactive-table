@@ -3,6 +3,10 @@
     color: black;
 }
 
+.reactive-table-filter {
+    float: right;
+}
+
 .reactive-table-navigation input {
     width: 25px;
 }
