@@ -66,6 +66,8 @@ You can also compute a function on the attribute's value to display in the table
             fn: function (value) { return value.length; }
         }
     ] }
+
+Currently, sorting by a virtual column is not supported.
     
 #### Nested objects and arrays
 
