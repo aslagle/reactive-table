@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "reactive-table": {
+      "path": "../.."
+    },
+    "bootstrap-3": {}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "reactive-table": {
+        "path": "../.."
+      },
+      "bootstrap-3": {}
+    },
+    "packages": {
+      "reactive-table": {
+        "path": "../.."
+      },
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v3.1.0-1",
+        "commit": "329dccb08bfc18c635676dea600ac9953162cda9"
+      }
+    }
+  }
+}
