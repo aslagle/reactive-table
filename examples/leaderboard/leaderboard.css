@@ -15,6 +15,14 @@ body {
     border-top: 1px solid black;
 }
 
+#table {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -o-user-select: text;
+    user-select: text;
+}
+
 #outer {
     width: 600px;
     margin: 0 auto;    
