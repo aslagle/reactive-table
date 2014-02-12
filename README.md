@@ -90,7 +90,7 @@ attrs should be an object, with the html attribute names as keys and the collect
 
 ## Multiple tables
 
-When multiple tables are used in the same application, by default they'll share pagination settings and filters. Add adifferent group to each table's settings to allow separate table state.
+When multiple tables are used in the same application, by default they'll share pagination settings and filters. Add a different group to each table's settings to allow separate table state.
 
     { 
         fields: [...],
