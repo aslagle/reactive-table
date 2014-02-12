@@ -1,14 +1,14 @@
 <template name="reactiveTable">
-     <div class="reactive-table-filter" reactive-table-id="{{identifier}}">
+     <div class="reactive-table-filter" reactive-table-group="{{group}}">
         Filter:&nbsp;<input type="text" value="{{filter}}"></input>
     </div>
-    <table class="table table-striped table-hover reactive-table" reactive-table-id="{{identifier}}">
+    <table class="table table-striped table-hover reactive-table" reactive-table-group="{{group}}">
         <thead>
             <tr>
             {{#each fields}}
-                {{#if isSortKey this ../identifier}}
+                {{#if isSortKey this ../group}}
                     <th class="{{getKey}} sortable" key="{{getKey}}">{{getLabel}}&nbsp;&nbsp;
-                        {{#if isAscending ../../identifier}}
+                        {{#if isAscending ../../group}}
                           &#x25BC;
                         {{else}}
                           &#x25B2;
@@ -34,7 +34,7 @@
         {{/each}}
         </tbody>
     </table>
-    <div class="reactive-table-navigation" reactive-table-id="{{identifier}}">
+    <div class="reactive-table-navigation" reactive-table-group="{{group}}">
         <div class="rows-per-page">Show&nbsp;<input type="text" value="{{getRowsPerPage}}" />&nbsp;rows per page</div>
         <div class="page-number">
             {{#if isntFirstPage}}
