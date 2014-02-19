@@ -1,6 +1,8 @@
 <template name="reactiveTable">
      <div class="reactive-table-filter" reactive-table-group="{{group}}">
-        Filter:&nbsp;<input type="text" value="{{filter}}"></input>
+        <div class="form-inline form-group">
+            <label>Filter&nbsp;</label><input class="form-control" type="text" value="{{filter}}"></input>
+        </div>
     </div>
     <table class="table table-striped table-hover reactive-table" reactive-table-group="{{group}}">
         <thead>
@@ -35,14 +37,16 @@
         </tbody>
     </table>
     <div class="reactive-table-navigation" reactive-table-group="{{group}}">
-        <div class="rows-per-page">Show&nbsp;<input type="text" value="{{getRowsPerPage}}" />&nbsp;rows per page</div>
-        <div class="page-number">
+        <div class="form-inline form-group rows-per-page">
+            <label>Show&nbsp;</label><input class="form-control" type="text" value="{{getRowsPerPage}}"><label>&nbsp;rows per page</label></input>
+        </div>
+        <div class="form-inline form-group page-number">
             {{#if isntFirstPage}}
-                <span class="previous-page">&lt;</span>&nbsp;&nbsp;
+                <label class="previous-page">&lt;</label>&nbsp;&nbsp;
             {{/if}}
-            <span class="current-page">Page&nbsp;<input type="text" value="{{getCurrentPage}}" />&nbsp;of {{getPageCount}}</span>
+            <label class="current-page">Page&nbsp;</label><input class="form-control" type="text" value="{{getCurrentPage}}" /><label>&nbsp;of {{getPageCount}}</label>
             {{#if isntLastPage}}
-                &nbsp;&nbsp;<span class="next-page">&gt;</span>
+                <label class="next-page">&nbsp;&nbsp;&gt;</label>
             {{/if}}
         </div>
     </div>
