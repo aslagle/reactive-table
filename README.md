@@ -64,11 +64,11 @@ You can also compute a function on the attribute's value to display in the table
         { 
             key: 'resources',
             label: 'Number of Resources',
-            fn: function (value) { return value.length; }
+            fn: function (value, object) { return value.length; }
         }
     ] }
 
-Currently, sorting by a virtual column is not supported.
+The object argument contains the full object, so you can compute a value using multiple fields. Currently, sorting by a virtual column is not supported.
     
 #### Nested objects and arrays
 
