@@ -7,8 +7,8 @@
     float: right;
 }
 
-.reactive-table-navigation input {
-    width: 25px;
+.reactive-table-navigation .form-inline input {
+    width: 45px;
 }
 
 .reactive-table-navigation .rows-per-page {
