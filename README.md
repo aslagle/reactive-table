@@ -101,3 +101,18 @@ When multiple tables are used in the same application, by default they'll share 
     }
 
 The default group is 'reactive-table'.
+
+
+## Internationalization
+
+Internationalization support is provided using [just-18n](https://github.com/subhog/meteor-just-i18n).
+
+Add just-i18n to your project:
+    
+    mrt add just-i18n
+    
+French is the only language we currently have a translation for. To set your language to French:
+
+    i18n.setLanguage('fr');
+    
+For other languages, contribute a translation to [reactive_table_i18n.js](https://github.com/ecohealthalliance/reactive-table/blob/master/lib/reactive_table_i18n.js).
