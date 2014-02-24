@@ -105,7 +105,7 @@ The default group is 'reactive-table'.
 
 ## Internationalization
 
-Internationalization support is provided using [just-18n](https://github.com/subhog/meteor-just-i18n).
+Internationalization support is provided using [just-i18n](https://github.com/subhog/meteor-just-i18n).
 
 Add just-i18n to your project:
     
