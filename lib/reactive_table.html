@@ -8,8 +8,8 @@
         <thead>
             <tr>
             {{#each fields}}
-                {{#if isSortKey this ../group}}
-                    <th class="{{getKey}} sortable" key="{{getKey}}">{{getLabel}}&nbsp;&nbsp;
+                {{#if isSortKey this ../group ../fields}}
+                    <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">{{getLabel}}&nbsp;&nbsp;
                         {{#if isAscending ../../group}}
                           &#x25BC;
                         {{else}}
@@ -18,9 +18,9 @@
                     </th>
                 {{else}}
                     {{#if isSortable}}
-                        <th class="{{getKey}} sortable" key="{{getKey}}">{{getLabel}}</th>
+                        <th class="{{getKey}} sortable" index="{{getFieldIndex ../../../fields}}">{{getLabel}}</th>
                     {{else}}
-                        <th class="{{getKey}}" key="{{getKey}}">{{getLabel}}</th>
+                        <th class="{{getKey}}" index="{{getFieldIndex ../../../fields}}">{{getLabel}}</th>
                     {{/if}}
                 {{/if}}
             {{/each}}

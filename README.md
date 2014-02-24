@@ -68,7 +68,7 @@ You can also compute a function on the attribute's value to display in the table
         }
     ] }
 
-The object argument contains the full object, so you can compute a value using multiple fields. Currently, sorting by a virtual column is not supported.
+The object argument contains the full object, so you can compute a value using multiple fields. 
     
 #### Nested objects and arrays
 
