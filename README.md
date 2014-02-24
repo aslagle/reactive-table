@@ -1,6 +1,7 @@
 # Reactive Table
 A reactive table designed for Meteor.
-Demo: http://reactive-table-leaderboard.meteor.com/
+Demo and Feature Comparison: http://reactive-table.meteor.com/
+Another Demo: http://reactive-table-leaderboard.meteor.com/
 
 ## Quick Start
 
