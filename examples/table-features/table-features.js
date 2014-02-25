@@ -6,9 +6,12 @@ if (Meteor.isClient) {
   };
 
   var checkOrX = function (value) {
-    var html = '<span style="color:red">&#10008;</span>'
+    var html = '<span style="color:red">&#10008;</span>';
     if (value) {
-      html = '<span style="color:green">&#10004;</span>'
+      html = '<span style="color:green">&#10004;</span>';
+      if (typeof value === 'string') {
+        html += ' (<a href="' + value + '">example</a>)';
+      }
     }
     return new Handlebars.SafeString(html);
   };
@@ -59,6 +62,7 @@ if (Meteor.isServer) {
       'filter': true,
       'resize': true,
       'edit': true,
+      'responsive': 'https://datatables.net/release-datatables/examples/basic_init/flexible_width.html',
       'i18n': true
 
     });
@@ -84,6 +88,7 @@ if (Meteor.isServer) {
       'name': 'tablesorter',
       'url': 'https://github.com/Mottie/tablesorter',
       'sort': true,
+      'pages': 'http://mottie.github.io/tablesorter/docs/example-pager.html',
       'filter': true,
       'edit': true
     });
