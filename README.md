@@ -61,7 +61,7 @@ To set labels for the column headers, use an array of field elements, each with 
 
 #### Virtual columns
 
-You can also compute a function on the attribute's value to display in the table, by adding fn to the field.
+You can also compute a function on the attribute's value to display in the table, by adding `fn` to the field.
 
     { fields: [
         { 
@@ -71,7 +71,9 @@ You can also compute a function on the attribute's value to display in the table
         }
     ] }
 
-The object argument contains the full object, so you can compute a value using multiple fields. 
+If the key exists in the record, it will be passed to `fn` in `value`. Otherwise, `value` will be `null`.
+
+The `object` argument contains the full object, so you can compute a value using multiple fields. 
     
 #### Nested objects and arrays
 
