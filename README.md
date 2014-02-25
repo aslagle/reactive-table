@@ -92,6 +92,19 @@ attrs should be an object, with the html attribute names as keys and the collect
         attrs:  { 'element-id': '_id' }
     }
 
+## Using events
+
+Make the event selector be `tr`, and you'll have your row object in `this`:
+
+```JavaScript
+Template.posts.events({
+  'click .reactive-table tr': function (event) {
+    // set the blog post we'll display details and news for
+    var post = event.target;
+    Session.set('post', post);
+  }
+});
+```
 
 ## Multiple tables
 
