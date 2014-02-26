@@ -3,6 +3,10 @@
     color: black;
 }
 
+.reactive-table .cell {
+	padding: 5px;
+}
+
 .reactive-table-filter {
     float: right;
 }
@@ -28,4 +32,8 @@
 .reactive-table-navigation .next-page:hover {
     cursor: pointer;
     color: black;
+}
+
+.CRC {
+	clear: both;
 }

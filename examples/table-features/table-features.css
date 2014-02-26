@@ -2,6 +2,10 @@
 	margin: 100px;
 }
 
+#table th, #table td {
+	text-align: center;
+}
+
 #about {
 	margin: 100px;
 }

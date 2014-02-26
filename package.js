@@ -13,4 +13,5 @@ Package.on_use(function (api) {
     api.add_files('lib/reactive_table_i18n.js', 'client');
     api.add_files('lib/reactive_table.js', 'client');
     api.add_files('lib/reactive_table.css', 'client');
+    api.add_files('lib/3p/colResizable-1.3.min.js', 'client');
 });

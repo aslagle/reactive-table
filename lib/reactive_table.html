@@ -4,23 +4,23 @@
             <label>{{i18n 'reactiveTable.filter'}}&nbsp;</label><input class="form-control" type="text" value="{{filter}}"></input>
         </div>
     </div>
-    <table class="table table-striped table-hover reactive-table" reactive-table-group="{{group}}">
+    <table class="table table-striped table-bordered table-hover reactive-table" reactive-table-group="{{group}}">
         <thead>
             <tr>
             {{#each fields}}
                 {{#if isSortKey this ../group ../fields}}
-                    <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">{{getLabel}}&nbsp;&nbsp;
+                    <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}"><span class="cell">{{getLabel}}&nbsp;&nbsp;
                         {{#if isAscending ../../group}}
                           &#x25BC;
                         {{else}}
                           &#x25B2;
                         {{/if}}
-                    </th>
+                    </span></th>
                 {{else}}
                     {{#if isSortable}}
-                        <th class="{{getKey}} sortable" index="{{getFieldIndex ../../../fields}}">{{getLabel}}</th>
+                        <th class="{{getKey}} sortable" index="{{getFieldIndex ../../../fields}}"><span class="cell">{{getLabel}}</span></th>
                     {{else}}
-                        <th class="{{getKey}}" index="{{getFieldIndex ../../../fields}}">{{getLabel}}</th>
+                        <th class="{{getKey}}" index="{{getFieldIndex ../../../fields}}"><span class="cell">{{getLabel}}</span></th>
                     {{/if}}
                 {{/if}}
             {{/each}}
@@ -30,7 +30,7 @@
         {{#each sortedRows}}
             <tr {{getAttrs ../attrs}}>
             {{#each ../fields}}
-                <td class="{{key}}">{{getField ../this}}</td>
+                <td class="{{key}}"><span class="cell">{{getField ../this}}</span></td>
             {{/each}}
             </tr>
         {{/each}}
