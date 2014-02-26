@@ -100,7 +100,7 @@ Make the event selector be `tr`, and you'll have your row object in `this`:
 Template.posts.events({
   'click .reactive-table tr': function (event) {
     // set the blog post we'll display details and news for
-    var post = event.target;
+    var post = this;
     Session.set('post', post);
   }
 });
