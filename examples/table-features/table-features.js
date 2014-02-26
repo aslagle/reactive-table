@@ -81,7 +81,8 @@ if (Meteor.isServer) {
       'url': 'http://www.dynatable.com/',
       'sort': true,
       'pages': true,
-      'filter': true
+      'filter': true,
+      'resize': true  // no particular example but the homepage resized to <480px works great
     });
 
     Tables.insert({
