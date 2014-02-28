@@ -13,15 +13,15 @@ if (Meteor.isClient) {
         support: value
       };
 
-    if (value === null) {
+    if (value === null || value === undefined) {
       html = '<span style="color: orange; font-weight: bold">?</span>';
     } else {
       if (value.support === true)
-        html = '<span style="color:green">&#10004;</span>'
+        html = '<span style="color: green">&#10004;</span>'
       else if (value.support === false)
-        html = '<span style="color:red">&#10008;</span>';
+        html = '<span style="color: red">&#10008;</span>';
       else
-        html = '<span style="color:lightblue">' + value.support + '</span>';
+        html = '<span style="color: lightblue">' + value.support + '</span>';
       if (value.link)
         html += ' (<a href="' + value.link + '">more</a>)';
       }
