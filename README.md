@@ -5,6 +5,20 @@ Demo and Feature Comparison: http://reactive-table.meteor.com/
 
 Another Demo: http://reactive-table-leaderboard.meteor.com/
 
+### Table of Contents
+- [Quick Start](#quick-start)
+- [Styling](#styling)
+- [Customization](#customization)
+  - [Setting columns](#setting-columns)
+    - [Setting column headers](#setting-column-headers)
+    - [Virtual columns](#virtual-columns)
+      - [HTML](#html)
+    - [Nested objects and arrays](#nested-objects-and-arrays)
+  - [Adding additional data to the table](#adding-additional-data-to-the-table)
+- [Using events](#using-events)
+- [Multiple tables](#multiple-tables)
+- [Internationalization](#internationalization)
+
 ## Quick Start
 
 Install reactive table:
