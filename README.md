@@ -74,6 +74,16 @@ You can also compute a function on the attribute's value to display in the table
 If the key exists in the record, it will be passed to `fn` in `value`. Otherwise, `value` will be `null`.
 
 The `object` argument contains the full object, so you can compute a value using multiple fields. 
+
+##### HTML
+
+You can use HTML in a virtual column by creating a Handlebars SafeString:
+
+    fn: function (value) {
+        return new Handlebars.SafeString('<a href="+Routes.route['view'].path({_id:value})+">View</a>'); 
+    }
+    
+When adding user-generated fields to the HTML, ensure that they have been properly escaped to prevent cross-site scripting vulnerabilities.
     
 #### Nested objects and arrays
 
