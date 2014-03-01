@@ -126,7 +126,7 @@ Add just-i18n to your project:
     
     mrt add just-i18n
     
-French is the only language we currently have a translation for. To set your language to French:
+French and Spanish are the only languages we currently have translations for. To set your language to French:
 
     i18n.setLanguage('fr');
     
