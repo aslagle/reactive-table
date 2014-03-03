@@ -5,7 +5,8 @@
       "reactive-table": {
         "path": "../.."
       },
-      "bootstrap-3": {}
+      "bootstrap-3": {},
+      "just-i18n": {}
     },
     "packages": {
       "reactive-table": {
