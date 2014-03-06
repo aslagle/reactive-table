@@ -14,7 +14,6 @@ Another Demo: http://reactive-table-leaderboard.meteor.com/
     - [Virtual columns](#virtual-columns)
       - [HTML](#html)
     - [Nested objects and arrays](#nested-objects-and-arrays)
-  - [Adding additional data to the table](#adding-additional-data-to-the-table)
 - [Using events](#using-events)
 - [Multiple tables](#multiple-tables)
 - [Internationalization](#internationalization)
@@ -104,17 +103,7 @@ When adding user-generated fields to the HTML, ensure that they have been proper
 For elements of nested objects and arrays, use mongo's syntax in the key: 
 
     {'key': 'emails.0.address', label: 'Email Address'}
-
-### Adding additional data to the table
-
-If you need to store additional data in the table, you can add attributes to a row's html, by adding an attributes argument to the settings. 
-
-attrs should be an object, with the html attribute names as keys and the collection keys as values.
-
-    { 
-        fields: [...],
-        attrs:  { 'element-id': '_id' }
-    }
+    
 
 ## Using events
 
