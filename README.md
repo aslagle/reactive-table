@@ -48,6 +48,7 @@ Define the settings in a helper for the template that calls reactiveTable:
     Template.myTemplate.helpers({
         settings: function () {
             return {
+                rowsPerPage: 10,
                 showFilter: true,
                 fields: ['name', 'location', 'year'] 
             };
@@ -58,6 +59,7 @@ Define the settings in a helper for the template that calls reactiveTable:
 ### Settings
 
 * `showFilter`: Boolean. Whether to display the filter box above the table. Default `true`.
+* `rowsPerPage`: Number.  The desired number of rows per page. Defaults to 10.
 * `fields`: Object. Controls the columns; see below.
 
 
