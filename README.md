@@ -47,9 +47,18 @@ Define the settings in a helper for the template that calls reactiveTable:
 
     Template.myTemplate.helpers({
         settings: function () {
-            return { fields: ['name', 'location', 'year'] };
+            return {
+                showFilter: true,
+                fields: ['name', 'location', 'year'] 
+            };
         }
     });
+
+    
+### Settings
+
+* `showFilter`: Boolean. Whether to display the filter box above the table. Default `true`.
+* `fields`: Object. Controls the columns; see below.
 
 
 ### Setting columns
