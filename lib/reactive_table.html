@@ -1,10 +1,12 @@
 <template name="reactiveTable">
     {{#if showFilter}}
+    {{#constant}}
     <div class="reactive-table-filter" reactive-table-group="{{group}}">
         <div class="form-inline form-group">
             <label>{{i18n 'reactiveTable.filter'}}&nbsp;<input class="form-control" type="text" value="{{filter}}"></label>
         </div>
     </div>
+    {{/constant}}
     {{/if}}
     <table class="table table-striped table-hover reactive-table" reactive-table-group="{{group}}">
         <thead>
