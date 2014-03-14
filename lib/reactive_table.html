@@ -1,20 +1,24 @@
 <template name="reactiveTable">
+    {{#with generateSettings}}
+        {{> reactiveTableInner id=id collection=collection settings=settings fields=fields showFilter=showFilter}}
+    {{/with}}
+</template>
+
+<template name="reactiveTableInner">
     {{#if showFilter}}
-    {{#constant}}
-    <div class="reactive-table-filter" reactive-table-group="{{group}}">
+    <div class="reactive-table-filter" reactive-table-id="{{id}}">
         <div class="form-inline form-group">
             <label>{{i18n 'reactiveTable.filter'}}&nbsp;<input class="form-control" type="text" value="{{filter}}"></label>
         </div>
     </div>
-    {{/constant}}
     {{/if}}
-    <table class="table table-striped table-hover reactive-table" reactive-table-group="{{group}}">
+    <table class="table table-striped table-hover reactive-table" reactive-table-id="{{id}}">
         <thead>
             <tr>
             {{#each fields}}
-                {{#if isSortKey this ../group ../fields}}
+                {{#if isSortKey this ../id ../fields}}
                     <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">{{getLabel}}&nbsp;&nbsp;
-                        {{#if isAscending ../../group}}
+                        {{#if isAscending ../../id}}
                           &#x25BC;
                         {{else}}
                           &#x25B2;
@@ -22,9 +26,9 @@
                     </th>
                 {{else}}
                     {{#if isSortable}}
-                        <th class="{{getKey}} sortable" index="{{getFieldIndex ../../../fields}}">{{getLabel}}</th>
+                        <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">{{getLabel}}</th>
                     {{else}}
-                        <th class="{{getKey}}" index="{{getFieldIndex ../../../fields}}">{{getLabel}}</th>
+                        <th class="{{getKey}}" index="{{getFieldIndex ../../fields}}">{{getLabel}}</th>
                     {{/if}}
                 {{/if}}
             {{/each}}
@@ -34,13 +38,13 @@
         {{#each sortedRows}}
             <tr>
             {{#each ../fields}}
-                <td class="{{key}}">{{getField ../this}}</td>
+                <td class="{{key}}">{{getField ..}}</td>
             {{/each}}
             </tr>
         {{/each}}
         </tbody>
     </table>
-    <div class="reactive-table-navigation" reactive-table-group="{{group}}">
+    <div class="reactive-table-navigation" reactive-table-id="{{id}}">
         <div class="form-inline form-group rows-per-page">
             <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
         </div>

@@ -15,7 +15,6 @@ Another Demo: http://reactive-table-leaderboard.meteor.com/
       - [HTML](#html)
     - [Nested objects and arrays](#nested-objects-and-arrays)
 - [Using events](#using-events)
-- [Multiple tables](#multiple-tables)
 - [Internationalization](#internationalization)
 
 ## Quick Start
@@ -25,9 +24,9 @@ Install reactive table:
     mrt add reactive-table
     
 
-This package adds a handlebars helper called reactiveTable. Create and subscribe to a collection, and pass it to the helper in a template:
+This package adds a template called reactiveTable. Create and subscribe to a collection, and pass it to the template:
 
-    {{reactiveTable myCollection}}
+    {{> reactiveTable collection=myCollection}}
     
 When the whole collection should be in the table, it's best to pass in the Meteor collection object (returned by new Meteor.Collection()). You can also pass in the cursor returned by collection.find() to show a subset of the collection, or a plain array to show data that's not in a Meteor collection.
 
@@ -41,7 +40,7 @@ Add bootstrap or bootstrap-3 to style the table, or add your own css. The genera
 
 The reactiveTable helper accepts an additional settings argument that can be used to configure the table.
 
-    {{reactiveTable collection settings}}
+    {{> reactiveTable collection=collection settings=settings}}
 
 Define the settings in a helper for the template that calls reactiveTable:
 
@@ -129,18 +128,6 @@ Template.posts.events({
   }
 });
 ```
-
-## Multiple tables
-
-When multiple tables are used in the same application, by default they'll share pagination settings and filters. Add a different group to each table's settings to allow separate table state.
-
-    { 
-        fields: [...],
-        group:  'resources'
-    }
-
-The default group is 'reactive-table'.
-
 
 ## Internationalization
 
