@@ -60,6 +60,7 @@ Define the settings in a helper for the template that calls reactiveTable:
 
 * `showFilter`: Boolean. Whether to display the filter box above the table. Default `true`.
 * `rowsPerPage`: Number.  The desired number of rows per page. Defaults to 10.
+* `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
 * `fields`: Object. Controls the columns; see below.
 
 

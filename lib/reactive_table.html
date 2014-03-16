@@ -40,6 +40,7 @@
         {{/each}}
         </tbody>
     </table>
+    {{#if showNavigation}}
     <div class="reactive-table-navigation" reactive-table-group="{{group}}">
         <div class="form-inline form-group rows-per-page">
             <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
@@ -54,4 +55,5 @@
             {{/if}}
         </div>
     </div>
+    {{/if}}
 </template>
