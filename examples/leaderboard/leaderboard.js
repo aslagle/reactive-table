@@ -15,7 +15,7 @@ if (Meteor.isClient) {
           { key: 'name', label: 'First Name', fn: function (name) { return name.split(' ')[0]; } },
           { key: 'score', label: 'Score'}
         ],
-		useFontAwesome: true
+        useFontAwesome: true
     };
   };
 

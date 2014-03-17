@@ -10,7 +10,7 @@
                     {{i18n 'reactiveTable.filter'}}
                 {{/if}}
             </span>
-            <input class="form-control" type="text" value="{{filter}}" placeholder="{{i18n 'reactiveTable.filter'}}">
+			<input class="form-control" type="text" value="{{filter}}" {{#if useFontAwesome}}placeholder="{{i18n 'reactiveTable.filter'}}"{{/if}}>
         </div>
     </div>
     {{/constant}}
