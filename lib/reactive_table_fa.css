@@ -1,0 +1,37 @@
+.reactive-table .sortable {
+    cursor: pointer;
+    color: black;
+}
+
+.reactive-table-navigation .form-inline input {
+    width: 45px;
+}
+
+.reactive-table-navigation .rows-per-page {
+    float: left;
+}
+
+.reactive-table-navigation .page-number {
+    float: right;
+}
+
+.reactive-table-navigation .previous-page,
+.reactive-table-navigation .next-page {
+    font-size: 130%;
+}
+
+.reactive-table-navigation .previous-page:hover,
+.reactive-table-navigation .next-page:hover {
+    cursor: pointer;
+    color: black;
+}
+
+.reactive-table .fa-sort-asc {
+	position: relative;
+	top: -2px;
+}
+
+.reactive-table .fa-sort-desc {
+	position: relative;
+	top: 2px;
+}
