@@ -2,8 +2,15 @@
     {{#if showFilter}}
     {{#constant}}
     <div class="reactive-table-filter" reactive-table-group="{{group}}">
-        <div class="form-inline form-group">
-            <label>{{i18n 'reactiveTable.filter'}}&nbsp;<input class="form-control" type="text" value="{{filter}}"></label>
+        <div class="input-group col-sm-4 col-sm-offset-8">
+            <span class="input-group-addon">
+                {{#if useFontAwesome}}
+                    <i class="fa fa-filter"></i>
+                {{else}}
+                    {{i18n 'reactiveTable.filter'}}
+                {{/if}}
+            </span>
+			<input class="form-control" type="text" value="{{filter}}" {{#if useFontAwesome}}placeholder="{{i18n 'reactiveTable.filter'}}"{{/if}}>
         </div>
     </div>
     {{/constant}}
@@ -13,11 +20,20 @@
             <tr>
             {{#each fields}}
                 {{#if isSortKey this ../group ../fields}}
-                    <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">{{getLabel}}&nbsp;&nbsp;
+                    <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">
+                        {{getLabel}}&nbsp;&nbsp;
                         {{#if isAscending ../../group}}
-                          &#x25BC;
+                            {{#if ../../../useFontAwesome}}
+                                <i class="fa fa-sort-asc"></i>
+                            {{else}}
+                                &#x25BC;
+                            {{/if}}
                         {{else}}
-                          &#x25B2;
+                            {{#if ../../../useFontAwesome}}
+                                <i class="fa fa-sort-desc"></i>
+                            {{else}}
+                                &#x25B2;
+                            {{/if}}
                         {{/if}}
                     </th>
                 {{else}}

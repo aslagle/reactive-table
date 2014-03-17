@@ -4,6 +4,7 @@
       "path": "../.."
     },
     "bootstrap-3": {},
-    "just-i18n": {}
+    "just-i18n": {},
+    "font-awesome": {}
   }
 }
