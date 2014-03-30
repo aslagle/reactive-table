@@ -6,7 +6,8 @@
         "path": "../.."
       },
       "bootstrap-3": {},
-      "just-i18n": {}
+      "just-i18n": {},
+      "font-awesome": {}
     },
     "packages": {
       "reactive-table": {
@@ -21,6 +22,11 @@
         "git": "https://github.com/subhog/meteor-just-i18n.git",
         "tag": "v0.2.4",
         "commit": "91decfcf5b3b5e67f202a67658350b862330bf3d"
+      },
+      "font-awesome": {
+        "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
+        "tag": "v4.0.3",
+        "commit": "61e9361384347547ae144f8228faa4deffda23db"
       }
     }
   }

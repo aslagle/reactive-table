@@ -30,6 +30,8 @@ if (Meteor.isClient) {
 
   Template.featureComparison.tableSettings = function () {
     return {
+      rowsPerPage: 5,
+      showNavigation: 'auto',
       fields: [
         { 
           key: 'name',

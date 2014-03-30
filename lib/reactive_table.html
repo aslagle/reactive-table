@@ -2,8 +2,19 @@
   {{#with generateSettings}}
     {{#if showFilter}}
       <div class="reactive-table-filter" reactive-table-group="{{group}}">
-        <div class="form-inline form-group">
-          <label>{{i18n 'reactiveTable.filter'}}&nbsp;<input class="form-control" type="text" value="{{filter}}"></label>
+        <div class="input-group col-sm-4 col-sm-offset-8">
+          <span class="input-group-addon">
+            {{#if useFontAwesome}}
+              <i class="fa fa-filter"></i>
+            {{else}}
+              {{i18n 'reactiveTable.filter'}}
+            {{/if}}
+          </span>
+          {{#if useFontAwesome}}
+	        <input class="form-control" type="text" value="{{filter}}" placeholder="{{i18n 'reactiveTable.filter'}}">
+          {{else}}
+	        <input class="form-control" type="text" value="{{filter}}">
+          {{/if}}
         </div>
       </div>
     {{/if}}
@@ -12,11 +23,20 @@
         <tr>
           {{#each fields}}
             {{#if isSortKey this ../group ../fields}}
-              <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}&nbsp;&nbsp;
+              <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">
+                {{getLabel}}&nbsp;&nbsp;
                 {{#if isAscending ../group}}
-                  &#x25BC;
+                  {{#if ../useFontAwesome}}
+                    <i class="fa fa-sort-asc"></i>
+                  {{else}}
+                    &#x25BC;
+                  {{/if}}
                 {{else}}
-                  &#x25B2;
+                  {{#if ../useFontAwesome}}
+                    <i class="fa fa-sort-desc"></i>
+                  {{else}}
+                    &#x25B2;
+                  {{/if}}
                 {{/if}}
               </th>
             {{else}}
@@ -39,19 +59,21 @@
         {{/each}}
       </tbody>
     </table>
-    <div class="reactive-table-navigation" reactive-table-group="{{group}}">
-      <div class="form-inline form-group rows-per-page">
-        <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
+    {{#if showNavigation}}
+      <div class="reactive-table-navigation" reactive-table-group="{{group}}">
+        <div class="form-inline form-group rows-per-page">
+          <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
+        </div>
+        <div class="form-inline form-group page-number">
+          {{#if isntFirstPage}}
+            <label class="previous-page">&lt;</label>&nbsp;&nbsp;
+          {{/if}}
+          <label>{{i18n 'reactiveTable.page'}}&nbsp;<input class="form-control" type="text" value="{{getCurrentPage}}" />&nbsp;{{i18n 'reactiveTable.of'}} {{getPageCount}}</label>
+          {{#if isntLastPage}}
+            <label class="next-page">&nbsp;&nbsp;&gt;</label>
+          {{/if}}
+        </div>
       </div>
-      <div class="form-inline form-group page-number">
-        {{#if isntFirstPage}}
-          <label class="previous-page">&lt;</label>&nbsp;&nbsp;
-        {{/if}}
-        <label>{{i18n 'reactiveTable.page'}}&nbsp;<input class="form-control" type="text" value="{{getCurrentPage}}" />&nbsp;{{i18n 'reactiveTable.of'}} {{getPageCount}}</label>
-        {{#if isntLastPage}}
-          <label class="next-page">&nbsp;&nbsp;&gt;</label>
-        {{/if}}
-      </div>
-    </div>
+    {{/if}}
   {{/with}}
 </template>

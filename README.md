@@ -7,8 +7,9 @@ Another Demo: http://reactive-table-leaderboard.meteor.com/
 
 ### Table of Contents
 - [Quick Start](#quick-start)
-- [Styling](#styling)
 - [Customization](#customization)
+  - [Settings](#settings)
+  - [Styling](#styling)
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
     - [Virtual columns](#virtual-columns)
@@ -31,10 +32,6 @@ This package adds a template called reactiveTable. Create and subscribe to a col
     
 When the whole collection should be in the table, it's best to pass in the Meteor collection object (returned by new Meteor.Collection()). You can also pass in the cursor returned by collection.find() to show a subset of the collection, or a plain array to show data that's not in a Meteor collection.
 
-
-## Styling
-
-Add bootstrap or bootstrap-3 to style the table, or add your own css. The generated table will have the class 'reactive-table'.
 
 
 ## Customization
@@ -60,7 +57,14 @@ Define the settings in a helper for the template that calls reactiveTable:
 
 * `showFilter`: Boolean. Whether to display the filter box above the table. Default `true`.
 * `rowsPerPage`: Number.  The desired number of rows per page. Defaults to 10.
+* `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
 * `fields`: Object. Controls the columns; see below.
+* `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `font-awesome` package to be installed. Default `false`.
+
+
+### Styling
+
+Add bootstrap or bootstrap-3 to style the table, or add your own css. The generated table will have the class 'reactive-table'. To use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons, also add the font-awesome package and set `useFontAwesome` to `true` in the settings.
 
 
 ### Setting columns
@@ -149,7 +153,7 @@ Add just-i18n to your project:
     
     mrt add just-i18n
     
-French (fr), Spanish (es), Russian (ru), Dutch (nl), and Brazilian Portuguese (pt-br) are the languages we currently have translations for. To set your language to French:
+French (fr), Spanish (es), Russian (ru), Dutch (nl), Brazilian Portuguese (pt-br), and Italian (it) are the languages we currently have translations for. To set your language to French:
 
     i18n.setLanguage('fr');
     
