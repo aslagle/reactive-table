@@ -1,19 +1,19 @@
 <template name="reactiveTable">
   {{#with generateSettings}}
     {{#if showFilter}}
-      <div class="reactive-table-filter" reactive-table-id="{{id}}">
+      <div class="reactive-table-filter" reactive-table-group="{{group}}">
         <div class="form-inline form-group">
           <label>{{i18n 'reactiveTable.filter'}}&nbsp;<input class="form-control" type="text" value="{{filter}}"></label>
         </div>
       </div>
     {{/if}}
-    <table class="table table-striped table-hover reactive-table" reactive-table-id="{{id}}">
+    <table class="table table-striped table-hover reactive-table" reactive-table-group="{{group}}">
       <thead>
         <tr>
           {{#each fields}}
-            {{#if isSortKey this ../id ../fields}}
+            {{#if isSortKey this ../group ../fields}}
               <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}&nbsp;&nbsp;
-                {{#if isAscending ../id}}
+                {{#if isAscending ../group}}
                   &#x25BC;
                 {{else}}
                   &#x25B2;
@@ -39,7 +39,7 @@
         {{/each}}
       </tbody>
     </table>
-    <div class="reactive-table-navigation" reactive-table-id="{{id}}">
+    <div class="reactive-table-navigation" reactive-table-group="{{group}}">
       <div class="form-inline form-group rows-per-page">
         <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
       </div>

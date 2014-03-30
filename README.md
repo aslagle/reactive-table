@@ -15,6 +15,7 @@ Another Demo: http://reactive-table-leaderboard.meteor.com/
       - [HTML](#html)
     - [Nested objects and arrays](#nested-objects-and-arrays)
 - [Using events](#using-events)
+- [Multiple tables](#multiple-tables)
 - [Internationalization](#internationalization)
 
 ## Quick Start
@@ -128,6 +129,17 @@ Template.posts.events({
   }
 });
 ```
+
+## Multiple tables
+
+When multiple tables are used in the same application, by default they'll share pagination settings and filters. Add a different group to each table's settings to allow separate table state.
+
+    { 
+        fields: [...],
+        group:  'resources'
+    }
+
+The default group is 'reactive-table'.
 
 ## Internationalization
 
