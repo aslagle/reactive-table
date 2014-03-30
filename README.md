@@ -5,6 +5,10 @@ Demo and Feature Comparison: http://reactive-table.meteor.com/
 
 Another Demo: http://reactive-table-leaderboard.meteor.com/
 
+### Note on Versions
+The latest version of reactive-table only supports Meteor version 0.8.0 or higher. 
+For older versions of Meteor, you can use reactive-table v0.2.5 ([documentation](https://github.com/ecohealthalliance/reactive-table/tree/v0.2.5)).
+
 ### Table of Contents
 - [Quick Start](#quick-start)
 - [Customization](#customization)
