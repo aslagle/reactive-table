@@ -1,61 +1,57 @@
 <template name="reactiveTable">
-    {{#with generateSettings}}
-        {{> reactiveTableInner id=id collection=collection settings=settings fields=fields showFilter=showFilter}}
-    {{/with}}
-</template>
-
-<template name="reactiveTableInner">
+  {{#with generateSettings}}
     {{#if showFilter}}
-    <div class="reactive-table-filter" reactive-table-id="{{id}}">
+      <div class="reactive-table-filter" reactive-table-id="{{id}}">
         <div class="form-inline form-group">
-            <label>{{i18n 'reactiveTable.filter'}}&nbsp;<input class="form-control" type="text" value="{{filter}}"></label>
+          <label>{{i18n 'reactiveTable.filter'}}&nbsp;<input class="form-control" type="text" value="{{filter}}"></label>
         </div>
-    </div>
+      </div>
     {{/if}}
     <table class="table table-striped table-hover reactive-table" reactive-table-id="{{id}}">
-        <thead>
-            <tr>
-            {{#each fields}}
-                {{#if isSortKey this ../id ../fields}}
-                    <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">{{getLabel}}&nbsp;&nbsp;
-                        {{#if isAscending ../../id}}
-                          &#x25BC;
-                        {{else}}
-                          &#x25B2;
-                        {{/if}}
-                    </th>
+      <thead>
+        <tr>
+          {{#each fields}}
+            {{#if isSortKey this ../id ../fields}}
+              <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}&nbsp;&nbsp;
+                {{#if isAscending ../id}}
+                  &#x25BC;
                 {{else}}
-                    {{#if isSortable}}
-                        <th class="{{getKey}} sortable" index="{{getFieldIndex ../../fields}}">{{getLabel}}</th>
-                    {{else}}
-                        <th class="{{getKey}}" index="{{getFieldIndex ../../fields}}">{{getLabel}}</th>
-                    {{/if}}
+                  &#x25B2;
                 {{/if}}
-            {{/each}}
-            </tr>
-        </thead>
-        <tbody>
+              </th>
+            {{else}}
+              {{#if isSortable}}
+                <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+              {{else}}
+                <th class="{{getKey}}" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+              {{/if}}
+            {{/if}}
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
         {{#each sortedRows}}
-            <tr>
+          <tr>
             {{#each ../fields}}
-                <td class="{{key}}">{{getField ..}}</td>
+              <td class="{{key}}">{{getField ..}}</td>
             {{/each}}
-            </tr>
+          </tr>
         {{/each}}
-        </tbody>
+      </tbody>
     </table>
     <div class="reactive-table-navigation" reactive-table-id="{{id}}">
-        <div class="form-inline form-group rows-per-page">
-            <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
-        </div>
-        <div class="form-inline form-group page-number">
-            {{#if isntFirstPage}}
-                <label class="previous-page">&lt;</label>&nbsp;&nbsp;
-            {{/if}}
-            <label>{{i18n 'reactiveTable.page'}}&nbsp;<input class="form-control" type="text" value="{{getCurrentPage}}" />&nbsp;{{i18n 'reactiveTable.of'}} {{getPageCount}}</label>
-            {{#if isntLastPage}}
-                <label class="next-page">&nbsp;&nbsp;&gt;</label>
-            {{/if}}
-        </div>
+      <div class="form-inline form-group rows-per-page">
+        <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
+      </div>
+      <div class="form-inline form-group page-number">
+        {{#if isntFirstPage}}
+          <label class="previous-page">&lt;</label>&nbsp;&nbsp;
+        {{/if}}
+        <label>{{i18n 'reactiveTable.page'}}&nbsp;<input class="form-control" type="text" value="{{getCurrentPage}}" />&nbsp;{{i18n 'reactiveTable.of'}} {{getPageCount}}</label>
+        {{#if isntLastPage}}
+          <label class="next-page">&nbsp;&nbsp;&gt;</label>
+        {{/if}}
+      </div>
     </div>
+  {{/with}}
 </template>
