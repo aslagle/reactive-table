@@ -5,6 +5,11 @@ Demo and Feature Comparison: http://reactive-table.meteor.com/
 
 Another Demo: http://reactive-table-leaderboard.meteor.com/
 
+### Note on Versions
+The latest version of reactive-table only supports Meteor version 0.8.0 or higher. 
+For older versions of Meteor, you can use reactive-table v0.2.5 ([documentation](https://github.com/ecohealthalliance/reactive-table/tree/v0.2.5)).
+If you're updating to Meteor 0.8.0, note that reactiveTable is now a template with keyword arguments rather than a helper. The functionality should be the same, but please report bugs in the issues.
+
 ### Table of Contents
 - [Quick Start](#quick-start)
 - [Customization](#customization)
@@ -26,9 +31,9 @@ Install reactive table:
     mrt add reactive-table
     
 
-This package adds a handlebars helper called reactiveTable. Create and subscribe to a collection, and pass it to the helper in a template:
+This package adds a template called reactiveTable. Create and subscribe to a collection, and pass it to the template:
 
-    {{reactiveTable myCollection}}
+    {{> reactiveTable collection=myCollection}}
     
 When the whole collection should be in the table, it's best to pass in the Meteor collection object (returned by new Meteor.Collection()). You can also pass in the cursor returned by collection.find() to show a subset of the collection, or a plain array to show data that's not in a Meteor collection.
 
@@ -38,7 +43,7 @@ When the whole collection should be in the table, it's best to pass in the Meteo
 
 The reactiveTable helper accepts an additional settings argument that can be used to configure the table.
 
-    {{reactiveTable collection settings}}
+    {{> reactiveTable collection=collection settings=settings}}
 
 Define the settings in a helper for the template that calls reactiveTable:
 
@@ -144,7 +149,6 @@ When multiple tables are used in the same application, by default they'll share 
     }
 
 The default group is 'reactive-table'.
-
 
 ## Internationalization
 

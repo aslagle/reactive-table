@@ -5,6 +5,5 @@
 
 standard-app-packages
 autopublish
-preserve-inputs
 reactive-table
 bootstrap-3

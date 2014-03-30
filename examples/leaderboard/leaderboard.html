@@ -10,7 +10,7 @@
 
 <template name="leaderboard">
   <div id="table">
-    {{reactiveTable players tableSettings}}
+    {{> reactiveTable collection=players settings=tableSettings}}
   </div>
   <div class="leaderboard">
     {{#each players}}
