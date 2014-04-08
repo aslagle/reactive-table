@@ -17,6 +17,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
   - [Styling](#styling)
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
+    - [Templates](#templates)
     - [Virtual columns](#virtual-columns)
       - [HTML](#html)
     - [Nested objects and arrays](#nested-objects-and-arrays)
@@ -90,6 +91,16 @@ To set labels for the column headers, use an array of field elements, each with 
         { key: 'name', label: 'Name' },
         { key: 'location', label: 'Location' },
         { key: 'year', label: 'Year' }
+    ] }
+
+
+#### Templates
+
+You can specify a template to use to render a field, by adding `tmpl` to the field options.
+
+    { fields: [
+        { key: 'name', label: 'Name', tmpl: Template.nameTmpl },
+        { key: 'location', label: 'Location', tmpl: Template.locationTmpl }
     ] }
 
 #### Virtual columns
