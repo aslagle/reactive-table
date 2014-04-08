@@ -53,7 +53,7 @@
         {{#each sortedRows}}
           <tr>
             {{#each ../fields}}
-              <td class="{{key}}">{{getField ..}}</td>
+              <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
             {{/each}}
           </tr>
         {{/each}}
