@@ -96,12 +96,14 @@ To set labels for the column headers, use an array of field elements, each with 
 
 #### Templates
 
-You can specify a template to use to render a field, by adding `tmpl` to the field options.
+You can specify a template to use to render cells in a column, by adding `tmpl` to the field options.
 
     { fields: [
         { key: 'name', label: 'Name', tmpl: Template.nameTmpl },
         { key: 'location', label: 'Location', tmpl: Template.locationTmpl }
     ] }
+    
+The template's context will be the full object, so it will have access to all fields.
 
 #### Virtual columns
 
