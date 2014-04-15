@@ -6,7 +6,7 @@ Demo and Feature Comparison: http://reactive-table.meteor.com/
 Another Demo: http://reactive-table-leaderboard.meteor.com/
 
 ### Note on Versions
-The latest version of reactive-table only supports Meteor version 0.8.0 or higher. 
+The latest version of reactive-table only supports Meteor version 0.8.0 or higher.
 For older versions of Meteor, you can use reactive-table v0.2.5 ([documentation](https://github.com/ecohealthalliance/reactive-table/tree/v0.2.5)).
 If you're updating to Meteor 0.8.0, note that reactiveTable is now a template with keyword arguments rather than a helper. The functionality should be the same, but please report bugs in the issues.
 
@@ -30,12 +30,12 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
 Install reactive table:
 
     mrt add reactive-table
-    
+
 
 This package adds a template called reactiveTable. Create and subscribe to a collection, and pass it to the template:
 
     {{> reactiveTable collection=myCollection}}
-    
+
 When the whole collection should be in the table, it's best to pass in the Meteor collection object (returned by new Meteor.Collection()). You can also pass in the cursor returned by collection.find() to show a subset of the collection, or a plain array to show data that's not in a Meteor collection.
 
 
@@ -53,12 +53,12 @@ Define the settings in a helper for the template that calls reactiveTable:
             return {
                 rowsPerPage: 10,
                 showFilter: true,
-                fields: ['name', 'location', 'year'] 
+                fields: ['name', 'location', 'year']
             };
         }
     });
 
-    
+
 ### Settings
 
 * `showFilter`: Boolean. Whether to display the filter box above the table. Default `true`.
@@ -81,11 +81,11 @@ To specify columns, add a fields key to the settings object.
 Fields can simply be an array of field names (attributes in the collection).
 
     { fields: ['name', 'location', 'year'] }
-    
-    
+
+
 #### Setting column headers
-    
-To set labels for the column headers, use an array of field elements, each with a key (the attribute in the collection) and a label (to display in the table header). 
+
+To set labels for the column headers, use an array of field elements, each with a key (the attribute in the collection) and a label (to display in the table header).
 
     { fields: [
         { key: 'name', label: 'Name' },
@@ -102,7 +102,7 @@ You can specify a template to use to render cells in a column, by adding `tmpl` 
         { key: 'name', label: 'Name', tmpl: Template.nameTmpl },
         { key: 'location', label: 'Location', tmpl: Template.locationTmpl }
     ] }
-    
+
 The template's context will be the full object, so it will have access to all fields.
 
 #### Virtual columns
@@ -110,7 +110,7 @@ The template's context will be the full object, so it will have access to all fi
 You can also compute a function on the attribute's value to display in the table, by adding `fn` to the field.
 
     { fields: [
-        { 
+        {
             key: 'resources',
             label: 'Number of Resources',
             fn: function (value, object) { return value.length; }
@@ -119,24 +119,24 @@ You can also compute a function on the attribute's value to display in the table
 
 If the key exists in the record, it will be passed to `fn` in `value`. Otherwise, `value` will be `null`.
 
-The `object` argument contains the full object, so you can compute a value using multiple fields. 
+The `object` argument contains the full object, so you can compute a value using multiple fields.
 
 ##### HTML
 
-You can use HTML in a virtual column by creating a Handlebars SafeString:
+You can use HTML in a virtual column by creating a Spacebars SafeString:
 
     fn: function (value) {
-        return new Handlebars.SafeString('<a href="+Routes.route['view'].path({_id:value})+">View</a>'); 
+        return new Spacebars.SafeString('<a href="+Routes.route['view'].path({_id:value})+">View</a>'); 
     }
-    
+
 When adding user-generated fields to the HTML, ensure that they have been properly escaped to prevent cross-site scripting vulnerabilities.
-    
+
 #### Nested objects and arrays
 
-For elements of nested objects and arrays, use mongo's syntax in the key: 
+For elements of nested objects and arrays, use mongo's syntax in the key:
 
     {'key': 'emails.0.address', label: 'Email Address'}
-    
+
 
 ## Using events
 
@@ -156,7 +156,7 @@ Template.posts.events({
 
 When multiple tables are used in the same application, by default they'll share pagination settings and filters. Add a different group to each table's settings to allow separate table state.
 
-    { 
+    {
         fields: [...],
         group:  'resources'
     }
@@ -168,11 +168,11 @@ The default group is 'reactive-table'.
 Internationalization support is provided using [just-i18n](https://github.com/subhog/meteor-just-i18n).
 
 Add just-i18n to your project:
-    
+
     mrt add just-i18n
-    
+
 French (fr), Spanish (es), Russian (ru), Dutch (nl), Brazilian Portuguese (pt-br), Italian (it), and Swedish (sv) are the languages we currently have translations for. To set your language to French:
 
     i18n.setLanguage('fr');
-    
+
 For other languages, contribute a translation to [reactive_table_i18n.js](https://github.com/ecohealthalliance/reactive-table/blob/master/lib/reactive_table_i18n.js).

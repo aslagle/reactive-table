@@ -25,7 +25,7 @@ if (Meteor.isClient) {
       if (value.link)
         html += ' (<a href="' + value.link + '">more</a>)';
       }
-    return new Handlebars.SafeString(html);
+    return new Spacebars.SafeString(html);
   };
 
   Template.featureComparison.tableSettings = function () {
@@ -33,12 +33,12 @@ if (Meteor.isClient) {
       rowsPerPage: 5,
       showNavigation: 'auto',
       fields: [
-        { 
+        {
           key: 'name',
           label: 'Library',
           fn: function (name, object) {
             var html = '<a name="' + name +'" target="_blank" href="' + object.url + '">' + name + '</a>';
-            return new Handlebars.SafeString(html);
+            return new Spacebars.SafeString(html);
           }
         },
         { key: 'sort', label: 'Sorting', fn: checkOrX },
@@ -130,7 +130,7 @@ if (Meteor.isServer) {
       'keyboard': true,
       'meteor': {support: true, link: 'https://github.com/olragon/meteor-handsontable/'}
     });
-    
+
     Tables.insert({
       'name': 'jqWidgets jqxGrid',
       'url': 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm',
@@ -143,6 +143,6 @@ if (Meteor.isServer) {
       'i18n': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/localization.htm'},
       'keyboard': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/keyboardsupport.htm'}
     });
-    
+
   });
 }
