@@ -126,7 +126,7 @@ The `object` argument contains the full object, so you can compute a value using
 You can use HTML in a virtual column by creating a Spacebars SafeString:
 
     fn: function (value) {
-        return new Spacebars.SafeString('<a href="+Routes.route['view'].path({_id:value})+">View</a>'); 
+        return new Spacebars.SafeString('<a href="+Routes.route['view'].path({_id:value})+">View</a>');
     }
 
 When adding user-generated fields to the HTML, ensure that they have been properly escaped to prevent cross-site scripting vulnerabilities.
@@ -171,7 +171,7 @@ Add just-i18n to your project:
 
     mrt add just-i18n
 
-French (fr), Spanish (es), Russian (ru), Dutch (nl), Brazilian Portuguese (pt-br), Italian (it), and Swedish (sv) are the languages we currently have translations for. To set your language to French:
+French (fr), Spanish (es), Russian (ru), Dutch (nl), Brazilian Portuguese (pt-br), Italian (it), Swedish (sv), and Ukrainian (ua) are the languages we currently have translations for. To set your language to French:
 
     i18n.setLanguage('fr');
 
