@@ -171,8 +171,20 @@ Add just-i18n to your project:
 
     mrt add just-i18n
 
-French (fr), Spanish (es), Russian (ru), Dutch (nl), Brazilian Portuguese (pt-br), Italian (it), Swedish (sv), and Ukrainian (ua) are the languages we currently have translations for. To set your language to French:
+To set your language to French:
 
     i18n.setLanguage('fr');
+
+We currently have translations for:
+
+- Brazilian Portuguese (pt-br)
+- Dutch (nl)
+- French (fr)
+- Italian (it)
+- Russian (ru)
+- Spanish (es)
+- Swedish (sv)
+- Turkish (tr)
+- Ukrainian (ua)
 
 For other languages, contribute a translation to [reactive_table_i18n.js](https://github.com/ecohealthalliance/reactive-table/blob/master/lib/reactive_table_i18n.js).
