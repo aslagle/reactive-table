@@ -95,7 +95,7 @@ To set labels for the column headers, use an array of field elements, each with 
 
 #### Inline Editing
 
-You can allow inline updates for the field by passing it a an `edit` value:
+You can allow inline updates for the field by passing it an `edit` value:
 
     { fields: [
         { key: 'name', label: 'Name', edit: Meteor.users },
