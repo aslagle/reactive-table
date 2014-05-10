@@ -94,6 +94,7 @@ To set labels for the column headers, use an array of field elements, each with 
     ] }
 
 
+
 #### Templates
 
 You can specify a template to use to render cells in a column, by adding `tmpl` to the field options.
@@ -131,11 +132,22 @@ You can use HTML in a virtual column by creating a Spacebars SafeString:
 
 When adding user-generated fields to the HTML, ensure that they have been properly escaped to prevent cross-site scripting vulnerabilities.
 
+#### Default sorting
+
+You can use a column as the default sort order by adding `sort` to the field:
+
+    { fields: [
+        { key: 'year', label: 'Year', sort: 'descending' }
+    ] }
+
+It will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order:
+
 #### Nested objects and arrays
 
 For elements of nested objects and arrays, use mongo's syntax in the key:
 
     {'key': 'emails.0.address', label: 'Email Address'}
+
 
 
 ## Using events
