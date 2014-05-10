@@ -53,7 +53,7 @@
         {{#each sortedRows}}
           <tr>
             {{#each ../fields}}
-              <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+              <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{#if edit}}{{> reactiveTable_edit_cell}}{{else}}{{getField .. ../..}}{{/if}}{{/if}}</td>
             {{/each}}
           </tr>
         {{/each}}
@@ -75,5 +75,11 @@
         </div>
       </div>
     {{/if}}
+  {{/with}}
+</template>
+
+<template name='reactiveTable_edit_cell'>
+  {{#with getEditContext ..}}
+    <span class='real-value'>{{computed}}</span>
   {{/with}}
 </template>
