@@ -140,7 +140,7 @@ You can use a column as the default sort order by adding `sort` to the field:
         { key: 'year', label: 'Year', sort: 'descending' }
     ] }
 
-It will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order:
+It will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order.
 
 #### Nested objects and arrays
 
