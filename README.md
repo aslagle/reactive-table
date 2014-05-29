@@ -67,7 +67,7 @@ Define the settings in a helper for the template that calls reactiveTable:
 * `fields`: Object. Controls the columns; see below.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `font-awesome` package to be installed. Default `false`.
 * `rowId`: Boolean. If `true` the row gets an `id` tag that contains the document `_id` from the collection
-* `rowClass`: add classes to every table row, e.g. `link`
+* `rowClass`: Text. Add classes to every table row, e.g. `'link'`
 
 ### Styling
 
