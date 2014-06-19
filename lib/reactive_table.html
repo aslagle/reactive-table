@@ -47,14 +47,34 @@
               {{/if}}
             {{/if}}
           {{/each}}
+          {{#if updateCollection}}
+            <th class='remove-row-col'></th>
+          {{/if}}
         </tr>
       </thead>
       <tbody>
         {{#each sortedRows}}
           <tr>
             {{#each ../fields}}
-              <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+              <td class="{{key}}">
+                {{#if tmpl}}
+                  {{#with ..}}{{> ../tmpl}}{{/with}}
+                {{else}}
+                  {{#if ../../updateCollection}}
+                    {{#with getCellContext .. ../..}}
+                      <span class='{{#unless editable}}non-{{/unless}}editable-value'>{{display}}</span>
+                    {{/with}}
+                  {{else}}
+                    {{getField ..}}
+                  {{/if}}
+                {{/if}}
+              </td>
             {{/each}}
+            {{#if ../updateCollection}}
+              <td class='remove-row-col'>
+                <span class="btn btn-danger btn-xs btn-remove-row">&times;</span>
+              </td>
+            {{/if}}
           </tr>
         {{/each}}
       </tbody>
