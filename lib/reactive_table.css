@@ -35,3 +35,17 @@
 	position: relative;
 	top: 2px;
 }
+
+.reactive-table .editable-value{
+    cursor:pointer;
+    display:block;
+    min-height:1em;
+}
+
+.reactive-table .btn-remove-row{
+    visibility:hidden;
+}
+
+.reactive-table tr:hover .btn-remove-row{
+    visibility:inherit;
+}

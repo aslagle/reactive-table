@@ -66,6 +66,7 @@ Define the settings in a helper for the template that calls reactiveTable:
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
 * `fields`: Object. Controls the columns; see below.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `font-awesome` package to be installed. Default `false`.
+* `updateCollection`: Meteor Collection. Enables UI for inline editing of string values and the removal of documents. Values in the table to can be clicked to update. This feature is currently incompatible fields that use `tmpl`, and only works with `string` or `null` value types. Note that you must pass in a collection (such as `Meteor.users` or a refernece to `new Meteor.Collection('...')`), not a cursor.
 
 
 ### Styling
