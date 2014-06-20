@@ -122,6 +122,8 @@ If the key exists in the record, it will be passed to `fn` in `value`. Otherwise
 
 The `object` argument contains the full object, so you can compute a value using multiple fields.
 
+By default, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's orignial value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
+
 ##### HTML
 
 You can use HTML in a virtual column by creating a Spacebars SafeString:
