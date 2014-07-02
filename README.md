@@ -94,6 +94,7 @@ To set labels for the column headers, use an array of field elements, each with 
     ] }
 
 
+
 #### Templates
 
 You can specify a template to use to render cells in a column, by adding `tmpl` to the field options.
@@ -121,6 +122,8 @@ If the key exists in the record, it will be passed to `fn` in `value`. Otherwise
 
 The `object` argument contains the full object, so you can compute a value using multiple fields.
 
+By default, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's orignial value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
+
 ##### HTML
 
 You can use HTML in a virtual column by creating a Spacebars SafeString:
@@ -131,11 +134,22 @@ You can use HTML in a virtual column by creating a Spacebars SafeString:
 
 When adding user-generated fields to the HTML, ensure that they have been properly escaped to prevent cross-site scripting vulnerabilities.
 
+#### Default sorting
+
+You can use a column as the default sort order by adding `sort` to the field:
+
+    { fields: [
+        { key: 'year', label: 'Year', sort: 'descending' }
+    ] }
+
+It will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order.
+
 #### Nested objects and arrays
 
 For elements of nested objects and arrays, use mongo's syntax in the key:
 
     {'key': 'emails.0.address', label: 'Email Address'}
+
 
 
 ## Using events
@@ -171,8 +185,20 @@ Add just-i18n to your project:
 
     mrt add just-i18n
 
-French (fr), Spanish (es), Russian (ru), Dutch (nl), Brazilian Portuguese (pt-br), Italian (it), Swedish (sv), and Ukrainian (ua) are the languages we currently have translations for. To set your language to French:
+To set your language to French:
 
     i18n.setLanguage('fr');
+
+We currently have translations for:
+
+- Brazilian Portuguese (pt-br)
+- Dutch (nl)
+- French (fr)
+- Italian (it)
+- Russian (ru)
+- Spanish (es)
+- Swedish (sv)
+- Turkish (tr)
+- Ukrainian (ua)
 
 For other languages, contribute a translation to [reactive_table_i18n.js](https://github.com/ecohealthalliance/reactive-table/blob/master/lib/reactive_table_i18n.js).
