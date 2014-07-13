@@ -66,7 +66,33 @@ Define the settings in a helper for the template that calls reactiveTable:
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
 * `fields`: Object. Controls the columns; see below.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `font-awesome` package to be installed. Default `false`.
+* `rowClass`: String or function returning a class name. The row element will be passed as first parameter.
 
+#### rowClass examples
+
+As a function
+
+```js
+rowClass: function(item) {
+  var qnt = item.qnt;
+  //
+  switch (qnt) {
+    case 0:
+      return 'danger';
+    case 1:
+    case 2:
+      return 'warning';
+    default:
+      return ''
+  }
+},
+```
+
+as a string
+
+```js
+rowClass: 'danger',
+```
 
 ### Styling
 
