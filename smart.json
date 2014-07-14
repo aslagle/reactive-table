@@ -3,7 +3,7 @@
   "description": "A reactive table designed for Meteor",
   "homepage": "https://github.com/ecohealthalliance/reactive-table",
   "author": "Amy Slagle",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "git": "https://github.com/ecohealthalliance/reactive-table.git",
   "packages": {
     "just-i18n": {}
