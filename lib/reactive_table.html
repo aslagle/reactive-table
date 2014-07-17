@@ -22,40 +22,44 @@
       <thead>
         <tr>
           {{#each fields}}
-            {{#if isSortKey this ../group ../fields}}
-              <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">
-                {{getLabel}}&nbsp;&nbsp;
-                {{#if isAscending ../group}}
-                  {{#if ../useFontAwesome}}
-                    <i class="fa fa-sort-asc"></i>
+            {{#unless isHidden this}}
+              {{#if isSortKey this ../group ../fields}}
+                <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">
+                  {{getLabel}}&nbsp;&nbsp;
+                  {{#if isAscending ../group}}
+                    {{#if ../useFontAwesome}}
+                      <i class="fa fa-sort-asc"></i>
+                    {{else}}
+                      &#x25BC;
+                    {{/if}}
                   {{else}}
-                    &#x25BC;
+                    {{#if ../useFontAwesome}}
+                      <i class="fa fa-sort-desc"></i>
+                    {{else}}
+                      &#x25B2;
+                    {{/if}}
                   {{/if}}
-                {{else}}
-                  {{#if ../useFontAwesome}}
-                    <i class="fa fa-sort-desc"></i>
-                  {{else}}
-                    &#x25B2;
-                  {{/if}}
-                {{/if}}
-              </th>
-            {{else}}
-              {{#if isSortable}}
-                <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                </th>
               {{else}}
-                <th class="{{getKey}}" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                {{#if isSortable}}
+                  <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                {{else}}
+                  <th class="{{getKey}}" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                {{/if}}
               {{/if}}
-            {{/if}}
+            {{/unless}}
           {{/each}}
         </tr>
       </thead>
       <tbody>
         {{#each sortedRows}}
-          <tr class="{{../rowClass this}}">
-            {{#each ../fields}}
-              <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
-            {{/each}}
-          </tr>
+          {{#unless isHidden this}}
+            <tr class="{{../rowClass this}}">
+              {{#each ../fields}}
+                <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+              {{/each}}
+            </tr>
+          {{/unless}}
         {{/each}}
       </tbody>
     </table>
