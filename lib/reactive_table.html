@@ -53,13 +53,13 @@
       </thead>
       <tbody>
         {{#each sortedRows}}
-          {{#unless isHidden this}}
-            <tr class="{{../rowClass this}}">
-              {{#each ../fields}}
+          <tr class="{{../rowClass this}}">
+            {{#each ../fields}}
+              {{#unless isHidden this}}
                 <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
-              {{/each}}
-            </tr>
-          {{/unless}}
+              {{/unless}}
+            {{/each}}
+          </tr>
         {{/each}}
       </tbody>
     </table>
