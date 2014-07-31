@@ -218,10 +218,12 @@ To set your language to French:
 We currently have translations for:
 
 - Brazilian Portuguese (pt-br)
+- Czech (cs)
 - Dutch (nl)
 - French (fr)
 - Italian (it)
 - Russian (ru)
+- Slovak (sk)
 - Spanish (es)
 - Swedish (sv)
 - Turkish (tr)
