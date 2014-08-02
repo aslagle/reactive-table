@@ -175,8 +175,19 @@ It will accept any truthy value for ascending order, and `'desc'`, `'descending'
 For elements of nested objects and arrays, use mongo's syntax in the key:
 
     {'key': 'emails.0.address', label: 'Email Address'}
+    
+#### Hiding a column
 
+Hiding a column is possible adding an `isHidden` callback to a field:
 
+```js
+{
+  key: 'options',
+  isHidden: function() {
+    return !Meteor.userId();
+  }
+}
+```
 
 ## Using events
 
