@@ -221,6 +221,7 @@ We currently have translations for:
 - Czech (cs)
 - Dutch (nl)
 - French (fr)
+- German (de)
 - Hebrew (he)
 - Italian (it)
 - Russian (ru)
