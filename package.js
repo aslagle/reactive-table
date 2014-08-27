@@ -1,12 +1,15 @@
 Package.describe({
-    summary: "A reactive table designed for Meteor"
+  summary: "A reactive table designed for Meteor",
+  version: "0.3.21",
+  git: "https://github.com/ecohealthalliance/reactive-table.git"
 });
 
 Package.on_use(function (api) {
+  api.versionsFrom("METEOR@0.9.0");
     api.use('templating', 'client');
     api.use('jquery', 'client');
     api.use('underscore', 'client');
-    api.use('just-i18n', 'client');
+    api.use("mrt:just-i18n@0.3.0", 'client');
 
     api.add_files('lib/reactive_table.html', 'client');
     api.add_files('lib/reactive_table_i18n.js', 'client');
