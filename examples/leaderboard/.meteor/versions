@@ -33,7 +33,7 @@ observe-sequence@1.0.2
 ordered-dict@1.0.0
 random@1.0.0
 reactive-dict@1.0.2
-reactive-table@0.4.0
+reactive-table@0.4.1
 reactive-var@1.0.1
 reload@1.0.1
 retry@1.0.0
