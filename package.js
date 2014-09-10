@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.4.1",
+  version: "0.4.2",
   git: "https://github.com/ecohealthalliance/reactive-table.git"
 });
 
