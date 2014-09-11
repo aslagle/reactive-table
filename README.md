@@ -221,6 +221,7 @@ We currently have translations for:
 - Brazilian Portuguese (pt-br)
 - Czech (cs)
 - Dutch (nl)
+- Finnish (fi)
 - French (fr)
 - German (de)
 - Hebrew (he)
