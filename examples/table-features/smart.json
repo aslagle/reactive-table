@@ -1,6 +1,6 @@
 {
   "packages": {
-    "reactive-table": {
+    "aslagle:reactive-table": {
       "path": "../.."
     }
   }

@@ -5,5 +5,5 @@
 
 standard-app-packages
 autopublish
-reactive-table
-mrt:bootstrap-3@3.1.1-1
+aslagle:reactive-table
+mizzao:bootstrap-3

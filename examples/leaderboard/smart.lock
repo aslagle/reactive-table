@@ -2,12 +2,12 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "reactive-table": {
+      "aslagle:reactive-table": {
         "path": "../.."
       }
     },
     "packages": {
-      "reactive-table": {
+      "aslagle:reactive-table": {
         "path": "../.."
       }
     }

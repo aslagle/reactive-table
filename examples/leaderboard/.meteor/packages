@@ -6,7 +6,8 @@
 standard-app-packages
 autopublish
 insecure
-reactive-table
-mrt:bootstrap-3@3.1.1-1
+aslagle:reactive-table
 natestrauser:font-awesome@4.0.3
 anti:i18n
+mizzao:bootstrap-3
+
