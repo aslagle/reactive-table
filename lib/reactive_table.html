@@ -22,38 +22,65 @@
       <thead>
         <tr>
           {{#each fields}}
-            {{#if isSortKey this ../group ../fields}}
-              <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">
-                {{getLabel}}&nbsp;&nbsp;
-                {{#if isAscending ../group}}
-                  {{#if ../useFontAwesome}}
-                    <i class="fa fa-sort-asc"></i>
+            {{#if isVisible this ../group ../fields}}
+              {{#if isSortKey this ../group ../fields}}
+                <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">
+                  {{getLabel}}&nbsp;&nbsp;
+                  {{#if isAscending ../group}}
+                    {{#if ../useFontAwesome}}
+                      <i class="fa fa-sort-asc"></i>
+                    {{else}}
+                      &#x25BC;
+                    {{/if}}
                   {{else}}
-                    &#x25BC;
+                    {{#if ../useFontAwesome}}
+                      <i class="fa fa-sort-desc"></i>
+                    {{else}}
+                      &#x25B2;
+                    {{/if}}
                   {{/if}}
-                {{else}}
-                  {{#if ../useFontAwesome}}
-                    <i class="fa fa-sort-desc"></i>
-                  {{else}}
-                    &#x25B2;
-                  {{/if}}
-                {{/if}}
-              </th>
-            {{else}}
-              {{#if isSortable}}
-                <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                </th>
               {{else}}
-                <th class="{{getKey}}" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                {{#if isSortable}}
+                  <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                {{else}}
+                  <th class="{{getKey}}" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                {{/if}}
               {{/if}}
             {{/if}}
           {{/each}}
+          {{#if showColumnToggles}}
+              <th class="reactive-table-add-column">
+                <div class="dropdown">
+                  <button class="btn btn-default btn-xs dropdown-toggle" id="reactive-table-add-column-{{group}}" data-toggle="dropdown">
+                    +/-
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="reactive-table-add-column-{{group}}">
+                    {{#each fields}}
+                      <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
+                        <label>
+                          {{#if isVisible this ../group ../fields}}
+                            <input type="checkbox" checked index="{{getFieldIndex ../fields}}">
+                          {{else}}
+                            <input type="checkbox" index="{{getFieldIndex ../fields}}">
+                          {{/if}}
+                          {{getLabel}}
+                        </label>
+                      </a></li>
+                    {{/each}}
+                  </ul>
+                </div>
+              </th>
+          {{/if}}
         </tr>
       </thead>
       <tbody>
         {{#each sortedRows}}
           <tr class="{{../rowClass this}}">
             {{#each ../fields}}
-              <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+              {{#if isVisible this ../../group ../../fields}}
+                <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+              {{/if}}
             {{/each}}
           </tr>
         {{/each}}

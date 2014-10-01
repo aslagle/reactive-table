@@ -32,6 +32,7 @@ if (Meteor.isClient) {
     return {
       rowsPerPage: 5,
       showNavigation: 'auto',
+      showColumnToggles: true,
       fields: [
         {
           key: 'name',
@@ -46,10 +47,10 @@ if (Meteor.isClient) {
         { key: 'filter', label: 'Filtering/Search', fn: checkOrX },
         { key: 'resize', label: 'Resizable Columns', fn: checkOrX },
         { key: 'edit', label: 'Inline Editing', fn: checkOrX },
-        { key: 'responsive', label: 'Mobile/Responsive', fn: checkOrX },
-        { key: 'i18n', label: 'Internationalization', fn: checkOrX },
-        { key: 'keyboard', label: 'Keyboard navigation', fn: checkOrX },
-        { key: 'meteor', label: 'Meteor Integration', fn: checkOrX }
+        { key: 'responsive', label: 'Mobile/Responsive', fn: checkOrX, hidden: true },
+        { key: 'i18n', label: 'Internationalization', fn: checkOrX, hidden: true },
+        { key: 'keyboard', label: 'Keyboard navigation', fn: checkOrX, hidden: true },
+        { key: 'meteor', label: 'Meteor Integration', fn: checkOrX, hidden: function () { return true; } }
       ]
     };
   };

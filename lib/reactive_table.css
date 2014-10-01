@@ -1,6 +1,10 @@
-.reactive-table .sortable {
+.reactive-table .sortable, .reactive-table-add-column {
     cursor: pointer;
     color: black;
+}
+
+.table > thead > tr > th.reactive-table-add-column {
+    border-bottom: none;
 }
 
 .reactive-table-navigation .form-inline input {
