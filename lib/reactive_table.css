@@ -7,6 +7,11 @@
     border-bottom: none;
 }
 
+.reactive-table-navigation {
+    display: inline-block;
+    width: 100%;
+}
+
 .reactive-table-navigation .form-inline input {
     width: 45px;
 }
