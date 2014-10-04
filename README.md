@@ -235,6 +235,7 @@ We currently have translations for:
 - German (de)
 - Hebrew (he)
 - Italian (it)
+- Norwegian (no)
 - Russian (ru)
 - Slovak (sk)
 - Spanish (es)
