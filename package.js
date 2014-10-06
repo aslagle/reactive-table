@@ -1,8 +1,8 @@
 Package.describe({
-  summary: "A reactive table designed for Meteor - Mathica fork",
+  summary: "A reactive table designed for Meteor",
   version: "0.4.7",
-  name: "mth:reactive-table",
-  git: "https://github.com/physiocoder/mth-reactive-table.git"
+  name: "aslagle:reactive-table",
+  git: "https://github.com/ecohealthalliance/reactive-table.git"
 });
 
 Package.on_use(function (api) {
