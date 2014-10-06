@@ -1,7 +1,7 @@
 <template name="reactiveTable">
   {{#with generateSettings}}
     {{#if showFilter}}
-      <div class="reactive-table-filter" reactive-table-group="{{group}}">
+      <div class="form-group reactive-table-filter" reactive-table-group="{{group}}">
         <div class="input-group col-sm-4 col-sm-offset-8">
           <span class="input-group-addon">
             {{#if useFontAwesome}}
@@ -18,7 +18,7 @@
         </div>
       </div>
     {{/if}}
-    <table class="table table-striped table-hover reactive-table" reactive-table-group="{{group}}">
+    <table class="{{../class}} reactive-table" reactive-table-group="{{group}}">
       <thead>
         <tr>
           {{#each fields}}
