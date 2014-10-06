@@ -100,6 +100,9 @@ rowClass: 'danger',
 ### Styling
 
 Add bootstrap or bootstrap-3 to style the table, or add your own css. The generated table will have the class 'reactive-table'. To use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons, also add the font-awesome package and set `useFontAwesome` to `true` in the settings.
+You can also use the argument `class` to define table styling:
+
+    {{> reactiveTable class="table table-bordered table-hover" collection=myCollection}}
 
 
 ### Setting columns
