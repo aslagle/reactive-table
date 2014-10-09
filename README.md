@@ -66,6 +66,7 @@ Define the settings in a helper for the template that calls reactiveTable:
 * `showFilter`: Boolean. Whether to display the filter box above the table. Default `true`.
 * `rowsPerPage`: Number.  The desired number of rows per page. Defaults to 10.
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
+* `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a button to the top right that allows the user to toggle which columns are displayed. Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `font-awesome` package to be installed. Default `false`.
