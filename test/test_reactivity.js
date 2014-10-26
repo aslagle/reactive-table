@@ -3,7 +3,7 @@ testAsyncMulti('Reactivity - collection', [function (test, expect) {
   collection.insert({name: 'item 1', value: 1});
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: collection, settings: {group: _.uniqueId()}},
+    {collection: collection},
     document.body
   );
   test.length($('.reactive-table tbody tr'), 1, "table should initially have one row");

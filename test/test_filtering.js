@@ -1,7 +1,7 @@
 testAsyncMulti('Filtering - one input', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: rows, settings: {group: _.uniqueId()}},
+    {collection: rows},
     document.body
   );
   test.length($('.reactive-table tbody tr'), 6, "initial six rows");
@@ -21,7 +21,7 @@ testAsyncMulti('Filtering - one input', [function (test, expect) {
 testAsyncMulti('Filtering - two inputs', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: rows, settings: {group: _.uniqueId()}},
+    {collection: rows},
     document.body
   );
   test.length($('.reactive-table tbody tr'), 6, "initial six rows");
@@ -40,7 +40,7 @@ testAsyncMulti('Filtering - two inputs', [function (test, expect) {
 testAsyncMulti('Filtering - quotes', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: rows, settings: {group: _.uniqueId()}},
+    {collection: rows},
     document.body
   );
   test.length($('.reactive-table tbody tr'), 6, "initial six rows");
@@ -67,7 +67,7 @@ testAsyncMulti('Filtering - quotes', [function (test, expect) {
 testAsyncMulti('Filtering - numerical', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: rows, settings: {group: _.uniqueId()}},
+    {collection: rows},
     document.body
   );
   test.length($('.reactive-table tbody tr'), 6, "initial six rows");
@@ -91,7 +91,7 @@ testAsyncMulti('Filtering - numbers in strings', [function (test, expect) {
   });
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: numberStringRows, settings: {group: _.uniqueId()}},
+    {collection: numberStringRows},
     document.body
   );
   test.length($('.reactive-table tbody tr'), 6, "initial six rows");

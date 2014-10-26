@@ -15,6 +15,8 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
 - [Quick Start](#quick-start)
 - [Customization](#customization)
   - [Settings](#settings)
+    - [rowClass Examples](#rowclass-examples)
+    - [Settings Object](#settings-object)
   - [Styling](#styling)
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
@@ -40,26 +42,20 @@ This package adds a template called reactiveTable. Create and subscribe to a col
 
 When the whole collection should be in the table, it's best to pass in the Meteor collection object (returned by new Meteor.Collection()). You can also pass in the cursor returned by collection.find() to show a subset of the collection, or a plain array to show data that's not in a Meteor collection.
 
+If you're new to Meteor, note that global variables aren't available from templates. You can add template helpers to access them:
+
+    Template.myTemplate.helpers({
+        myCollection: function () {
+            return myCollection;
+        }
+    });
 
 
 ## Customization
 
-The reactiveTable helper accepts an additional settings argument that can be used to configure the table.
+The reactiveTable helper accepts additional arguments that can be used to configure the table.
 
-    {{> reactiveTable collection=collection settings=settings}}
-
-Define the settings in a helper for the template that calls reactiveTable:
-
-    Template.myTemplate.helpers({
-        settings: function () {
-            return {
-                rowsPerPage: 10,
-                showFilter: true,
-                fields: ['name', 'location', 'year']
-            };
-        }
-    });
-
+    {{> reactiveTable collection=collection showNavigation='never' rowsPerPage=5}}
 
 ### Settings
 
@@ -70,6 +66,8 @@ Define the settings in a helper for the template that calls reactiveTable:
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a button to the top right that allows the user to toggle which columns are displayed. Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `font-awesome` package to be installed. Default `false`.
+* `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover'.
+* `id`: String. Unique id to add to the table element. Default: generated with [_.uniqueId](http://underscorejs.org/#uniqueId).
 * `rowClass`: String or function returning a class name. The row element will be passed as first parameter.
 
 #### rowClass examples
@@ -97,6 +95,29 @@ as a string
 ```js
 rowClass: 'danger',
 ```
+
+#### Settings Object
+
+Settings can also be grouped into a single object to pass to the table:
+
+    {{> reactiveTable settings=settings}}
+
+Define the settings in a helper for the template that calls reactiveTable:
+
+    Template.myTemplate.helpers({
+        settings: function () {
+            return {
+                collection: collection,
+                rowsPerPage: 10,
+                showFilter: true,
+                fields: ['name', 'location', 'year']
+            };
+        }
+    });
+
+You can continue to pass some settings as named arguments while grouping the others into the settings object:
+
+    {{> reactiveTable collection=collection fields=fields settings=settings}}
 
 ### Styling
 
@@ -205,17 +226,6 @@ Template.posts.events({
   }
 });
 ```
-
-## Multiple tables
-
-When multiple tables are used in the same application, by default they'll share pagination settings and filters. Add a different group to each table's settings to allow separate table state.
-
-    {
-        fields: [...],
-        group:  'resources'
-    }
-
-The default group is 'reactive-table'.
 
 ## Internationalization
 

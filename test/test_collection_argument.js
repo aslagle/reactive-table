@@ -33,3 +33,12 @@ Tinytest.add('Collection Argument - collection as only argument', function (test
     }
   );
 });
+
+Tinytest.add('Collection Argument - in settings argument', function (test) {
+  testTable(
+    {settings: {collection: rows}},
+    function () {
+      test.length($('.reactive-table tbody tr'), 6, "rendered table should have 6 rows");
+    }
+  );
+});

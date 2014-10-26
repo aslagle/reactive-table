@@ -1,6 +1,6 @@
 Tinytest.add('Pagination - initial page', function (test) {
   testTable(
-    {collection: rows, settings: {rowsPerPage: 2, group: _.uniqueId()}},
+    {collection: rows, settings: {rowsPerPage: 2}},
     function () {
       test.length($('.reactive-table tbody tr'), 2, "two rows should be rendered");
       test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "should be on the first page");
@@ -13,7 +13,7 @@ Tinytest.add('Pagination - initial page', function (test) {
 testAsyncMulti('Pagination - previous/next controls', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: rows, settings: {rowsPerPage: 2, group: _.uniqueId()}},
+    {collection: rows, settings: {rowsPerPage: 2}},
     document.body
   );
 
@@ -62,7 +62,7 @@ testAsyncMulti('Pagination - previous/next controls', [function (test, expect) {
 testAsyncMulti('Pagination - page input', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: rows, settings: {rowsPerPage: 2, group: _.uniqueId()}},
+    {collection: rows, settings: {rowsPerPage: 2}},
     document.body
   );
 

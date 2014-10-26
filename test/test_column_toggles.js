@@ -3,8 +3,7 @@ Tinytest.add('Column Toggles - setting', function (test) {
     {
       collection: rows,
       settings: {
-        showColumnToggles: false,
-        group: _.uniqueId()
+        showColumnToggles: false
       }
     },
     function () {
@@ -15,10 +14,7 @@ Tinytest.add('Column Toggles - setting', function (test) {
   testTable(
     {
       collection: rows,
-      settings: {
-        showColumnToggles: true,
-        group: _.uniqueId()
-      }
+      showColumnToggles: true
     },
     function () {
       test.length($('.reactive-table-add-column'), 1, "column toggle button should be visible");
@@ -37,8 +33,7 @@ Tinytest.add('Column Toggles - hidden columns', function (test) {
         fields: [
           {key: 'name', label: 'Visible'},
           {key: 'name', label: 'Hidden', hidden: true}
-        ],
-        group: _.uniqueId()
+        ]
       }
     },
     function () {
@@ -55,14 +50,11 @@ testAsyncMulti('Column Toggles - toggling', [function (test, expect) {
     Template.reactiveTable,
     {
       collection: rows,
-      settings: {
-        showColumnToggles: true,
-        fields: [
-          {key: 'name', label: 'Visible'},
-          {key: 'name', label: 'Hidden', hidden: true}
-        ],
-        group: _.uniqueId()
-      }
+      showColumnToggles: true,
+      fields: [
+        {key: 'name', label: 'Visible'},
+        {key: 'name', label: 'Hidden', hidden: true}
+      ]
     },
     document.body
   );

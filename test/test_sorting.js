@@ -1,7 +1,7 @@
 testAsyncMulti('Sorting - direction', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: rows, settings: {group: _.uniqueId()}},
+    {collection: rows},
     document.body
   );
   test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "initial first row");
@@ -31,7 +31,7 @@ testAsyncMulti('Sorting - direction', [function (test, expect) {
 testAsyncMulti('Sorting - column', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,
-    {collection: collection, settings: {group: _.uniqueId()}},
+    {collection: collection},
     document.body
   );
   test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "initial first row");

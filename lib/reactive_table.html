@@ -1,7 +1,6 @@
 <template name="reactiveTable">
-  {{#with generateSettings}}
     {{#if showFilter}}
-      <div class="form-group reactive-table-filter" reactive-table-group="{{group}}">
+      <div class="form-group reactive-table-filter">
         <div class="input-group col-sm-4 col-sm-offset-8">
           <span class="input-group-addon">
             {{#if useFontAwesome}}
@@ -18,15 +17,15 @@
         </div>
       </div>
     {{/if}}
-    <table class="{{hasClass ..}} reactive-table" reactive-table-group="{{group}}">
+    <table id="{{id}}" class="{{class}} reactive-table">
       <thead>
         <tr>
           {{#each fields}}
-            {{#if isVisible this ../group ../fields}}
-              {{#if isSortKey this ../group ../fields}}
-                <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">
+            {{#if isVisible}}
+              {{#if isSortKey}}
+                <th class="{{getKey}} sortable" index="{{getFieldIndex}}">
                   {{getLabel}}&nbsp;&nbsp;
-                  {{#if isAscending ../group}}
+                  {{#if isAscending}}
                     {{#if ../useFontAwesome}}
                       <i class="fa fa-sort-asc"></i>
                     {{else}}
@@ -42,9 +41,9 @@
                 </th>
               {{else}}
                 {{#if isSortable}}
-                  <th class="{{getKey}} sortable" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                  <th class="{{getKey}} sortable" index="{{getFieldIndex}}">{{getLabel}}</th>
                 {{else}}
-                  <th class="{{getKey}}" index="{{getFieldIndex ../fields}}">{{getLabel}}</th>
+                  <th class="{{getKey}}" index="{{getFieldIndex}}">{{getLabel}}</th>
                 {{/if}}
               {{/if}}
             {{/if}}
@@ -52,17 +51,17 @@
           {{#if showColumnToggles}}
               <th class="reactive-table-add-column">
                 <div class="dropdown">
-                  <button class="btn btn-default btn-xs dropdown-toggle" id="reactive-table-add-column-{{group}}" data-toggle="dropdown">
+                  <button class="btn btn-default btn-xs dropdown-toggle" id="reactive-table-add-column-{{id}}" data-toggle="dropdown">
                     +/-
                   </button>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="reactive-table-add-column-{{group}}">
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="reactive-table-add-column-{{id}}">
                     {{#each fields}}
                       <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
                         <label>
-                          {{#if isVisible this ../group ../fields}}
-                            <input type="checkbox" checked index="{{getFieldIndex ../fields}}">
+                          {{#if isVisible}}
+                            <input type="checkbox" checked index="{{getFieldIndex}}">
                           {{else}}
-                            <input type="checkbox" index="{{getFieldIndex ../fields}}">
+                            <input type="checkbox" index="{{getFieldIndex}}">
                           {{/if}}
                           {{getLabel}}
                         </label>
@@ -78,7 +77,7 @@
         {{#each sortedRows}}
           <tr class="{{../rowClass this}}">
             {{#each ../fields}}
-              {{#if isVisible this ../../group ../../fields}}
+              {{#if isVisible}}
                 <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
               {{/if}}
             {{/each}}
@@ -87,7 +86,7 @@
       </tbody>
     </table>
     {{#if showNavigation}}
-      <div class="reactive-table-navigation" reactive-table-group="{{group}}">
+      <div class="reactive-table-navigation">
         {{#if showNavigationRowsPerPage}}
           <div class="form-inline form-group rows-per-page">
             <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
@@ -104,5 +103,4 @@
         </div>
       </div>
     {{/if}}
-  {{/with}}
 </template>
