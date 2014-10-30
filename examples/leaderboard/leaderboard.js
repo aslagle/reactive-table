@@ -4,29 +4,33 @@
 Players = new Meteor.Collection("players");
 
 if (Meteor.isClient) {
-  Template.leaderboard.players = function () {
+  Template.leaderboard.helpers({
+    players : function () {
       return Players.find({}, {sort: {score: -1, name: 1}});
-  };
+    },
 
-  Template.leaderboard.tableSettings = function () {
-    return {
-        fields: [
-          { key: 'name', label: 'Full Name' },
-          { key: 'name', label: 'First Name', fn: function (name) { return name.split(' ')[0]; } },
-          { key: 'score', label: 'Score' }
-        ],
-        useFontAwesome: true
-    };
-  };
+    tableSettings : function () {
+      return {
+          fields: [
+            { key: 'name', label: 'Full Name' },
+            { key: 'name', label: 'First Name', fn: function (name) { return name.split(' ')[0]; } },
+            { key: 'score', label: 'Score' }
+          ],
+          useFontAwesome: true
+      };
+    },
 
-  Template.leaderboard.selected_name = function () {
-    var player = Players.findOne(Session.get("selected_player"));
-    return player && player.name;
-  };
+    selected_name : function () {
+      var player = Players.findOne(Session.get("selected_player"));
+      return player && player.name;
+    }
+  });
 
-  Template.player.selected = function () {
-    return Session.equals("selected_player", this._id) ? "selected" : '';
-  };
+  Template.player.helpers({
+    selected : function () {
+      return Session.equals("selected_player", this._id) ? "selected" : '';
+    }
+  });
 
   Template.leaderboard.events({
     'click input.inc': function () {

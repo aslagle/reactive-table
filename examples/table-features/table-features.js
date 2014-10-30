@@ -1,9 +1,6 @@
 var Tables = new Meteor.Collection('features');
 
 if (Meteor.isClient) {
-  Template.featureComparison.tables = function () {
-    return Tables;
-  };
 
   var checkOrX = function (value) {
     var html;
@@ -28,32 +25,38 @@ if (Meteor.isClient) {
     return new Spacebars.SafeString(html);
   };
 
-  Template.featureComparison.tableSettings = function () {
-    return {
-      rowsPerPage: 5,
-      showNavigation: 'auto',
-      showColumnToggles: true,
-      fields: [
-        {
-          key: 'name',
-          label: 'Library',
-          fn: function (name, object) {
-            var html = '<a name="' + name +'" target="_blank" href="' + object.url + '">' + name + '</a>';
-            return new Spacebars.SafeString(html);
-          }
-        },
-        { key: 'sort', label: 'Sorting', fn: checkOrX },
-        { key: 'pages', label: 'Pagination', fn: checkOrX },
-        { key: 'filter', label: 'Filtering/Search', fn: checkOrX },
-        { key: 'resize', label: 'Resizable Columns', fn: checkOrX },
-        { key: 'edit', label: 'Inline Editing', fn: checkOrX },
-        { key: 'responsive', label: 'Mobile/Responsive', fn: checkOrX, hidden: true },
-        { key: 'i18n', label: 'Internationalization', fn: checkOrX, hidden: true },
-        { key: 'keyboard', label: 'Keyboard navigation', fn: checkOrX, hidden: true },
-        { key: 'meteor', label: 'Meteor Integration', fn: checkOrX, hidden: function () { return true; } }
-      ]
-    };
-  };
+  Template.featureComparison.helpers({
+    tables : function () {
+      return Tables;
+    },
+
+    tableSettings : function () {
+      return {
+        rowsPerPage: 5,
+        showNavigation: 'auto',
+        showColumnToggles: true,
+        fields: [
+          {
+            key: 'name',
+            label: 'Library',
+            fn: function (name, object) {
+              var html = '<a name="' + name +'" target="_blank" href="' + object.url + '">' + name + '</a>';
+              return new Spacebars.SafeString(html);
+            }
+          },
+          { key: 'sort', label: 'Sorting', fn: checkOrX },
+          { key: 'pages', label: 'Pagination', fn: checkOrX },
+          { key: 'filter', label: 'Filtering/Search', fn: checkOrX },
+          { key: 'resize', label: 'Resizable Columns', fn: checkOrX },
+          { key: 'edit', label: 'Inline Editing', fn: checkOrX },
+          { key: 'responsive', label: 'Mobile/Responsive', fn: checkOrX, hidden: true },
+          { key: 'i18n', label: 'Internationalization', fn: checkOrX, hidden: true },
+          { key: 'keyboard', label: 'Keyboard navigation', fn: checkOrX, hidden: true },
+          { key: 'meteor', label: 'Meteor Integration', fn: checkOrX, hidden: function () { return true; } }
+        ]
+      };
+    }
+  });
 }
 
 if (Meteor.isServer) {
