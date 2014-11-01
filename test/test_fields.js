@@ -237,3 +237,29 @@ Tinytest.add('Fields - hidden', function (test) {
     }
   );
 });
+
+Tinytest.add('Fields - field named fields', function (test) {
+  var rowsWithFields = _.map(rows, function (row) {
+    return _.extend({fields: 'abcd'}, row);
+  });
+  testTable(
+    { collection: rowsWithFields },
+    function () {
+      test.length($('.reactive-table th'), 3, "three columns should be rendered");
+      test.length($('.reactive-table tbody tr td:first-child'), 6, "six rows should be rendered and have cells");
+    }
+  );
+  testTable(
+    {
+      collection: rowsWithFields,
+      fields: [
+        { key: 'name', label: 'name' },
+        { key: 'score', label: 'score' }
+      ]
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table tbody tr td:first-child'), 6, "six rows should be rendered and have cells");
+    }
+  );
+});
