@@ -231,7 +231,7 @@ Template.posts.events({
 
 Internationalization support is provided using [anti:i18n](https://github.com/anticoders/meteor-i18n).
 
-Add just-i18n to your project:
+Add anti:i18n to your project:
 
     meteor add anti:i18n
 
