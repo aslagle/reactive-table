@@ -229,11 +229,11 @@ Template.posts.events({
 
 ## Internationalization
 
-Internationalization support is provided using [just-i18n](https://github.com/subhog/meteor-just-i18n).
+Internationalization support is provided using [anti:i18n](https://github.com/anticoders/meteor-i18n).
 
 Add just-i18n to your project:
 
-    mrt add just-i18n
+    meteor add anti:i18n
 
 To set your language to French:
 
