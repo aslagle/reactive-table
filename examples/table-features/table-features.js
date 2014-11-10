@@ -148,5 +148,17 @@ if (Meteor.isServer) {
       'keyboard': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/keyboardsupport.htm'}
     });
 
+    Tables.insert({
+      'name': 'Backgrid.js - reactive, Backbone UI',
+      'url': 'http://backgridjs.com/',
+      'sort': true,
+      'pages': {support: true, link: 'https://github.com/wyuenho/backgrid-paginator'},
+      'filter': {support: true, link: 'https://github.com/wyuenho/backgrid-filter'},
+      'resize': false,
+      'edit': {support: true, link: 'http://backgridjs.com/index.html#complete-example'},
+      'keyboard': false,
+      'meteor': {support: false, link: 'https://atmospherejs.com/?q=backgrid'}
+    });
+
   });
 }
