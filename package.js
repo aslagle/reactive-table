@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.5.5",
+  version: "0.5.6",
   name: "aslagle:reactive-table",
   git: "https://github.com/ecohealthalliance/reactive-table.git"
 });
@@ -48,4 +48,7 @@ Package.on_test(function (api) {
     api.add_files('test/test_multiple_tables.js', 'client');
     api.add_files('test/test_template.html', 'client');
     api.add_files('test/test_template.js', 'client');
+
+    api.use("dburles:collection-helpers@1.0.1", "client");
+    api.add_files("test/test_compatibility.js", "client");
 });
