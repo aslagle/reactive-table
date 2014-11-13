@@ -44,15 +44,17 @@ if (Meteor.isClient) {
               return new Spacebars.SafeString(html);
             }
           },
-          { key: 'sort', label: 'Sorting', fn: checkOrX },
+          { key: 'multisort', label: 'Multi-column sorting', fn: checkOrX },
           { key: 'pages', label: 'Pagination', fn: checkOrX },
           { key: 'filter', label: 'Filtering/Search', fn: checkOrX },
           { key: 'resize', label: 'Resizable Columns', fn: checkOrX },
           { key: 'edit', label: 'Inline Editing', fn: checkOrX },
-          { key: 'responsive', label: 'Mobile/Responsive', fn: checkOrX, hidden: true },
+          { key: 'responsive', label: 'Mobile/Responsive', fn: checkOrX },
           { key: 'i18n', label: 'Internationalization', fn: checkOrX, hidden: true },
           { key: 'keyboard', label: 'Keyboard navigation', fn: checkOrX, hidden: true },
-          { key: 'meteor', label: 'Meteor Integration', fn: checkOrX, hidden: function () { return true; } }
+          { key: 'plugins', label: 'Plugins', fn: checkOrX, hidden: true },
+          { key: 'meteor', label: 'Meteor Integration', fn: checkOrX, hidden: true },
+          { key: 'lastUpdate', label: 'Last update', fn: checkOrX }
         ]
       };
     }
@@ -64,100 +66,123 @@ if (Meteor.isServer) {
     Tables.remove({'name': {'$exists': true}});
 
     Tables.insert({
-      'name': 'reactive-table',
-      'url': 'https://github.com/ecohealthalliance/reactive-table',
-      'sort': true,
-      'pages': true,
-      'filter': true,
-      'resize': false,
-      'edit': false,
-      'responsive': false,
-      'i18n': true,
-      'keyboard': false,
-      'meteor': true
+      name: 'reactive-table',
+      url: 'https://github.com/ecohealthalliance/reactive-table',
+      multisort: false,
+      pages: true,
+      filter: true,
+      resize: false,
+      edit: false,
+      responsive: false,
+      i18n: true,
+      keyboard: false,
+      plugins: undefined,
+      meteor: true
     });
 
     Tables.insert({
-      'name': 'DataTables',
-      'url': 'https://datatables.net/',
-      'sort': true,
-      'pages': true,
-      'filter': true,
-      'resize': true,
-      'edit': true,
-      'responsive': {support: true, link: 'https://datatables.net/release-datatables/examples/basic_init/flexible_width.html'},
-      'i18n': true,
-      'keyboard': {support: true, link: 'http://datatables.net/release-datatables/extras/KeyTable/'},
-      'meteor': {support: 'partial', 'link': 'https://github.com/ecohealthalliance/reactive-table/issues/10#issuecomment-35941155'}
+      name: 'DataTables',
+      url: 'https://datatables.net/',
+      multisort: {support: true, link: 'http://www.datatables.net/examples/basic_init/multi_col_sort.html'},
+      pages: true,
+      filter: true,
+      resize: true,
+      edit: true,
+      responsive: {support: true, link: 'https://datatables.net/release-datatables/examples/basic_init/flexible_width.html'},
+      i18n: true,
+      keyboard: {support: true, link: 'http://datatables.net/release-datatables/extras/KeyTable/'},
+      plugins: {support: 'plugins & extensions', link: 'https://datatables.net/plug-ins/'},
+      meteor: {support: 'partial', 'link': 'https://github.com/ecohealthalliance/reactive-table/issues/10#issuecomment-35941155'},
+      lastUpdate: {support: 'probably today', link: 'https://github.com/DataTables/DataTables'}
     });
 
     Tables.insert({
-      'name': 'SlickGrid',
-      'url': 'https://github.com/mleibman/SlickGrid',
-      'sort': true,
-      'filter': true,
-      'resize': true,
-      'edit': true,
-      'meteor': {support: 'partial', link: 'https://github.com/ecohealthalliance/reactive-table/issues/10#issuecomment-35941155'}
+      name: 'SlickGrid',
+      url: 'https://github.com/mleibman/SlickGrid',
+      multisort: {support: true, link: 'http://mleibman.github.io/SlickGrid/examples/example-multi-column-sort.html'},
+      filter: true,
+      resize: true,
+      edit: true,
+      responsive: undefined,
+      i18n: undefined,
+      keyboard: undefined,
+      plugins: {support: true, link: 'https://github.com/mleibman/SlickGrid/wiki/Examples'},
+      meteor: {support: 'partial', link: 'https://github.com/ecohealthalliance/reactive-table/issues/10#issuecomment-35941155'},
+      lastUpdate: {support: 'stalled', link: 'https://github.com/mleibman/SlickGrid'}
     });
 
     Tables.insert({
-      'name': 'Dynatable',
-      'url': 'http://www.dynatable.com/',
-      'sort': true,
-      'pages': true,
-      'filter': true,
-      'resize': false,
-      'edit': false,
-      'responsive': true,
-      'keyboard': false,
-      'meteor': {support: false, 'link': 'https://github.com/alfajango/jquery-dynatable/issues/59'}
+      name: 'Dynatable',
+      url: 'http://www.dynatable.com/',
+      multisort: {support: true, link: 'http://www.dynatable.com/#sorting'},
+      pages: true,
+      filter: true,
+      resize: false,
+      edit: false,
+      responsive: true,
+      i18n: undefined,
+      keyboard: false,
+      plugins: undefined,
+      meteor: {support: false, 'link': 'https://github.com/alfajango/jquery-dynatable/issues/59'}
     });
 
     Tables.insert({
-      'name': 'tablesorter',
-      'url': 'https://github.com/Mottie/tablesorter',
-      'sort': true,
-      'pages': {support: true, link: 'http://mottie.github.io/tablesorter/docs/example-pager.html'},
-      'filter': true,
-      'edit': true
+      name: 'tablesorter',
+      url: 'https://github.com/Mottie/tablesorter',
+      multisort: {support: true, link: 'https://github.com/Mottie/tablesorter#features'},
+      pages: {support: true, link: 'http://mottie.github.io/tablesorter/docs/example-pager.html'},
+      filter: true,
+      edit: true,
+      responsive: undefined,
+      i18n: undefined,
+      keyboard: undefined,
+      plugins: undefined,
+      meteor: undefined
     });
 
     Tables.insert({
-      'name': 'Handsontable',
-      'url': 'http://handsontable.com/',
-      'sort': true,
-      'pages': true,
-      'filter': {support: true, link: 'http://handsontable.com/demo/search.html'},
-      'resize': {support: true, link: 'http://handsontable.com/demo/column_resize.html'},
-      'edit': true,
-      'keyboard': true,
-      'meteor': {support: true, link: 'https://github.com/olragon/meteor-handsontable/'}
+      name: 'Handsontable',
+      url: 'http://handsontable.com/',
+      multisort: {support: false, link: 'https://github.com/handsontable/jquery-handsontable/wiki/Understanding-column-sorting-plugin'},
+      pages: {support: true, link: 'http://handsontable.com/demo/pagination.html'},
+      filter: {support: true, link: 'http://handsontable.com/demo/search.html'},
+      resize: {support: true, link: 'http://handsontable.com/demo/column_resize.html'},
+      edit: true,
+      responsive: undefined,
+      i18n: undefined,
+      keyboard: true,
+      plugins: undefined,
+      meteor: {support: true, link: 'https://github.com/olragon/meteor-handsontable/'}
     });
 
     Tables.insert({
-      'name': 'jqWidgets jqxGrid',
-      'url': 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm',
-      'sort': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/customsorting.htm'},
-      'pages': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/paging.htm'},
-      'filter': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/filtering.htm'},
-      'resize': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/columnsresizing.htm'},
-      'edit': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/spreadsheet.htm'},
-      'responsive': false,
-      'i18n': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/localization.htm'},
-      'keyboard': {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/keyboardsupport.htm'}
+      name: 'jqWidgets jqxGrid',
+      url: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm',
+      multisort: {support: false, link: 'http://www.jqwidgets.com/community/topic/sorting-by-multiple-columns/'},
+      pages: {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/paging.htm'},
+      filter: {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/filtering.htm'},
+      resize: {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/columnsresizing.htm'},
+      edit: {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/spreadsheet.htm'},
+      responsive: false,
+      i18n: {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/localization.htm'},
+      keyboard: {support: true, link: 'http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxgrid/index.htm#demos/jqxgrid/keyboardsupport.htm'},
+      plugins: undefined,
+      meteor: undefined
     });
 
     Tables.insert({
-      'name': 'Backgrid.js - reactive, Backbone UI',
-      'url': 'http://backgridjs.com/',
-      'sort': true,
-      'pages': {support: true, link: 'https://github.com/wyuenho/backgrid-paginator'},
-      'filter': {support: true, link: 'https://github.com/wyuenho/backgrid-filter'},
-      'resize': false,
-      'edit': {support: true, link: 'http://backgridjs.com/index.html#complete-example'},
-      'keyboard': false,
-      'meteor': {support: false, link: 'https://atmospherejs.com/?q=backgrid'}
+      name: 'Backgrid.js - reactive, Backbone UI',
+      url: 'http://backgridjs.com/',
+      multisort: {support: false, link: 'https://github.com/wyuenho/backgrid/issues/453'},
+      pages: {support: true, link: 'https://github.com/wyuenho/backgrid-paginator'},
+      filter: {support: true, link: 'https://github.com/wyuenho/backgrid-filter'},
+      resize: false,
+      edit: {support: true, link: 'http://backgridjs.com/index.html#complete-example'},
+      responsive: undefined,
+      i18n: undefined,
+      keyboard: false,
+      plugins: undefined,
+      meteor: {support: false, link: 'https://atmospherejs.com/?q=backgrid'}
     });
 
   });
