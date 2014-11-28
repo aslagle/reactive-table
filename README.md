@@ -227,6 +227,21 @@ Template.posts.events({
 });
 ```
 
+If you want single elements inside a row to become clickable, you still have to target `tr`. Otherwise `this` won't refer to the corresponding object of your targeted row. With this in mind, you have to specify a `target` inside your `'click .reactive-table tr'` eventlistener:
+
+```JavaScript
+Template.posts.events({
+  'click .reactive-table tr': function (event) {
+    event.preventDefault();
+    var post = this;
+    // checks if the actual clicked element has the class `delete`
+    if (e.target.className == "delete") {
+      Posts.remove(post._id)
+    }
+  }
+});
+```
+
 ## Internationalization
 
 Internationalization support is provided using [anti:i18n](https://github.com/anticoders/meteor-i18n).
