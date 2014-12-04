@@ -17,6 +17,7 @@ deps@1.0.5
 ejson@1.0.4
 fastclick@1.0.1
 follower-livedata@1.0.2
+fortawesome:fontawesome@4.2.0_2
 geojson-utils@1.0.1
 html-tools@1.0.2
 htmljs@1.0.2
@@ -35,7 +36,6 @@ minimongo@1.0.5
 mizzao:bootstrap-3@3.2.0_1
 mobile-status-bar@1.0.1
 mongo@1.0.8
-natestrauser:font-awesome@4.2.0
 observe-sequence@1.0.3
 ordered-dict@1.0.1
 random@1.0.1

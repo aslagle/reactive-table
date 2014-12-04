@@ -7,7 +7,7 @@ standard-app-packages
 autopublish
 insecure
 aslagle:reactive-table
-natestrauser:font-awesome@4.0.3
 anti:i18n
 mizzao:bootstrap-3
+fortawesome:fontawesome
 
