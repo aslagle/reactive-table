@@ -1,8 +1,30 @@
 <template name="reactiveTable">
     {{setup}}
+    <div class="reactive-table-options col-sm-5 pull-right">
+    {{#if showColumnToggles}}
+      <div class="reactive-table-columns-dropdown col-sm-2">
+        <button class="btn btn-default dropdown-toggle" id="reactive-table-add-column-{{id}}" data-toggle="dropdown">
+          {{i18n 'reactiveTable.columns'}}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="reactive-table-add-column-{{id}}">
+          {{#each fields}}
+            <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
+              <label>
+                {{#if isVisible}}
+                  <input type="checkbox" checked index="{{getFieldIndex}}">
+                {{else}}
+                  <input type="checkbox" index="{{getFieldIndex}}">
+                {{/if}}
+                {{getLabel}}
+              </label>
+            </a></li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
     {{#if showFilter}}
-      <div class="form-group reactive-table-filter">
-        <div class="input-group col-sm-4 col-sm-offset-8">
+      <div class="form-group reactive-table-filter col-sm-10">
+        <div class="input-group">
           <span class="input-group-addon">
             {{#if useFontAwesome}}
               <i class="fa fa-filter"></i>
@@ -18,6 +40,7 @@
         </div>
       </div>
     {{/if}}
+    </div>
     <table id="{{id}}" class="{{class}} reactive-table">
       <thead>
         <tr>
@@ -49,29 +72,6 @@
               {{/if}}
             {{/if}}
           {{/each}}
-          {{#if showColumnToggles}}
-              <th class="reactive-table-add-column">
-                <div class="dropdown">
-                  <button class="btn btn-default btn-xs dropdown-toggle" id="reactive-table-add-column-{{id}}" data-toggle="dropdown">
-                    +/-
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="reactive-table-add-column-{{id}}">
-                    {{#each fields}}
-                      <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
-                        <label>
-                          {{#if isVisible}}
-                            <input type="checkbox" checked index="{{getFieldIndex}}">
-                          {{else}}
-                            <input type="checkbox" index="{{getFieldIndex}}">
-                          {{/if}}
-                          {{getLabel}}
-                        </label>
-                      </a></li>
-                    {{/each}}
-                  </ul>
-                </div>
-              </th>
-          {{/if}}
         </tr>
       </thead>
       <tbody>
