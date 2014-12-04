@@ -65,7 +65,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a button to the top right that allows the user to toggle which columns are displayed. Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
-* `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `font-awesome` package to be installed. Default `false`.
+* `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `false`.
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover'.
 * `id`: String. Unique id to add to the table element. Default: generated with [_.uniqueId](http://underscorejs.org/#uniqueId).
 * `rowClass`: String or function returning a class name. The row element will be passed as first parameter.
