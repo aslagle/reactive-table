@@ -1,3 +1,20 @@
+.reactive-table-options {
+    padding-right: 0px;
+    margin-right: -5px;
+}
+
+.reactive-table-filter {
+    float: right;
+}
+
+.reactive-table-columns-dropdown {
+    float: right;
+}
+
+.reactive-table-columns-dropdown button {
+    width: 100%;
+}
+
 .reactive-table .sortable, .reactive-table-add-column {
     cursor: pointer;
     color: black;
