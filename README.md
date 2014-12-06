@@ -65,7 +65,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
-* `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `false`.
+* `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `true` if `fortawesome:fontawesome` is installed, else `false`.
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover'.
 * `id`: String. Unique id to add to the table element. Default: generated with [_.uniqueId](http://underscorejs.org/#uniqueId).
 * `rowClass`: String or function returning a class name. The row element will be passed as first parameter.
@@ -121,7 +121,7 @@ You can continue to pass some settings as named arguments while grouping the oth
 
 ### Styling
 
-Add bootstrap or bootstrap-3 to style the table, or add your own css. The generated table will have the class 'reactive-table'. To use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons, also add the font-awesome package and set `useFontAwesome` to `true` in the settings.
+Add bootstrap or bootstrap-3 to style the table, or add your own css. The generated table will have the class 'reactive-table'. To use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons, also add the `fortawesome:fontawesome` package.
 You can also use the argument `class` to define table styling:
 
     {{> reactiveTable class="table table-bordered table-hover" collection=myCollection}}
