@@ -164,6 +164,25 @@ Tinytest.add('Settings - useFontAwesome', function (test) {
       test.length($('.reactive-table-filter .fa'), 1, "font awesome should be on");
     }
   );
+
+  // simulate fontawesome installation
+  Package['fortawesome:fontawesome'] = true;
+  
+  testTable(
+    {collection: rows},
+    function () {
+      test.length($('.reactive-table-filter .fa'), 1, "font awesome should be on");
+    }
+  );
+
+  testTable(
+    {collection: rows, useFontAwesome: false},
+    function () {
+      test.length($('.reactive-table-filter .fa'), 0, "font awesome should be off");
+    }
+  );
+
+  delete Package['fortawesome:fontawesome'];
 });
 
 Tinytest.add('Settings - rowClass', function (test) {
