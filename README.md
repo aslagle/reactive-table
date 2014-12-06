@@ -64,7 +64,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
-* `showColumnToggles`: Boolean. Adds a button to the top right that allows the user to toggle which columns are displayed. Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
+* `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `false`.
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover'.
 * `id`: String. Unique id to add to the table element. Default: generated with [_.uniqueId](http://underscorejs.org/#uniqueId).
@@ -254,7 +254,7 @@ To set your language to French:
 
     i18n.setLanguage('fr');
 
-We currently have translations for:
+We currently have translations (except the 'Columns' button) for:
 
 - Brazilian Portuguese (pt-br)
 - Czech (cs)
@@ -272,4 +272,4 @@ We currently have translations for:
 - Turkish (tr)
 - Ukrainian (ua)
 
-For other languages, contribute a translation to [reactive_table_i18n.js](https://github.com/ecohealthalliance/reactive-table/blob/master/lib/reactive_table_i18n.js).
+For other languages or the 'Columns' button, contribute a translation to [reactive_table_i18n.js](https://github.com/ecohealthalliance/reactive-table/blob/master/lib/reactive_table_i18n.js).
