@@ -12,7 +12,7 @@
 }
 
 .reactive-table-columns-dropdown button {
-    width: 100%;
+    float: right;
 }
 
 .reactive-table .sortable, .reactive-table-add-column {
