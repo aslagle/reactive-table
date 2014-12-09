@@ -147,6 +147,13 @@ To set labels for the column headers, use an array of field elements, each with 
         { key: 'year', label: 'Year' }
     ] }
 
+The label can be a string or a function:
+
+    { key: 'name', label: function () { return new Spacebars.SafeString('<i>Name</i>'); } }
+
+All columns are sortable by default, but sorting can be disabled by setting `sortable` to false:
+
+    { key: 'year', label: 'Year', sortable: false }
 
 
 #### Templates

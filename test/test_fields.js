@@ -28,7 +28,7 @@ Tinytest.add('Fields - array', function (test) {
   );
 });
 
-Tinytest.add('Fields - labels', function (test) {
+Tinytest.add('Fields - label string', function (test) {
   testTable(
     {
       collection: rows,
@@ -36,6 +36,27 @@ Tinytest.add('Fields - labels', function (test) {
         fields: [
           {key: 'name', label: 'Column1'},
           {key: 'score', label: 'Column2'}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table th:first-child').text().trim().match(/^Column1/), 1, "first column label");
+      test.length($('.reactive-table th:nth-child(2)').text().trim().match(/^Column2/), 1, "second column label");
+      test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "first column content");
+      test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "5", "second column content");
+    }
+  );
+});
+
+Tinytest.add('Fields - label function', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name', label: function () { return 'Column1'; }},
+          {key: 'score', label: function () { return new Spacebars.SafeString('Column2'); }}
         ]
       }
     },
@@ -167,6 +188,36 @@ Tinytest.add('Fields - default sort', function (test) {
     }
   );
 });
+
+testAsyncMulti('Fields - sortable', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: rows,
+      fields: [
+        {key: 'name', label: 'Name', sortable: true},
+        {key: 'score', label: 'Score', sortable: false}
+      ]
+    },
+    document.body
+  );
+  test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "initial first row");
+
+  var expectDescending = expect(function () {
+   test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Nikola Tesla", "first column is sortable");
+   Blaze.remove(table);
+  });
+
+  var expectStillAscending = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "second column not sortable");
+
+    $('.reactive-table th:first-child').click();
+    Meteor.setTimeout(expectDescending, 0);
+  });
+
+  $('.reactive-table th:nth-child(2)').click();
+  Meteor.setTimeout(expectStillAscending, 0);
+}]);
 
 Tinytest.add('Fields - nested key', function (test) {
   var nestedObjectRows = [
