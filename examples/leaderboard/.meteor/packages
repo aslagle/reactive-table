@@ -8,6 +8,5 @@ autopublish
 insecure
 aslagle:reactive-table
 anti:i18n
-mizzao:bootstrap-3
+twbs:bootstrap-noglyph
 fortawesome:fontawesome
-
