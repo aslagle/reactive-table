@@ -1,5 +1,7 @@
 <template name="reactiveTable">
+  {{#unless reactiveTableSetup}}
     {{setup}}
+  {{else}}
     <div class="reactive-table-options col-sm-8 pull-right">
       {{#if showFilter}}
         <div class="form-group reactive-table-filter col-sm-8 pull-right">
@@ -104,4 +106,5 @@
         </div>
       </div>
     {{/if}}
+  {{/unless}}
 </template>
