@@ -19,3 +19,63 @@ testAsyncMulti('Reactivity - collection', [function (test, expect) {
     Blaze.remove(table);
   }), 0);
 }]);
+
+testAsyncMulti('Reactivity - collection changed by helper', [function (test, expect) {
+  var collection = new Meteor.Collection();
+  collection.insert({name: 'item 1', value: 1});
+  var showCollection = new ReactiveVar(false);
+
+  Template.testReactivity.helpers({
+    collection: function () {
+      if (showCollection.get()) {
+        return collection;
+      } else {
+        return [];
+      }
+    }
+  });
+
+  var view = Blaze.renderWithData(
+    Template.testReactivity,
+    {},
+    document.body
+  );
+
+  test.length($('.reactive-table tbody tr'), 0, 'table should be empty');
+
+  showCollection.set(true);
+  Meteor.setTimeout(expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, 'table should render collection');
+    Blaze.remove(view);
+  }), 0);
+}]);
+
+testAsyncMulti('Reactivity - setting changed by helper', [function (test, expect) {
+  var useFontAwesome = new ReactiveVar(false);
+  Template.testReactivity.helpers({
+    collection: function () {
+      return collection;
+    },
+    settings: function () {
+      if (useFontAwesome.get()) {
+        return {useFontAwesome: true}
+      } else {
+        return {useFontAwesome: false};
+      }
+    }
+  });
+
+  var view = Blaze.renderWithData(
+    Template.testReactivity,
+    {},
+    document.body
+  );
+
+  test.length($('.reactive-table-filter .fa'), 0, "font awesome should be off");
+
+  useFontAwesome.set(true);
+  Meteor.setTimeout(expect(function () {
+    test.length($('.reactive-table-filter .fa'), 1, "font awesome should be on");
+    Blaze.remove(view);
+  }), 0);
+}]);
