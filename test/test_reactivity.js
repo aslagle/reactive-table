@@ -148,7 +148,7 @@ testAsyncMulti('Reactivity - user setting persists when other arguments change',
 
     showCollection.set(false);
     Meteor.setTimeout(expectStillSecondPage, 0);
-  })
+  });
 
   $('.reactive-table-navigation .page-number input').val('2');
   $('.reactive-table-navigation .page-number input').trigger("change");

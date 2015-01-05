@@ -68,7 +68,7 @@ testAsyncMulti('Pagination - page input', [function (test, expect) {
 
   var expectFirstPage = expect(function () {
     test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "should be on first page");
-    test.length($('.reactive-table tbody tr'), 2, "second page should have two rows");
+    test.length($('.reactive-table tbody tr'), 2, "first page should have two rows");
     test.equal($('.reactive-table-navigation .page-number input').val(), "1", "displayed page number should be 1");
 
     Blaze.remove(table);
