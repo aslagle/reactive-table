@@ -1,0 +1,13 @@
+<head>
+  <title>Reactive Table</title>
+</head>
+
+<body>
+  <h1>Welcome to Reactive Table!</h1>
+
+  {{> table}}
+</body>
+
+<template name="table">
+  {{> reactiveTable collection="rows" fields=fields}}
+</template>

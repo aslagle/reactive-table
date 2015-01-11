@@ -27,6 +27,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
     - [Hidden columns](#hidden-columns)
 - [Using events](#using-events)
 - [Multiple tables](#multiple-tables)
+- [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta)
 - [Internationalization](#internationalization)
 
 ## Quick Start
@@ -248,6 +249,50 @@ Template.posts.events({
   }
 });
 ```
+
+## Server-side Pagination and Filtering <sup>BETA</sup>
+
+Use ReactiveTable.publish on the server to make a collection available to reactive-table without subscribing to the full collection.
+
+Arguments:
+- name: The name of the publication
+- collection: A function that returns the collection to publish (or just a collection, if it's insecure).
+- selector: (Optional) A function that returns mongo selector that will limit the results published (or just the selector).
+
+Inside the functions, `this` is the publish handler object as in [Meteor.publish](http://docs.meteor.com/#/full/meteor_publish), so `this.userId` is available.
+
+On the client, use the publication name as the collection argument to the reactiveTable template.
+
+  {{> reactiveTable collection="name"}}
+
+```JavaScript
+Items = new Meteor.Collection('items');
+
+if (Meteor.isServer) {
+  // Insecure: entire collection will be available to all clients
+  ReactiveTable.publish("insecure-items", Items);
+
+  // Publish only a subset of items with "show" set to true
+  ReactiveTable.publish("some-items", Items, {"show": true});
+
+  // Publish only to logged in users
+  ReactiveTable.publish("all-items", function () {
+    if (this.userId) {
+      return Items;
+    } else {
+      return [];
+    }
+  });
+
+  // Publish only the current user's items
+  ReactiveTable.publish("user-items", Items, function () {
+    return {"userId": this.userId};
+  });
+}
+```
+
+Other table settings should work normally, except that all fields will be sorted by value, even if using `fn`.
+
 
 ## Internationalization
 

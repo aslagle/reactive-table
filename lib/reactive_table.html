@@ -1,5 +1,6 @@
 <template name="reactiveTable">
   {{#with context}}
+  {{#if ready}}
     <div class="row">
       <div class="reactive-table-options col-sm-8 pull-right">
         {{#if showFilter}}
@@ -106,5 +107,6 @@
         </div>
       </div>
     {{/if}}
+  {{/if}}
   {{/with}}
 </template>

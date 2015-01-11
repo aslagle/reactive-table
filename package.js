@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.5.12",
+  version: "0.6.0-beta1",
   name: "aslagle:reactive-table",
   git: "https://github.com/aslagle/reactive-table.git"
 });
@@ -12,6 +12,7 @@ Package.on_use(function (api) {
     api.use('underscore', 'client');
     api.use('reactive-var@1.0.3', 'client');
     api.use("anti:i18n@0.4.3", 'client');
+    api.use("mongo", ["server", "client"]);
 
     api.use("fortawesome:fontawesome@4.2.0", 'client', {weak: true});
 
@@ -19,6 +20,10 @@ Package.on_use(function (api) {
     api.add_files('lib/reactive_table_i18n.js', 'client');
     api.add_files('lib/reactive_table.js', 'client');
     api.add_files('lib/reactive_table.css', 'client');
+    api.add_files('lib/filter.js', ['client', 'server']);
+    api.add_files('lib/server.js', 'server');
+
+    api.export("ReactiveTable", "server");
 });
 
 Package.on_test(function (api) {
@@ -27,11 +32,16 @@ Package.on_test(function (api) {
     api.use('underscore', 'client');
     api.use('reactive-var@1.0.3', 'client');
     api.use("anti:i18n@0.4.3", 'client');
+    api.use("mongo", ["server", "client"]);
 
     api.add_files('lib/reactive_table.html', 'client');
     api.add_files('lib/reactive_table_i18n.js', 'client');
     api.add_files('lib/reactive_table.js', 'client');
     api.add_files('lib/reactive_table.css', 'client');
+    api.add_files('lib/filter.js', ['client', 'server']);
+    api.add_files('lib/server.js', 'server');
+
+    api.export("ReactiveTable", "server");
 
     api.use(['tinytest', 'test-helpers'], 'client');
     api.add_files('test/helpers.js', 'client');
