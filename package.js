@@ -12,7 +12,7 @@ Package.on_use(function (api) {
     api.use('underscore', 'client');
     api.use('reactive-var@1.0.3', 'client');
     api.use("anti:i18n@0.4.3", 'client');
-    api.use("mongo", ["server", "client"]);
+    api.use("mongo@1.0.8", ["server", "client"]);
 
     api.use("fortawesome:fontawesome@4.2.0", 'client', {weak: true});
 
