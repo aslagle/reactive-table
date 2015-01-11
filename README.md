@@ -8,7 +8,7 @@ Another Demo: http://reactive-table-leaderboard.meteor.com/
 ### Note on Versions
 The latest version of reactive-table only supports Meteor version 0.9.0 or higher.
 For Meteor 0.8, use reactive-table version 0.3.21.
-For older versions of Meteor, you can use reactive-table v0.2.5 ([documentation](https://github.com/ecohealthalliance/reactive-table/tree/v0.2.5)).
+For older versions of Meteor, you can use reactive-table v0.2.5 ([documentation](https://github.com/aslagle/reactive-table/tree/v0.2.5)).
 If you're updating to Meteor 0.8.0, note that reactiveTable is now a template with keyword arguments rather than a helper. The functionality should be the same, but please report bugs in the issues.
 
 ### Table of Contents
@@ -183,7 +183,7 @@ If the key exists in the record, it will be passed to `fn` in `value`. Otherwise
 
 The `object` argument contains the full object, so you can compute a value using multiple fields.
 
-By default, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's orignial value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
+By default, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
 
 ##### HTML
 
@@ -279,4 +279,4 @@ We currently have translations (except the 'Columns' button) for:
 - Turkish (tr)
 - Ukrainian (ua)
 
-For other languages or the 'Columns' button, contribute a translation to [reactive_table_i18n.js](https://github.com/ecohealthalliance/reactive-table/blob/master/lib/reactive_table_i18n.js).
+For other languages or the 'Columns' button, contribute a translation to [reactive_table_i18n.js](https://github.com/aslagle/reactive-table/blob/master/lib/reactive_table_i18n.js).
