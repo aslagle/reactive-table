@@ -291,7 +291,7 @@ if (Meteor.isServer) {
 }
 ```
 
-Other table settings should work normally, except that all fields will be sorted by value, even if using `fn`.
+Other table settings should work normally, except that all fields will be sorted by value, even if using `fn`. The fields setting is required when using a server-side collection.
 
 
 ## Internationalization

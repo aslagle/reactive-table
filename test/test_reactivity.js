@@ -117,7 +117,7 @@ testAsyncMulti('Reactivity - user setting persists when other arguments change',
       } else {
         return rows;
       }
-    }, 
+    },
     settings: function () {
       return {rowsPerPage: 2};
     }
@@ -157,4 +157,42 @@ testAsyncMulti('Reactivity - user setting persists when other arguments change',
 
 
   showCollection.set(true);
+}]);
+
+testAsyncMulti('Reactivity - server-side collection', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'reactivity-test', fields: ['name', 'value']},
+    document.body
+  );
+
+  var expectUpdate = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "2", "table should reactively update with new value");
+    Blaze.remove(table);
+  });
+
+  var expectRemove = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "table should reactively remove a row");
+
+    test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "1", "table row should have the initial value");
+    Meteor.call('testUpdate', function () {
+      Meteor.setTimeout(expectUpdate, 500);
+    });
+  });
+
+  var expectInsert = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "table should reactively add second row");
+    Meteor.call('testRemove', function () {
+      Meteor.setTimeout(expectRemove, 500);
+    });
+  });
+
+  var expectInitialRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "table should initially have one row");
+    Meteor.call('testInsert', function () {
+      Meteor.setTimeout(expectInsert, 500);
+    });
+  });
+
+  Meteor.setTimeout(expectInitialRow, 500);
 }]);

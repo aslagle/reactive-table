@@ -108,3 +108,28 @@ testAsyncMulti('Filtering - numbers in strings', [function (test, expect) {
   $('.reactive-table-filter input').trigger('input');
   Meteor.setTimeout(expectThreeRows, 1000);
 }]);
+
+testAsyncMulti('Filtering - server-side', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'collection', fields: ['name', 'score']},
+    document.body
+  );
+
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "filtered to two rows");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Carl Friedrich Gauss", "filtered first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Grace Hopper", "filtered second row");
+    Blaze.remove(table);
+  });
+
+  var expectSixRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 6, "initial 6 rows");
+
+    $('.reactive-table-filter input').val('g');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectTwoRows, 1000);
+  });
+
+  Meteor.setTimeout(expectSixRows, 500);
+}]);
