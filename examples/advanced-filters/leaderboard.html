@@ -13,9 +13,7 @@
     {{> reactiveTableFilter id="filter1" label="Name" fields=nameFields }}
     {{> reactiveTableFilter id="filter2" label="Score" fields=scoreFields }}
     {{> reactiveTableFilter id="filter3" label="All" }}
-  </div>
-  <div class="pull-right">
-    This is between the filter and the table
+    {{> clearFiltersButton }}
   </div>
 
   <div id="table">
