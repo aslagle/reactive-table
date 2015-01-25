@@ -9,3 +9,6 @@ autopublish
 insecure
 aslagle:reactive-table
 twbs:bootstrap
+momentjs:moment
+linto:jquery-ui
+jquery

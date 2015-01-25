@@ -14,10 +14,11 @@ if (Meteor.isClient) {
           fields: [
             { key: 'name', label: 'Full Name' },
             { key: 'name', label: 'First Name', fn: function (name) { return name ? name.split(' ')[0] : ''; } },
-            { key: 'score', label: 'Score' }
+            { key: 'score', label: 'Score' },
+            { key: 'date', label: 'Date', sortByValue: true, fn: function (date) { return moment(date).format("dddd, MMMM Do YYYY"); }}
           ],
           showFilter: true,
-          filters: ['filter1', 'filter2', 'filter3']
+          filters: ['filter1', 'filter2', 'filter3', 'date-filter']
       };
     },
 
@@ -64,8 +65,16 @@ if (Meteor.isServer) {
                    "Carl Friedrich Gauss",
                    "Nikola Tesla",
                    "Claude Shannon"];
+      var dates = [
+          "2014-12-10", 
+          "2011-12-09",
+          "2016-11-07",
+          "2012-04-30",
+          "2014-07-10",
+          "2016-04-30"
+      ];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
+        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5, date: dates[i]});
     }
   });
 

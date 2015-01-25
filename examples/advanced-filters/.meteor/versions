@@ -24,6 +24,7 @@ insecure@1.0.2
 jquery@1.11.3
 json@1.0.2
 launch-screen@1.0.1
+linto:jquery-ui@1.11.2
 livedata@1.0.12
 logging@1.0.6
 meteor@1.1.4
@@ -31,6 +32,7 @@ meteor-platform@1.2.1
 minifiers@1.1.3
 minimongo@1.0.6
 mobile-status-bar@1.0.2
+momentjs:moment@2.9.0
 mongo@1.0.11
 observe-sequence@1.0.4
 ordered-dict@1.0.2
