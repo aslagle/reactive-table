@@ -4,22 +4,7 @@
     <div class="clearfix">
       <div class="reactive-table-options col-sm-8 pull-right">
         {{#if showFilter}}
-          <div class="form-group reactive-table-filter col-sm-8 pull-right">
-            <div class="input-group">
-              <span class="input-group-addon">
-                {{#if useFontAwesome}}
-                  <i class="fa fa-filter"></i>
-                {{else}}
-                  {{i18n 'reactiveTable.filter'}}
-                {{/if}}
-              </span>
-              {{#if useFontAwesome}}
-    	        <input class="reactive-table-input form-control" type="text" value="{{filter}}" placeholder="{{i18n 'reactiveTable.filter'}}">
-              {{else}}
-    	        <input class="reactive-table-input form-control" type="text" value="{{filter}}">
-              {{/if}}
-            </div>
-          </div>
+          {{> reactiveTableFilter id=getFilterId useFontAwesome=useFontAwesome}}
         {{/if}}
         {{#if showColumnToggles}}
           <div class="reactive-table-columns-dropdown col-sm-4 pull-right">

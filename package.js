@@ -17,13 +17,14 @@ Package.on_use(function (api) {
     api.use("fortawesome:fontawesome@4.2.0", 'client', {weak: true});
 
     api.add_files('lib/reactive_table.html', 'client');
+    api.add_files('lib/filter.html', 'client');
     api.add_files('lib/reactive_table_i18n.js', 'client');
     api.add_files('lib/reactive_table.js', 'client');
     api.add_files('lib/reactive_table.css', 'client');
     api.add_files('lib/filter.js', ['client', 'server']);
     api.add_files('lib/server.js', 'server');
 
-    api.export("ReactiveTable", "server");
+    api.export("ReactiveTable", ["client", "server"]);
 });
 
 Package.on_test(function (api) {
@@ -35,13 +36,14 @@ Package.on_test(function (api) {
     api.use("mongo", ["server", "client"]);
 
     api.add_files('lib/reactive_table.html', 'client');
+    api.add_files('lib/filter.html', 'client');
     api.add_files('lib/reactive_table_i18n.js', 'client');
     api.add_files('lib/reactive_table.js', 'client');
     api.add_files('lib/reactive_table.css', 'client');
     api.add_files('lib/filter.js', ['client', 'server']);
     api.add_files('lib/server.js', 'server');
 
-    api.export("ReactiveTable", "server");
+    api.export("ReactiveTable", ["client", "server"]);
 
     api.use(['tinytest', 'test-helpers'], 'client');
     api.add_files('test/helpers.js', ['client', 'server']);
