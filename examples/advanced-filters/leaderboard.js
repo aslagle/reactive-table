@@ -15,10 +15,20 @@ if (Meteor.isClient) {
             { key: 'name', label: 'Full Name' },
             { key: 'name', label: 'First Name', fn: function (name) { return name ? name.split(' ')[0] : ''; } },
             { key: 'score', label: 'Score' },
-            { key: 'date', label: 'Date', sortByValue: true, fn: function (date) { return moment(date).format("dddd, MMMM Do YYYY"); }}
+            { key: 'date', label: 'Date', sortByValue: true, fn: function (date) { return moment(date).format("dddd, MMMM Do YYYY"); }},
+            { 
+                key: 'checked', 
+                label: 'Checked', 
+                fn: function (checked) { 
+                  var html = '<span style="color: green">&#10004;</span>'
+                  if (checked === false) {
+                   html = '<span style="color: red">&#10008;</span>';
+                  }
+                  return new Spacebars.SafeString(html);
+                }
+            }
           ],
-          showFilter: true,
-          filters: ['filter1', 'filter2', 'filter3', 'date-filter']
+          filters: ['filter1', 'filter2', 'filter3', 'date-filter', 'checkbox-filter']
       };
     },
 
@@ -74,7 +84,7 @@ if (Meteor.isServer) {
           "2016-04-30"
       ];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5, date: dates[i]});
+        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5, date: dates[i], checked: (Random.fraction()>0.5)});
     }
   });
 
