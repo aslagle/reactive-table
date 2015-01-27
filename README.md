@@ -157,6 +157,21 @@ All columns are sortable by default, but sorting can be disabled by setting `sor
     { key: 'year', label: 'Year', sortable: false }
 
 
+##### Table Header Column CSS Class
+
+To set the css class for table header **&lt;th&gt;**, use the optional *thclass* key. This attribute can be a String or a Function.
+
+    { fields: [
+      { key: 'name', label: 'Name' , thclass: 'col-md-4'},  // as String
+      { key: 'location', label: 'Location',
+        thclass: function () {
+         var css = 'col-md2';
+         '/*do some logic here */
+         return css;}  // as Function
+      },
+      { key: 'year', label: 'Year' }
+    ] }
+
 #### Templates
 
 You can specify a template to use to render cells in a column, by adding `tmpl` to the field options.
