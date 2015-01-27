@@ -50,7 +50,7 @@
           {{#each fields}}
             {{#if isVisible}}
               {{#if isSortKey}}
-                <th class="{{getKey}} sortable" index="{{getFieldIndex}}">
+                <th class="{{getKey}} sortable {{getThClass}}" index="{{getFieldIndex}}">
                   {{getLabel}}&nbsp;&nbsp;
                   {{#if isAscending}}
                     {{#if ../useFontAwesome}}
