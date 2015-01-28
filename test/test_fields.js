@@ -70,6 +70,44 @@ Tinytest.add('Fields - label function', function (test) {
   );
 });
 
+Tinytest.add('Fields - header class string', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name', label: 'Name', headerClass: 'name-class'},
+          {key: 'score', label: 'Score', headerClass: 'score-class' }
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table th.name-class'), 1, "first column class");
+      test.length($('.reactive-table th.score-class'), 1, "second column class");
+    }
+  );
+});
+
+Tinytest.add('Fields - header class function', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name', label: 'Name', headerClass: function () { return 'name-class'; }},
+          {key: 'score', label: 'Score', headerClass: function () { return 'score-class'; }}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table th.name-class'), 1, "first column class");
+      test.length($('.reactive-table th.score-class'), 1, "second column class");
+    }
+  );
+});
+
 Tinytest.add('Fields - tmpl', function (test) {
   testTable(
     {

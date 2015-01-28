@@ -20,6 +20,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
   - [Styling](#styling)
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
+      - [Column Header CSS class](#column-header-css-class) 
     - [Templates](#templates)
     - [Virtual columns](#virtual-columns)
       - [HTML](#html)
@@ -157,14 +158,14 @@ All columns are sortable by default, but sorting can be disabled by setting `sor
     { key: 'year', label: 'Year', sortable: false }
 
 
-##### Table Header Column CSS Class
+##### Column Header CSS Class
 
-To set the css class for table header **&lt;th&gt;**, use the optional *thclass* key. This attribute can be a String or a Function.
+To set the css class for table header **&lt;th&gt;**, use the optional *headerClass* key. This attribute can be a String or a Function.
 
     { fields: [
-      { key: 'name', label: 'Name' , thclass: 'col-md-4'},  // as String
+      { key: 'name', label: 'Name' , headerClass: 'col-md-4'},  // as String
       { key: 'location', label: 'Location',
-        thclass: function () {
+        headerClass: function () {
          var css = 'col-md2';
          '/*do some logic here */
          return css;}  // as Function
