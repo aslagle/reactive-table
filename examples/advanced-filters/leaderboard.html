@@ -10,12 +10,18 @@
 
 <template name="leaderboard">
   <div id="filter">
-    {{> reactiveTableFilter id="filter1" label="Name" fields=nameFields }}
-    {{> reactiveTableFilter id="filter2" label="Score" fields=scoreFields }}
-    {{> dateFilter }}
-    {{> checkboxFilter }}
-    {{> reactiveTableFilter id="filter3" label="All" }}
-    {{> clearFiltersButton }}
+    <div class="form-group clearfix pull-left">
+        {{> reactiveTableFilter id="filter1" label="Name" fields=nameFields }}
+        {{> reactiveTableFilter id="filter2" label="Score" fields=scoreFields }}
+        {{> dateFilter }}
+        {{> checkboxFilter }}
+    </div>
+    <div class="form-group clearfix">
+        {{> reactiveTableFilter id="filter3" label="All" }}
+    </div>
+    <div class="form-group clearfix">
+        {{> clearFiltersButton }}
+    </div>
   </div>
 
   <div id="table">

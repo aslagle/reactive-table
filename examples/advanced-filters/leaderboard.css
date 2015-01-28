@@ -73,3 +73,7 @@ body {
 .inc {
   cursor: pointer;
 }
+
+#filter .input-group {
+    margin: 5px 0px;
+}

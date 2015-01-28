@@ -4,7 +4,9 @@
     <div class="clearfix">
       <div class="reactive-table-options col-sm-8 pull-right">
         {{#if showFilter}}
-          {{> reactiveTableFilter id=getFilterId useFontAwesome=useFontAwesome}}
+          <div class="reactive-table-filter form-group col-sm-8 pull-right">
+            {{> reactiveTableFilter id=getFilterId useFontAwesome=useFontAwesome}}
+          </div>
         {{/if}}
         {{#if showColumnToggles}}
           <div class="reactive-table-columns-dropdown col-sm-4 pull-right">
