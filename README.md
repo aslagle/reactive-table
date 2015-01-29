@@ -29,6 +29,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
 - [Using events](#using-events)
 - [Multiple tables](#multiple-tables)
 - [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta)
+  - [Server-side Settings](#server-side-settings)
 - [Internationalization](#internationalization)
 
 ## Quick Start
@@ -68,6 +69,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `true` if `fortawesome:fontawesome` is installed, else `false`.
+* `enableRegex`: Boolean. Whether to use filter text as a regular expression instead of a regular search term. When true, users won't be able to filter by special characters without escaping them. Default `false`. (Note: Setting this option on the client won't affect server-side filtering - see [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta))
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover col-sm-12'.
 * `id`: String. Unique id to add to the table element. Default: generated with [_.uniqueId](http://underscorejs.org/#uniqueId).
 * `rowClass`: String or function returning a class name. The row element will be passed as first parameter.
@@ -274,7 +276,7 @@ Arguments:
 - name: The name of the publication
 - collection: A function that returns the collection to publish (or just a collection, if it's insecure).
 - selector: (Optional) A function that returns mongo selector that will limit the results published (or just the selector).
-- settings: (Optional) A object with settings on server side's publish function. (Details see below)
+- settings: (Optional) A object with settings on server side's publish function. (Details below)
 
 Inside the functions, `this` is the publish handler object as in [Meteor.publish](http://docs.meteor.com/#/full/meteor_publish), so `this.userId` is available.
 
@@ -310,30 +312,31 @@ if (Meteor.isServer) {
 
 Other table settings should work normally, except that all fields will be sorted by value, even if using `fn`. The fields setting is required when using a server-side collection.
 
-### Settings
+### Server-side Settings
 
-Possible options:
-- autoQuoteSearchterm (Boolean - *default=* **true**):
-  This controlls if the searchterm should be automatically been qutoted for regex special chars. If you want to have pure RegEx possibility as searchterm, set this option to **false**.
+The following options are available in the settings argument to ReactiveTable.publish:
+- enableRegex (Boolean - *default=* **false**):
+  Whether to use filter text as a regular expression instead of a regular search term. When true, users will be able to enter regular expressions to filter the table, but your application may be vulnerable to a [ReDoS](http://en.wikipedia.org/wiki/ReDoS) attack. Also, when true, users won't be able to use special characters in filter text without escaping them.
 
 Examples:
-in clients Reactive Table input field searchterm: "me + you"
+A user filters with "me + you"
 ```JavaScript
-    // Publish only the current user's items (server side)
-    ReactiveTable.publish("user-items", Items, function () {
-      return {"userId": this.userId};
-      }, {autoQuoteSearchterm: true});
+    ReactiveTable.publish(
+        "some-items",
+        Items,
+        {"show": true}
+        {"enableRegex": false});
 ```
 will provide you search results, while
 ```JavaScript
-    // Publish only the current user's items (server side)
-    ReactiveTable.publish("user-items", Items, function () {
-      return {"userId": this.userId};
-      }, {autoQuoteSearchterm: false});
-
-  ```
-will crash on server side, since "me + you" is not a valid regex ("me \\+ you" would be correct).
-  > Default  is to automatic quote the searchterm, since most users wont 'speak' regex and just type in a searchterm.
+    ReactiveTable.publish(
+        "some-items",
+        Items,
+        {"show": true}
+        {"enableRegex": true});
+```
+will crash on the server, since "me + you" is not a valid regex ("me \\+ you" would be correct).
+  > Default is to disable regex and automatically escape the term, since most users wont 'speak' regex and just type in a search term.
 
 ## Internationalization
 
