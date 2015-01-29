@@ -274,6 +274,7 @@ Arguments:
 - name: The name of the publication
 - collection: A function that returns the collection to publish (or just a collection, if it's insecure).
 - selector: (Optional) A function that returns mongo selector that will limit the results published (or just the selector).
+- settings: (Optional) A object with settings on server side's publish function. (Details see below)
 
 Inside the functions, `this` is the publish handler object as in [Meteor.publish](http://docs.meteor.com/#/full/meteor_publish), so `this.userId` is available.
 
@@ -309,6 +310,30 @@ if (Meteor.isServer) {
 
 Other table settings should work normally, except that all fields will be sorted by value, even if using `fn`. The fields setting is required when using a server-side collection.
 
+### Settings
+
+Possible options:
+- autoQuoteSearchterm (Boolean - *default=* **true**):
+  This controlls if the searchterm should be automatically been qutoted for regex special chars. If you want to have pure RegEx possibility as searchterm, set this option to **false**.
+
+Examples:
+in clients Reactive Table input field searchterm: "me + you"
+```JavaScript
+    // Publish only the current user's items (server side)
+    ReactiveTable.publish("user-items", Items, function () {
+      return {"userId": this.userId};
+      }, {autoQuoteSearchterm: true});
+```
+will provide you search results, while
+```JavaScript
+    // Publish only the current user's items (server side)
+    ReactiveTable.publish("user-items", Items, function () {
+      return {"userId": this.userId};
+      }, {autoQuoteSearchterm: false});
+
+  ```
+will crash on server side, since "me + you" is not a valid regex ("me \\+ you" would be correct).
+  > Default  is to automatic quote the searchterm, since most users wont 'speak' regex and just type in a searchterm.
 
 ## Internationalization
 
