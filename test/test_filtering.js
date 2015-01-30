@@ -133,3 +133,115 @@ testAsyncMulti('Filtering - server-side', [function (test, expect) {
 
   Meteor.setTimeout(expectSixRows, 500);
 }]);
+
+testAsyncMulti('Filtering - enableRegex false client side', [function (test, expect) {
+  var rows = [
+    {name: 'item 1', value: '1+2'},
+    {name: 'item 2', value: 'abc'}
+  ];
+    
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows},
+    document.body
+  );
+  test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "item 1", "filtered first row");
+    Blaze.remove(table);
+  });
+
+  $('.reactive-table-filter input').val('+');
+  $('.reactive-table-filter input').trigger('input');
+  Meteor.setTimeout(expectOneRow, 1000);
+}]);
+    
+testAsyncMulti('Filtering - enableRegex true client side', [function (test, expect) {
+  var rows = [
+    {name: 'item 1', value: '1+2'},
+    {name: 'item 2', value: 'abc'}
+  ];
+    
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows, enableRegex: true},
+    document.body
+  );
+  test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+    
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "filtered to both rows");
+    Blaze.remove(table);
+  });
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "item 1", "filtered first row");
+    
+    $('.reactive-table-filter input').val('a|1');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectTwoRows, 1000);
+  });
+
+  $('.reactive-table-filter input').val('\\+');
+  $('.reactive-table-filter input').trigger('input');
+  Meteor.setTimeout(expectOneRow, 1000);
+}]);
+
+testAsyncMulti('Filtering - enableRegex false server side', [function (test, expect) {    
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'filter-regex-disabled', fields: ['name', 'value']},
+    document.body
+  );
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "item 1", "filtered first row");
+    Blaze.remove(table);
+  });
+    
+  var expectInitialRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+      
+    $('.reactive-table-filter input').val('+');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectOneRow, 1000);
+  });
+
+  Meteor.setTimeout(expectInitialRows, 500);
+}]);
+    
+testAsyncMulti('Filtering - enableRegex true server side', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'filter-regex-enabled', fields: ['name', 'value']},
+    document.body
+  );
+    
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "filtered to both rows");
+    Blaze.remove(table);
+  });
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "item 1", "filtered first row");
+    
+    $('.reactive-table-filter input').val('a|1');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectTwoRows, 1000);
+  });
+    
+  var expectInitialRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+      
+    $('.reactive-table-filter input').val('\\+');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectOneRow, 1000);
+  });
+
+  Meteor.setTimeout(expectInitialRows, 500);
+}]);

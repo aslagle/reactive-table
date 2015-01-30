@@ -1,4 +1,4 @@
-var collection = new Meteor.Collection('reactivity-test');
+var collection = new Mongo.Collection('reactivity-test');
 collection.remove({});
 collection.insert({name: 'item 1', value: 1});
 

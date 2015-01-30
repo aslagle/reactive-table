@@ -37,7 +37,7 @@
           {{#each fields}}
             {{#if isVisible}}
               {{#if isSortKey}}
-                <th class="{{getKey}} sortable" index="{{getFieldIndex}}">
+                <th class="{{getKey}} sortable {{getHeaderClass}}" index="{{getFieldIndex}}">
                   {{getLabel}}&nbsp;&nbsp;
                   {{#if isAscending}}
                     {{#if ../useFontAwesome}}
@@ -55,9 +55,9 @@
                 </th>
               {{else}}
                 {{#if isSortable}}
-                  <th class="{{getKey}} sortable" index="{{getFieldIndex}}">{{getLabel}}</th>
+                  <th class="{{getKey}} {{getHeaderClass}} sortable" index="{{getFieldIndex}}">{{getLabel}}</th>
                 {{else}}
-                  <th class="{{getKey}}" index="{{getFieldIndex}}">{{getLabel}}</th>
+                  <th class="{{getKey}} {{getHeaderClass}}" index="{{getFieldIndex}}">{{getLabel}}</th>
                 {{/if}}
               {{/if}}
             {{/if}}
