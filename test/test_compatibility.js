@@ -1,5 +1,5 @@
 testAsyncMulti('Compatibility - collection with dburles:collection-helpers', [function (test, expect) {
-  var collectionWithHelpers = new Meteor.Collection();
+  var collectionWithHelpers = new Mongo.Collection();
   _.each(rows, function (row) {
     collectionWithHelpers.insert(row);
   });
@@ -30,7 +30,7 @@ testAsyncMulti('Compatibility - collection with dburles:collection-helpers', [fu
 }]);
 
 testAsyncMulti('Compatibility - cursor with dburles:collection-helpers', [function (test, expect) {
-  var collectionWithHelpers = new Meteor.Collection();
+  var collectionWithHelpers = new Mongo.Collection();
   _.each(rows, function (row) {
     collectionWithHelpers.insert(row);
   });

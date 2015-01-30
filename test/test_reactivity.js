@@ -1,5 +1,5 @@
 testAsyncMulti('Reactivity - collection', [function (test, expect) {
-  var collection = new Meteor.Collection();
+  var collection = new Mongo.Collection();
   collection.insert({name: 'item 1', value: 1});
   var table = Blaze.renderWithData(
     Template.reactiveTable,
@@ -21,7 +21,7 @@ testAsyncMulti('Reactivity - collection', [function (test, expect) {
 }]);
 
 testAsyncMulti('Reactivity - collection changed by helper', [function (test, expect) {
-  var collection = new Meteor.Collection();
+  var collection = new Mongo.Collection();
   collection.insert({name: 'item 1', value: 1});
   var showCollection = new ReactiveVar(false);
 

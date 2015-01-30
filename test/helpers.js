@@ -18,14 +18,14 @@ rows = [
 ];
 
 if (Meteor.isClient) {
-  collection = new Meteor.Collection();
+  collection = new Mongo.Collection();
   _.each(rows, function (row) {
     collection.insert(row);
   });
 }
 
 if (Meteor.isServer) {
-  collection = new Meteor.Collection('players');
+  collection = new Mongo.Collection('players');
   collection.remove({});
   _.each(rows, function (row) {
     collection.insert(row);

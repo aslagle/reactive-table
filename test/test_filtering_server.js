@@ -1,4 +1,4 @@
-var collection = new Meteor.Collection('filter-regex-test');
+var collection = new Mongo.Collection('filter-regex-test');
 
 collection.remove({});
 
