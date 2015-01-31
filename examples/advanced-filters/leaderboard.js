@@ -37,7 +37,8 @@ if (Meteor.isClient) {
             'greater-than-filter', 
             'compound-check-filter', 
             'compound-score-filter', 
-            'quote-filter'
+            'quote-filter',
+            'autocomplete-filter'
           ]
       };
     },

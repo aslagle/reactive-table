@@ -12,3 +12,4 @@ twbs:bootstrap
 momentjs:moment
 linto:jquery-ui
 jquery
+mizzao:autocomplete
