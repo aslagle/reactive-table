@@ -13,8 +13,10 @@
     <div class="form-group clearfix pull-left">
         {{> reactiveTableFilter id="filter1" label="Name" fields=nameFields }}
         {{> reactiveTableFilter id="filter2" label="Score" fields=scoreFields }}
+        {{> greaterThanFilter }}
         {{> dateFilter }}
         {{> checkboxFilter }}
+        {{> compoundFilter }}
     </div>
     <div class="form-group clearfix">
         {{> reactiveTableFilter id="filter3" label="All" }}
