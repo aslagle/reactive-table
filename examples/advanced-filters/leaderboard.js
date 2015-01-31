@@ -28,7 +28,17 @@ if (Meteor.isClient) {
                 }
             }
           ],
-          filters: ['filter1', 'filter2', 'filter3', 'date-filter', 'checkbox-filter', 'greater-than-filter', 'compound-check-filter', 'compound-score-filter']
+          filters: [
+            'filter1', 
+            'filter2', 
+            'filter3',
+            'date-filter', 
+            'checkbox-filter', 
+            'greater-than-filter', 
+            'compound-check-filter', 
+            'compound-score-filter', 
+            'quote-filter'
+          ]
       };
     },
 
