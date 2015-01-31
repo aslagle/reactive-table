@@ -350,14 +350,14 @@ reactive-table allows you to add multiple filters, anywhere on the page, and lin
 
 To create a filter, use the `reactiveTableFilter` template:
 
-  {{> reactiveTableFilter id="myFilter" label="Filter" }}
+    {{> reactiveTableFilter id="myFilter" label="Filter" }}
   
 Use the id of the filter in the `filters` argument in your reactiveTable settings.
 
-  {
-    fields: [...]
-    filters: ['myFilter']
-  }
+    {
+      fields: [...]
+      filters: ['myFilter']
+    }
   
 `reactiveTableFilter` accepts the following arguments:
 
@@ -369,7 +369,7 @@ Use the id of the filter in the `filters` argument in your reactiveTable setting
 
 For even more customization, you can create your own `ReactiveTable.Filter`:
 
-  var filter = new ReactiveTable.Filter(filterId, fields);
+    var filter = new ReactiveTable.Filter(filterId, fields);
 
 `new ReactiveTable.Filter` accepts these arguments:
 
@@ -380,7 +380,7 @@ Once created, you can use the filter id in the reactiveTable filters, and call `
 
 To clear the filter, set it to an empty string: `filter.set("")`. For convenience, there is also a `ReactiveTable.clearFilters` function that will clear a list of filter ids:
 
-  ReactiveTable.clearFilters(['filter1', 'filter2', 'filter3']);
+    ReactiveTable.clearFilters(['filter1', 'filter2', 'filter3']);
   
 Here's an example of a custom template using `ReactiveTable.Filter`:
 
