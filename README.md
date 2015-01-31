@@ -27,7 +27,6 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
     - [Nested objects and arrays](#nested-objects-and-arrays)
     - [Hidden columns](#hidden-columns)
 - [Using events](#using-events)
-- [Multiple tables](#multiple-tables)
 - [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta)
   - [Server-side Settings](#server-side-settings)
 - [Internationalization](#internationalization)
