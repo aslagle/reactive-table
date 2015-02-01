@@ -70,6 +70,24 @@ Tinytest.add('Fields - label function', function (test) {
   );
 });
 
+Tinytest.add('Fields - label tmpl', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name', label: Template.testFieldsTmpl, labelData: {name: 'foo', score: 10}}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 1, "one column should be rendered");
+      test.length($('.reactive-table th:first-child span.test').text().trim().match(/^foo10/), 1, "first column label");
+    }
+  );
+});
+
+
 Tinytest.add('Fields - header class string', function (test) {
   testTable(
     {
@@ -107,6 +125,7 @@ Tinytest.add('Fields - header class function', function (test) {
     }
   );
 });
+
 
 Tinytest.add('Fields - tmpl', function (test) {
   testTable(

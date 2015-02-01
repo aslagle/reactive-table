@@ -150,9 +150,20 @@ To set labels for the column headers, use an array of field elements, each with 
         { key: 'year', label: 'Year' }
     ] }
 
-The label can be a string or a function:
+The label can be a string or a function or a Blaze Template:
 
-    { key: 'name', label: function () { return new Spacebars.SafeString('<i>Name</i>'); } }
+    { fields: [
+        { key: 'name', label: function () { return new Spacebars.SafeString('<i>Name</i>'); } }
+        { key: 'ageRange', label: Template.ageRangeColumnLabel, labelData: {ageFrom: 18, ageTo: 50}}
+    ] }
+
+where the template is defined as:
+
+    <template name="ageRangeColumnLabel">
+      <span>Age {{ageFrom}} to {{ageTo}}</span>
+    </template>
+    
+The `labelData` element is used to set the data context of the label template.
 
 All columns are sortable by default, but sorting can be disabled by setting `sortable` to false:
 
