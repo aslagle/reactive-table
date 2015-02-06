@@ -11,7 +11,8 @@ if (Meteor.isClient) {
         limit: 5,
         rules: [
           {
-            collection: Players,
+            collection: "Players",
+            subscription: "players-autocomplete",
             field: "name",
             template: Template.namePill,
             callback: function(doc) {
@@ -33,4 +34,16 @@ if (Meteor.isClient) {
         }
      } 
   });
+}
+
+if (Meteor.isServer) {
+  Meteor.publish("players-autocomplete", function (selector, options) {
+    // guard against client-side DOS: hard limit to 50
+    if (options.limit) {
+      options.limit = Math.min(50, Math.abs(options.limit));
+    }
+    
+    Autocomplete.publishCursor(Players.find(selector, options), this);
+    this.ready();
+  })
 }
