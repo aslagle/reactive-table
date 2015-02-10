@@ -371,6 +371,7 @@ We currently have translations (except the 'Columns' button) for:
 - Hebrew (he)
 - Italian (it)
 - Norwegian (no)
+- Polish (pl)
 - Russian (ru)
 - Slovak (sk)
 - Spanish (es)
