@@ -150,6 +150,8 @@ To set labels for the column headers, use an array of field elements, each with 
         { key: 'year', label: 'Year' }
     ] }
 
+Each `key` value must be unique within the `fields` array to ensure column visibility works correctly (otherwise, visibility of all same-key fields will be governed by visibility of the first same-named key in the fields array)
+
 The label can be a string or a function or a Blaze Template:
 
     { fields: [

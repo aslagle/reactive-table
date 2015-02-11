@@ -31,9 +31,9 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
                   <label>
                     {{#if isVisible}}
-                      <input type="checkbox" checked index="{{getFieldIndex}}">
+                      <input type="checkbox" checked key="{{key}}">
                     {{else}}
-                      <input type="checkbox" index="{{getFieldIndex}}">
+                      <input type="checkbox" key="{{key}}">
                     {{/if}}
                     {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}
                   </label>

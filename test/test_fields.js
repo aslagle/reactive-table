@@ -28,6 +28,17 @@ Tinytest.add('Fields - array', function (test) {
   );
 });
 
+Tinytest.add('Fields - non-unique keys', function (test) {
+  testTable(
+    {collection: rows, fields: ['name', 'name']},
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table th:first-child').text().trim().match(/^name/), 1, "first column should be name");
+      test.length($('.reactive-table th:nth-child(2)').text().trim().match(/^name/), 1, "second column should be name also");
+    }
+  );
+});
+
 Tinytest.add('Fields - label string', function (test) {
   testTable(
     {
@@ -319,7 +330,7 @@ Tinytest.add('Fields - hidden', function (test) {
       settings: {
         fields: [
           {key: 'name', label: 'Visible', hidden: false},
-          {key: 'name', label: 'Hidden', hidden: true}
+          {key: 'score', label: 'Hidden', hidden: true}
         ]
       }
     },
@@ -335,7 +346,7 @@ Tinytest.add('Fields - hidden', function (test) {
       collection: rows,
       fields: [
         {key: 'name', label: 'Visible', hidden: function () { return false; }},
-        {key: 'name', label: 'Hidden', hidden: function () { return true; }}
+        {key: 'score', label: 'Hidden', hidden: function () { return true; }}
       ]
     },
     function () {
