@@ -159,7 +159,7 @@ testAsyncMulti('Reactivity - user setting persists when other arguments change',
   showCollection.set(true);
 }]);
 
-testAsyncMulti('Reactivity - adding new visible field', [function (test, expect) {
+testAsyncMulti('Reactivity - adding new visible field with fieldIds', [function (test, expect) {
   var add2ndField = new ReactiveVar(false);
   Template.testReactivity.helpers({
     collection: function () {
@@ -169,14 +169,14 @@ testAsyncMulti('Reactivity - adding new visible field', [function (test, expect)
       if (add2ndField.get()) {
         return {
           fields: [
-            {key: 'name', label: 'name', hidden: false},
-            {key: 'score', label: 'score', hidden: false}
+            {fieldId: 'one', key: 'name', label: 'name', hidden: false},
+            {fieldId: 'two', key: 'score', label: 'score', hidden: false}
           ]
         }
       } else {
         return {
           fields: [
-            {key: 'name', label: 'name', hidden: false}
+            {fieldId: 'one', key: 'name', label: 'name', hidden: false}
           ]
         }
       }
@@ -201,7 +201,7 @@ testAsyncMulti('Reactivity - adding new visible field', [function (test, expect)
   }), 0);
 }]);
 
-testAsyncMulti('Reactivity - adding new hidden field', [function (test, expect) {
+testAsyncMulti('Reactivity - adding new hidden field with fieldIds', [function (test, expect) {
   var add2ndField = new ReactiveVar(false);
   Template.testReactivity.helpers({
     collection: function () {
@@ -211,14 +211,14 @@ testAsyncMulti('Reactivity - adding new hidden field', [function (test, expect) 
       if (add2ndField.get()) {
         return {
           fields: [
-            {key: 'name', label: 'name', hidden: false},
-            {key: 'score', label: 'score', hidden: true}
+            {fieldId: 'one', key: 'name', label: 'name', hidden: false},
+            {fieldId: 'two', key: 'score', label: 'score', hidden: true}
           ]
         }
       } else {
         return {
           fields: [
-            {key: 'name', label: 'name', hidden: false}
+            {fieldId: 'one', key: 'name', label: 'name', hidden: false}
           ]
         }
       }
@@ -243,6 +243,47 @@ testAsyncMulti('Reactivity - adding new hidden field', [function (test, expect) 
   }), 0);
 }]);
 
+testAsyncMulti('Reactivity - adding new visible field without fieldIds', [function (test, expect) {
+  var add2ndField = new ReactiveVar(false);
+  Template.testReactivity.helpers({
+    collection: function () {
+      return collection;
+    },
+    settings: function () {
+      if (add2ndField.get()) {
+        return {
+          fields: [
+            {key: 'score', label: 'score', hidden: false},
+            {key: 'name', label: 'name', hidden: false}
+          ]
+        }
+      } else {
+        return {
+          fields: [
+            {key: 'name', label: 'name', hidden: false}
+          ]
+        }
+      }
+    }
+  });
+
+  var view = Blaze.renderWithData(
+    Template.testReactivity,
+    {},
+    document.body
+  );
+
+  test.length($('.reactive-table th'), 1, "one column should be rendered");
+  test.length($('.reactive-table th:first-child').text().trim().match(/^name/), 1, "first column should be name");
+
+  add2ndField.set(true);
+  Meteor.setTimeout(expect(function () {
+    test.length($('.reactive-table th'), 2, "two columns should be rendered");
+    test.length($('.reactive-table th:first-child').text().trim().match(/^score/), 1, "first column should be score");
+    test.length($('.reactive-table th:nth-child(2)').text().trim().match(/^name/), 1, "second column should be name");
+    Blaze.remove(view);
+  }), 0);
+}]);
 
 testAsyncMulti('Reactivity - server-side collection', [function (test, expect) {
   var table = Blaze.renderWithData(

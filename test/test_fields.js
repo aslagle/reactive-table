@@ -28,13 +28,65 @@ Tinytest.add('Fields - array', function (test) {
   );
 });
 
-Tinytest.add('Fields - non-unique keys', function (test) {
+Tinytest.add('Fields - array with non-unique keys', function (test) {
   testTable(
     {collection: rows, fields: ['name', 'name']},
     function () {
       test.length($('.reactive-table th'), 2, "two columns should be rendered");
       test.length($('.reactive-table th:first-child').text().trim().match(/^name/), 1, "first column should be name");
       test.length($('.reactive-table th:nth-child(2)').text().trim().match(/^name/), 1, "second column should be name also");
+    }
+  );
+});
+
+Tinytest.add('Fields - fieldIds', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {fieldId: 'one', key: 'name', label: 'Name'},
+          {fieldId: 'two', key: 'score', label: 'Score'}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table th:first-child').text().trim().match(/^Name/), 1, "first column should be name");
+      test.length($('.reactive-table th:nth-child(2)').text().trim().match(/^Score/), 1, "second column should be score");
+    }
+  );
+});
+
+Tinytest.add('Fields - erroneous fieldIds', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {fieldId: 'one', key: 'name'},
+          {fieldId: 'one', key: 'score'}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 0, "no columns should be rendered");
+    }
+  );
+
+  // If one field specifies fieldId, all fields must specify a fieldId
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name'},
+          {fieldId: 'two', key: 'score'}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 0, "no columns should be rendered");
     }
   );
 });
