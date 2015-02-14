@@ -28,6 +28,69 @@ Tinytest.add('Fields - array', function (test) {
   );
 });
 
+Tinytest.add('Fields - array with non-unique keys', function (test) {
+  testTable(
+    {collection: rows, fields: ['name', 'name']},
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table th:first-child').text().trim().match(/^name/), 1, "first column should be name");
+      test.length($('.reactive-table th:nth-child(2)').text().trim().match(/^name/), 1, "second column should be name also");
+    }
+  );
+});
+
+Tinytest.add('Fields - fieldIds', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {fieldId: 'one', key: 'name', label: 'Name'},
+          {fieldId: 'two', key: 'score', label: 'Score'}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table th:first-child').text().trim().match(/^Name/), 1, "first column should be name");
+      test.length($('.reactive-table th:nth-child(2)').text().trim().match(/^Score/), 1, "second column should be score");
+    }
+  );
+});
+
+Tinytest.add('Fields - erroneous fieldIds', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {fieldId: 'one', key: 'name'},
+          {fieldId: 'one', key: 'score'}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 0, "no columns should be rendered");
+    }
+  );
+
+  // If one field specifies fieldId, all fields must specify a fieldId
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name'},
+          {fieldId: 'two', key: 'score'}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 0, "no columns should be rendered");
+    }
+  );
+});
+
 Tinytest.add('Fields - label string', function (test) {
   testTable(
     {
@@ -319,7 +382,7 @@ Tinytest.add('Fields - hidden', function (test) {
       settings: {
         fields: [
           {key: 'name', label: 'Visible', hidden: false},
-          {key: 'name', label: 'Hidden', hidden: true}
+          {key: 'score', label: 'Hidden', hidden: true}
         ]
       }
     },
@@ -335,7 +398,7 @@ Tinytest.add('Fields - hidden', function (test) {
       collection: rows,
       fields: [
         {key: 'name', label: 'Visible', hidden: function () { return false; }},
-        {key: 'name', label: 'Hidden', hidden: function () { return true; }}
+        {key: 'score', label: 'Hidden', hidden: function () { return true; }}
       ]
     },
     function () {

@@ -26,6 +26,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
       - [HTML](#html)
     - [Nested objects and arrays](#nested-objects-and-arrays)
     - [Hidden columns](#hidden-columns)
+    - [Dynamic columns](#dynamic-columns)
 - [Using events](#using-events)
 - [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta)
   - [Server-side Settings](#server-side-settings)
@@ -248,6 +249,46 @@ To hide a column, add `hidden` to the field. It can be a boolean or a function.
     { key: 'location', label: 'Location', hidden: function () { return true; } }
 
 If the `showColumnToggles` setting is `true`, hidden columns will be available in a dropdown and can be enabled by the user.
+
+#### Dynamic columns
+
+If you need to be able to add new columns to an existing table (e.g. in a reactive computation), you must explicitly set a unique-valued `fieldId` attribute on each and every field definition:
+
+    { fields: [
+        {
+            fieldId: 'month',
+            key: 'postingDate',
+            label: 'Posting Month',
+            fn: function (value) { return value.month; }
+        },
+        {
+            fieldId: 'year',
+            key: 'postingDate',
+            label: 'Posting Year',
+            fn: function (value) { return value.year; }
+        }
+    ] }
+
+Having unique `fieldId` values ensures that default column visibility, visibility toggling and currently sorted column work correctly when adding new columns:
+
+```javascript
+  tmpl.autorun(function() {
+    if (Session.equals('showPostingDay', true)) {
+      tmpl.fields.set(tmpl.fields.get().unshift({
+        fieldId: 'day',
+        key: 'postingDate',
+        label: 'Posting Day',
+        fn: function (value) { return value.day; }
+      }));
+    }
+  });
+```
+
+where `tmpl.fields` could be a template instance reactive variable used in a helper to provide a reactive table's settings.
+
+Reactive Table will print an error to the console if at least one field has a 'fieldId' attribute and:
+1. One or more other fields do NOT have a `fieldId` attribute, or
+2. There are duplicate (or null) `fieldId` values.
 
 ## Using events
 
