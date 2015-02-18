@@ -323,3 +323,34 @@ testAsyncMulti('Reactivity - server-side collection', [function (test, expect) {
   Meteor.setTimeout(expectInitialRow, 500);
 }]);
 
+testAsyncMulti('Reactivity - server-side collection access', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'reactivity-test-access', fields: ['name', 'value']},
+    document.body
+  );
+  
+  var expectDataHidden = expect(function () {
+    test.length($('.reactive-table tbody tr'), 0, "table should remove row");
+    Blaze.remove(table);
+  });
+
+  var expectData = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "table should show one row");
+    Meteor.logout(function () {
+      Meteor.setTimeout(expectDataHidden, 500);
+    });
+  });
+
+  var expectNoData = expect(function () {
+    test.length($('.reactive-table tbody tr'), 0, "table should initially have no rows");
+    Meteor.loginWithPassword('abcd', 'abcd1234', function () {
+      Meteor.setTimeout(expectData, 500);
+    });
+  });
+
+  Meteor.logout(function () {
+    Meteor.setTimeout(expectNoData, 500);
+  });
+}]);
+
