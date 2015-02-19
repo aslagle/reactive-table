@@ -50,7 +50,7 @@
           {{#each fields}}
             {{#if isVisible}}
               {{#if isSortKey}}
-                <th class="{{getKey}} sortable {{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
+                <th class="sortable {{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
                   {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
                   {{#if isAscending}}
                     {{#if ../useFontAwesome}}
@@ -68,9 +68,9 @@
                 </th>
               {{else}}
                 {{#if isSortable}}
-                  <th class="{{getKey}} {{getHeaderClass}} sortable" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
+                  <th class="{{getHeaderClass}} sortable" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                 {{else}}
-                  <th class="{{getKey}} {{getHeaderClass}}" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
+                  <th class="{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                 {{/if}}
               {{/if}}
             {{/if}}
@@ -82,7 +82,7 @@
           <tr class="{{../rowClass this}}">
             {{#each ../fields}}
               {{#if isVisible}}
-                <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+                <td class="{{getCellClass ..}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
               {{/if}}
             {{/each}}
           </tr>

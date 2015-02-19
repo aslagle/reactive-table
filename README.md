@@ -21,6 +21,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
       - [Column Header CSS class](#column-header-css-class) 
+    - [Cell CSS class](#cell-css-class)
     - [Templates](#templates)
     - [Virtual columns](#virtual-columns)
       - [HTML](#html)
@@ -179,6 +180,21 @@ To set the css class for table header **&lt;th&gt;**, use the optional *headerCl
       { key: 'name', label: 'Name' , headerClass: 'col-md-4'},  // as String
       { key: 'location', label: 'Location',
         headerClass: function () {
+         var css = 'col-md2';
+         '/*do some logic here */
+         return css;}  // as Function
+      },
+      { key: 'year', label: 'Year' }
+    ] }
+    
+#### Cell CSS Class
+
+To set the css class for the table cells in a column, add the *cellClass* key to the field settings. This attribute can be a String or a Function. The function arguments will be the value for this key, and the full row object.
+
+    { fields: [
+      { key: 'name', label: 'Name' , cellClass: 'col-md-4'},  // as String
+      { key: 'location', label: 'Location',
+        cellClass: function (value, object) {
          var css = 'col-md2';
          '/*do some logic here */
          return css;}  // as Function

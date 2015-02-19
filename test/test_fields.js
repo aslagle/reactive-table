@@ -189,6 +189,44 @@ Tinytest.add('Fields - header class function', function (test) {
   );
 });
 
+Tinytest.add('Fields - cell class string', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name', label: 'Name', cellClass: 'name-class'},
+          {key: 'score', label: 'Score', cellClass: 'score-class' }
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table td.name-class'), 6, "first column class");
+      test.length($('.reactive-table td.score-class'), 6, "second column class");
+    }
+  );
+});
+
+Tinytest.add('Fields - cell class function', function (test) {
+  testTable(
+    {
+      collection: [{name: 'test', score: 5}],
+      settings: {
+        fields: [
+          {key: 'name', label: 'Name', cellClass: function (value, object) { return value + object.score; }},
+          {key: 'score', label: 'Score', cellClass: function () { return 'score-class'; }}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 2, "two columns should be rendered");
+      test.length($('.reactive-table td.test5'), 1, "first column class");
+      test.length($('.reactive-table td.score-class'), 1, "second column class");
+    }
+  );
+});
+
 
 Tinytest.add('Fields - tmpl', function (test) {
   testTable(
