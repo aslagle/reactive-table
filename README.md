@@ -382,10 +382,12 @@ Other table settings should work normally, except that all fields will be sorted
 ### Server-side Settings
 
 The following options are available in the settings argument to ReactiveTable.publish:
+- fields ([Mongo Field Specifier](http://docs.meteor.com/#/full/fieldspecifiers))
+  A set of fields to exclude or include from results and filtering, e.g. ```{fields: {name: 1, email: 1}}``` or ```{fields: {password: 0}}```
 - enableRegex (Boolean - *default=* **false**):
   Whether to use filter text as a regular expression instead of a regular search term. When true, users will be able to enter regular expressions to filter the table, but your application may be vulnerable to a [ReDoS](http://en.wikipedia.org/wiki/ReDoS) attack. Also, when true, users won't be able to use special characters in filter text without escaping them.
 
-Examples:
+Regex Examples:
 A user filters with "me + you"
 ```JavaScript
     ReactiveTable.publish(

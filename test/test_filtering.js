@@ -245,3 +245,58 @@ testAsyncMulti('Filtering - enableRegex true server side', [function (test, expe
 
   Meteor.setTimeout(expectInitialRows, 500);
 }]);
+
+testAsyncMulti('Filtering - server-side field inclusion', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'filter-inclusion', fields: ['name', 'value']},
+    document.body
+  );
+
+  var expectNoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 0, "no rows should match");
+    Blaze.remove(table);
+  });
+    
+  var expectTwoRowsNoValues = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "item 1", "first column content");
+    test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "", "second column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "item 2", "first column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:nth-child(2)').text(), "", "second column content");
+      
+    $('.reactive-table-filter input').val('abc');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectNoRows, 1000);
+  });
+
+  Meteor.setTimeout(expectTwoRowsNoValues, 500);
+}]);
+
+testAsyncMulti('Filtering - server-side field exclusion', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'filter-exclusion', fields: ['name', 'value']},
+    document.body
+  );
+
+  var expectNoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 0, "no rows should match");
+    Blaze.remove(table);
+  });
+    
+  var expectTwoRowsNoValues = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "item 1", "first column content");
+    test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "", "second column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "item 2", "first column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:nth-child(2)').text(), "", "second column content");
+      
+    $('.reactive-table-filter input').val('abc');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectNoRows, 1000);
+  });
+
+  Meteor.setTimeout(expectTwoRowsNoValues, 500);
+}]);
+
