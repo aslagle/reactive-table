@@ -80,8 +80,8 @@
       <tbody>
         {{#each sortedRows}}
           <tr class="{{../rowClass this}}">
-            {{#if customRow this}}
-              {{> customRow this}}
+            {{#if ../customRow this}}
+              {{> ../customRow this}}
             {{else}}
               {{#each ../fields}}
                 {{#if isVisible}}
