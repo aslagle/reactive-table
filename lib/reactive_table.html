@@ -81,7 +81,7 @@
         {{#each sortedRows}}
           <tr class="{{../rowClass this}}">
             {{#if ../customRow this}}
-              {{> ../customRow}}
+              {{> ../customRow this}}
             {{else}}
               {{#each ../fields}}
                 {{#if isVisible}}

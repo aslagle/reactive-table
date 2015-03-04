@@ -20,7 +20,7 @@ htmljs@1.0.3
 id-map@1.0.2
 jquery@1.11.3
 json@1.0.2
-local-test:zibx:reactive-table@0.6.16
+local-test:zibx:reactive-table@0.6.17
 localstorage@1.0.2
 logging@1.0.6
 meteor@1.1.4
@@ -43,4 +43,4 @@ tinytest@1.0.4
 tracker@1.0.5
 ui@1.0.5
 underscore@1.0.2
-zibx:reactive-table@0.6.16
+zibx:reactive-table@0.6.17
