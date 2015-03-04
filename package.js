@@ -1,8 +1,8 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.6.14",
-  name: "aslagle:reactive-table",
-  git: "https://github.com/aslagle/reactive-table.git"
+  version: "0.6.18",
+  name: "zibx:reactive-table",
+  git: "https://github.com/Zibx/reactive-table.git"
 });
 
 Package.on_use(function (api) {

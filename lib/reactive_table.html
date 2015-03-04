@@ -80,11 +80,15 @@
       <tbody>
         {{#each sortedRows}}
           <tr class="{{../rowClass this}}">
-            {{#each ../fields}}
-              {{#if isVisible}}
-                <td class="{{getCellClass ..}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
-              {{/if}}
-            {{/each}}
+            {{#if ../customRow this}}
+              {{> ../customRowTpl}}
+            {{else}}
+              {{#each ../fields}}
+                {{#if isVisible}}
+                  <td class="{{getCellClass ..}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+                {{/if}}
+              {{/each}}
+            {{/if}}
           </tr>
         {{/each}}
       </tbody>
