@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.6.16",
+  version: "0.6.17",
   name: "zibx:reactive-table",
   git: "https://github.com/Zibx/reactive-table.git"
 });
