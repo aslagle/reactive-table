@@ -28,16 +28,18 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="reactive-table-add-column-{{id}}">
               {{#each fields}}
-                <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
-                  <label>
-                    {{#if isVisible}}
-                      <input type="checkbox" checked data-fieldid="{{fieldId}}">
-                    {{else}}
-                      <input type="checkbox" data-fieldid="{{fieldId}}">
-                    {{/if}}
-                    {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}
-                  </label>
-                </a></li>
+                {{#unless hideToggle}}
+                  <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
+                    <label>
+                      {{#if isVisible}}
+                        <input type="checkbox" checked data-fieldid="{{fieldId}}">
+                      {{else}}
+                        <input type="checkbox" data-fieldid="{{fieldId}}">
+                      {{/if}}
+                      {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}
+                    </label>
+                  </a></li>
+                {{/unless}}
               {{/each}}
             </ul>
           </div>

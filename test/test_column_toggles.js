@@ -276,3 +276,24 @@ testAsyncMulti('Column Toggles - toggling after adding new columns without field
   $('.reactive-table-columns-dropdown input[data-fieldid="1"]').click();
   Meteor.setTimeout(expectOneColumnOnly, 0);
 }]);
+
+Tinytest.add('Column Toggles - hideToggle option', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        showColumnToggles: true,
+        fields: [
+          {key: 'name', hideToggle: false},
+          {key: 'score', hideToggle: true}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table-columns-dropdown'), 1, "column toggle button should be visible");
+      test.length($('.reactive-table th'), 2, "two columns should be displayed");
+      test.length($('.reactive-table-columns-dropdown input'), 1, "one checkbox should be available");
+      test.length($('.reactive-table-columns-dropdown input:checked'), 1, "one box should be checked");
+    }
+  );
+});
