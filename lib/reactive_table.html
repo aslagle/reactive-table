@@ -15,16 +15,18 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="reactive-table-add-column-{{id}}">
               {{#each fields}}
-                <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
-                  <label>
-                    {{#if isVisible}}
-                      <input type="checkbox" checked index="{{getFieldIndex}}">
-                    {{else}}
-                      <input type="checkbox" index="{{getFieldIndex}}">
-                    {{/if}}
-                    {{getLabel}}
-                  </label>
-                </a></li>
+                {{#unless hideToggle}}
+                  <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
+                    <label>
+                      {{#if isVisible}}
+                        <input type="checkbox" checked data-fieldid="{{fieldId}}">
+                      {{else}}
+                        <input type="checkbox" data-fieldid="{{fieldId}}">
+                      {{/if}}
+                      {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}
+                    </label>
+                  </a></li>
+                {{/unless}}
               {{/each}}
             </ul>
           </div>
@@ -37,27 +39,27 @@
           {{#each fields}}
             {{#if isVisible}}
               {{#if isSortKey}}
-                <th class="{{getKey}} sortable {{getHeaderClass}}" index="{{getFieldIndex}}">
-                  {{getLabel}}&nbsp;&nbsp;
+                <th class="sortable {{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
+                  {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
                   {{#if isAscending}}
                     {{#if ../useFontAwesome}}
                       <i class="fa fa-sort-asc"></i>
                     {{else}}
-                      &#x25BC;
+                      &#x25B2;
                     {{/if}}
                   {{else}}
                     {{#if ../useFontAwesome}}
                       <i class="fa fa-sort-desc"></i>
                     {{else}}
-                      &#x25B2;
+                      &#x25BC;
                     {{/if}}
                   {{/if}}
                 </th>
               {{else}}
                 {{#if isSortable}}
-                  <th class="{{getKey}} {{getHeaderClass}} sortable" index="{{getFieldIndex}}">{{getLabel}}</th>
+                  <th class="{{getHeaderClass}} sortable" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                 {{else}}
-                  <th class="{{getKey}} {{getHeaderClass}}" index="{{getFieldIndex}}">{{getLabel}}</th>
+                  <th class="{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                 {{/if}}
               {{/if}}
             {{/if}}
@@ -69,7 +71,7 @@
           <tr class="{{../rowClass this}}">
             {{#each ../fields}}
               {{#if isVisible}}
-                <td class="{{key}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+                <td class="{{getCellClass ..}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
               {{/if}}
             {{/each}}
           </tr>

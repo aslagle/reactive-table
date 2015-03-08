@@ -21,11 +21,13 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
       - [Column Header CSS class](#column-header-css-class) 
+    - [Cell CSS class](#cell-css-class)
     - [Templates](#templates)
     - [Virtual columns](#virtual-columns)
       - [HTML](#html)
     - [Nested objects and arrays](#nested-objects-and-arrays)
     - [Hidden columns](#hidden-columns)
+    - [Dynamic columns](#dynamic-columns)
 - [Using events](#using-events)
 - [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta)
   - [Server-side Settings](#server-side-settings)
@@ -70,7 +72,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
-* `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Default `false`.
+* `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Add `hideToggle` to a field to exclude it from the toggle list. Default `false`.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `true` if `fortawesome:fontawesome` is installed, else `false`.
 * `enableRegex`: Boolean. Whether to use filter text as a regular expression instead of a regular search term. When true, users won't be able to filter by special characters without escaping them. Default `false`. (Note: Setting this option on the client won't affect server-side filtering - see [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta))
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover col-sm-12'.
@@ -154,9 +156,20 @@ To set labels for the column headers, use an array of field elements, each with 
         { key: 'year', label: 'Year' }
     ] }
 
-The label can be a string or a function:
+The label can be a string or a function or a Blaze Template:
 
-    { key: 'name', label: function () { return new Spacebars.SafeString('<i>Name</i>'); } }
+    { fields: [
+        { key: 'name', label: function () { return new Spacebars.SafeString('<i>Name</i>'); } }
+        { key: 'ageRange', label: Template.ageRangeColumnLabel, labelData: {ageFrom: 18, ageTo: 50}}
+    ] }
+
+where the template is defined as:
+
+    <template name="ageRangeColumnLabel">
+      <span>Age {{ageFrom}} to {{ageTo}}</span>
+    </template>
+    
+The `labelData` element is used to set the data context of the label template.
 
 All columns are sortable by default, but sorting can be disabled by setting `sortable` to false:
 
@@ -171,6 +184,21 @@ To set the css class for table header **&lt;th&gt;**, use the optional *headerCl
       { key: 'name', label: 'Name' , headerClass: 'col-md-4'},  // as String
       { key: 'location', label: 'Location',
         headerClass: function () {
+         var css = 'col-md2';
+         '/*do some logic here */
+         return css;}  // as Function
+      },
+      { key: 'year', label: 'Year' }
+    ] }
+    
+#### Cell CSS Class
+
+To set the css class for the table cells in a column, add the *cellClass* key to the field settings. This attribute can be a String or a Function. The function arguments will be the value for this key, and the full row object.
+
+    { fields: [
+      { key: 'name', label: 'Name' , cellClass: 'col-md-4'},  // as String
+      { key: 'location', label: 'Location',
+        cellClass: function (value, object) {
          var css = 'col-md2';
          '/*do some logic here */
          return css;}  // as Function
@@ -241,6 +269,46 @@ To hide a column, add `hidden` to the field. It can be a boolean or a function.
     { key: 'location', label: 'Location', hidden: function () { return true; } }
 
 If the `showColumnToggles` setting is `true`, hidden columns will be available in a dropdown and can be enabled by the user.
+
+#### Dynamic columns
+
+If you need to be able to add new columns to an existing table (e.g. in a reactive computation), you must explicitly set a unique-valued `fieldId` attribute on each and every field definition:
+
+    { fields: [
+        {
+            fieldId: 'month',
+            key: 'postingDate',
+            label: 'Posting Month',
+            fn: function (value) { return value.month; }
+        },
+        {
+            fieldId: 'year',
+            key: 'postingDate',
+            label: 'Posting Year',
+            fn: function (value) { return value.year; }
+        }
+    ] }
+
+Having unique `fieldId` values ensures that default column visibility, visibility toggling and currently sorted column work correctly when adding new columns:
+
+```javascript
+  tmpl.autorun(function() {
+    if (Session.equals('showPostingDay', true)) {
+      tmpl.fields.set(tmpl.fields.get().unshift({
+        fieldId: 'day',
+        key: 'postingDate',
+        label: 'Posting Day',
+        fn: function (value) { return value.day; }
+      }));
+    }
+  });
+```
+
+where `tmpl.fields` could be a template instance reactive variable used in a helper to provide a reactive table's settings.
+
+Reactive Table will print an error to the console if at least one field has a 'fieldId' attribute and:
+1. One or more other fields do NOT have a `fieldId` attribute, or
+2. There are duplicate (or null) `fieldId` values.
 
 ## Using events
 
@@ -318,10 +386,12 @@ Other table settings should work normally, except that all fields will be sorted
 ### Server-side Settings
 
 The following options are available in the settings argument to ReactiveTable.publish:
+- fields ([Mongo Field Specifier](http://docs.meteor.com/#/full/fieldspecifiers))
+  A set of fields to exclude or include from results and filtering, e.g. ```{fields: {name: 1, email: 1}}``` or ```{fields: {password: 0}}```
 - enableRegex (Boolean - *default=* **false**):
   Whether to use filter text as a regular expression instead of a regular search term. When true, users will be able to enter regular expressions to filter the table, but your application may be vulnerable to a [ReDoS](http://en.wikipedia.org/wiki/ReDoS) attack. Also, when true, users won't be able to use special characters in filter text without escaping them.
 
-Examples:
+Regex Examples:
 A user filters with "me + you"
 ```JavaScript
     ReactiveTable.publish(
@@ -435,6 +505,7 @@ We currently have translations (except the 'Columns' button) for:
 - Hebrew (he)
 - Italian (it)
 - Norwegian (no)
+- Polish (pl)
 - Russian (ru)
 - Slovak (sk)
 - Spanish (es)
