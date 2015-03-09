@@ -10,7 +10,7 @@ if (Meteor.isClient) {
     Template.dateFilter.events({
        "change .date-selector": function (event, template) {
            if ($(event.target).val()) {
-             var date = moment($(event.target).val());
+             var date = moment($(event.target).val(),"MM/DD/YYYY");
              template.filter.set(date.format("YYYY-MM-DD"));
            } else {
              template.filter.set("");
