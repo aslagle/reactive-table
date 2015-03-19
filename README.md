@@ -432,6 +432,7 @@ Use the id of the filter in the `filters` argument in your reactiveTable setting
 `reactiveTableFilter` accepts the following arguments:
 
 * `id`: String. A unique id for the filter, used to link the filter to tables. Also used as the HTML id attribute.
+* `class`: String. HTML class attribute to apply to the element containing the filter. Default: `input-group`.
 * `label`: String. Label to display with the filter box.
 * `fields`: Array. Optional array of field keys that this filter should apply to, eg `["firstName", "lastName"]`. Default: `[]`, which will use all fields in the table.
 

@@ -27,6 +27,16 @@ Tinytest.add('Custom Filters - reactiveTableFilter template label', function (te
   Blaze.remove(filter);
 });
 
+Tinytest.add('Custom Filters - reactiveTableFilter class', function (test) {
+  var filter = Blaze.renderWithData(
+    Template.reactiveTableFilter,
+    {id: 'test-id', class: 'test-class'},
+    document.body
+  );
+  test.length($('#test-id.test-class .input-group-addon'), 1, "class should be test-class");
+  Blaze.remove(filter);
+});
+
 testAsyncMulti('Custom Filters - reactiveTableFilter no fields', [function (test, expect) {
   var filter = Blaze.renderWithData(
     Template.reactiveTableFilter,
