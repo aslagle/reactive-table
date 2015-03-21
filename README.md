@@ -498,6 +498,7 @@ To set your language to French:
 We currently have translations (except the 'Columns' button) for:
 
 - Brazilian Portuguese (pt-br)
+- Croatian (hr)
 - Czech (cs)
 - Dutch (nl)
 - Finnish (fi)
