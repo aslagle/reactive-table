@@ -118,3 +118,25 @@ testAsyncMulti('Multiple tables - pagination', [function (test, expect) {
   $($('.reactive-table-navigation .next-page')[1]).click();
   Meteor.setTimeout(expectSecondTablePageTwo, 0);
 }]);
+
+testAsyncMulti('Multiple tables - server-side collection', [function (test, expect) {
+  var table1 = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'collection', fields: ['name', 'score']},
+    document.body
+  );
+  
+  var table2 = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'collection', fields: ['name', 'score']},
+    document.body
+  );
+
+  var expectSixRowsEach = expect(function () {
+    test.length($('.reactive-table tbody tr'), 12, " 2 rendered tables should have 6 rows each");
+    Blaze.remove(table1);
+    Blaze.remove(table2);
+  });
+
+  Meteor.setTimeout(expectSixRowsEach, 500);
+}]);
