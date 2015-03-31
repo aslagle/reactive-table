@@ -6,13 +6,14 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-    api.versionsFrom("METEOR@0.9.0");
+    api.versionsFrom("METEOR@1.0");
     api.use('templating', 'client');
     api.use('jquery', 'client');
     api.use('underscore', 'client');
     api.use('reactive-var@1.0.3', 'client');
     api.use("anti:i18n@0.4.3", 'client');
     api.use("mongo@1.0.8", ["server", "client"]);
+    api.use("reywood:publish-composite", ["server", "client"]);
 
     api.use("fortawesome:fontawesome@4.2.0", 'client', {weak: true});
 
