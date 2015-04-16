@@ -261,3 +261,78 @@ Tinytest.add('Settings - id', function (test) {
     }
   );
 });
+
+testAsyncMulti('Settings - current page var updates table', [function (test, expect) {
+  var page = new ReactiveVar(0);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows, settings: {rowsPerPage: 2, currentPage: page}},
+    document.body
+  );
+
+  var expectFirstPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "should be on first page");
+    test.length($('.reactive-table tbody tr'), 2, "first page should have two rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "1", "displayed page number should be 1");
+
+    Blaze.remove(table);
+  });
+
+  var expectSecondPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Claude Shannon", "should be on the second page");
+    test.length($('.reactive-table tbody tr'), 2, "second page should have two rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "2", "displayed page number should be 2");
+
+    page.set(0);
+    Meteor.setTimeout(expectFirstPage, 0);
+  });
+
+  var expectLastPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Marie Curie", "should be on last page");
+    test.length($('.reactive-table tbody tr'), 2, "last page should have two rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "3", "displayed page number should be 3");
+
+    page.set(1);
+    Meteor.setTimeout(expectSecondPage, 0);
+  });
+
+  page.set(2);
+  Meteor.setTimeout(expectLastPage, 0);
+}]);
+
+testAsyncMulti('Settings - current page var updated from table changes', [function (test, expect) {
+  var page = new ReactiveVar(0);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows, settings: {rowsPerPage: 2, currentPage: page}},
+    document.body
+  );
+
+  var expectFirstPage = expect(function () {
+    test.equal(page.get(), 0, "should be on first page");
+
+    Blaze.remove(table);
+  });
+
+  var expectSecondPage = expect(function () {
+    test.equal(page.get(), 1, "should be on second page");
+
+    $('.reactive-table-navigation .page-number input').val("1");
+    $('.reactive-table-navigation .page-number input').trigger("change");
+    Meteor.setTimeout(expectFirstPage, 0);
+  });
+
+  var expectLastPage = expect(function () {
+    test.equal(page.get(), 2, "should be on last page");
+
+    $('.reactive-table-navigation .page-number input').val('2');
+    $('.reactive-table-navigation .page-number input').trigger("change");
+    Meteor.setTimeout(expectSecondPage, 0);
+  });
+
+  $('.reactive-table-navigation .page-number input').val("3");
+  $('.reactive-table-navigation .page-number input').trigger("change");
+  Meteor.setTimeout(expectLastPage, 0);
+}]);
