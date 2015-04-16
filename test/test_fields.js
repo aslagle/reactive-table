@@ -472,3 +472,84 @@ Tinytest.add('Fields - field named fields', function (test) {
     }
   );
 });
+
+testAsyncMulti('Fields - isVisible var updates table', [function (test, expect) {
+  var nameVisible = new ReactiveVar(true);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {fieldId: 'one', key: 'name', label: 'Name', isVisible: nameVisible},
+          {fieldId: 'two', key: 'score', label: 'Score'}
+        ]
+      }
+    },
+    document.body
+  );
+
+  var expectNameVisibleAgain = expect(function () {
+    test.length($('.reactive-table th'), 2, "two columns should be rendered");
+
+    Blaze.remove(table);
+  });
+
+  var expectNameHidden = expect(function () {
+    test.length($('.reactive-table th'), 1, "one column should be rendered");
+
+    nameVisible.set(true);
+    Meteor.setTimeout(expectNameVisibleAgain, 0);
+  });
+
+  var expectNameVisible = expect(function () {
+    test.length($('.reactive-table th'), 2, "two columns should be rendered");
+
+    nameVisible.set(false);
+    Meteor.setTimeout(expectNameHidden, 0);
+  });
+
+  Meteor.setTimeout(expectNameVisible, 0);
+}]);
+
+testAsyncMulti('Fields - isVisible var updates from table change', [function (test, expect) {
+  var nameVisible = new ReactiveVar(true);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {fieldId: 'one', key: 'name', label: 'Name', isVisible: nameVisible},
+          {fieldId: 'two', key: 'score', label: 'Score'}
+        ],
+        showColumnToggles: true
+      }
+    },
+    document.body
+  );
+
+  var expectNameVisibleAgain = expect(function () {
+    test.equal(nameVisible.get(), true, "name should be visible");
+
+    Blaze.remove(table);
+  });
+
+  var expectNameHidden = expect(function () {
+    test.equal(nameVisible.get(), false, "name should not be visible");
+
+    $('.reactive-table-columns-dropdown input[data-fieldid="one"]').click();
+    Meteor.setTimeout(expectNameVisibleAgain, 0);
+  });
+
+  var expectNameVisible = expect(function () {
+    test.equal(nameVisible.get(), true, "name should be visible");
+
+    $('.reactive-table-columns-dropdown input[data-fieldid="one"]').click();
+    Meteor.setTimeout(expectNameHidden, 0);
+  });
+
+  Meteor.setTimeout(expectNameVisible, 0);
+}]);
