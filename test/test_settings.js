@@ -262,7 +262,7 @@ Tinytest.add('Settings - id', function (test) {
   );
 });
 
-testAsyncMulti('Settings - current page var updates table', [function (test, expect) {
+testAsyncMulti('Settings - currentPage var updates table', [function (test, expect) {
   var page = new ReactiveVar(0);
 
   var table = Blaze.renderWithData(
@@ -301,7 +301,7 @@ testAsyncMulti('Settings - current page var updates table', [function (test, exp
   Meteor.setTimeout(expectLastPage, 0);
 }]);
 
-testAsyncMulti('Settings - current page var updated from table changes', [function (test, expect) {
+testAsyncMulti('Settings - currentPage var updated from table changes', [function (test, expect) {
   var page = new ReactiveVar(0);
 
   var table = Blaze.renderWithData(
@@ -335,4 +335,49 @@ testAsyncMulti('Settings - current page var updated from table changes', [functi
   $('.reactive-table-navigation .page-number input').val("3");
   $('.reactive-table-navigation .page-number input').trigger("change");
   Meteor.setTimeout(expectLastPage, 0);
+}]);
+
+testAsyncMulti('Settings - rowsPerPage var updates table', [function (test, expect) {
+  var rowsPerPage = new ReactiveVar(5);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows, settings: {rowsPerPage: rowsPerPage}},
+    document.body
+  );
+
+  var expectThreeRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 3, "three rows should be rendered");
+
+    Blaze.remove(table);
+  });
+
+  var expectFiveRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 5, "five rows should be rendered");
+
+    rowsPerPage.set(3);
+    Meteor.setTimeout(expectThreeRows, 0);
+  });
+
+  Meteor.setTimeout(expectFiveRows, 0);
+}]);
+
+testAsyncMulti('Settings - rowsPerPage var updated from table changes', [function (test, expect) {
+  var rowsPerPage = new ReactiveVar(5);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows, settings: {rowsPerPage: rowsPerPage}},
+    document.body
+  );
+
+  var expectThreeRows = expect(function () {
+    test.equal(rowsPerPage.get(), 3, "three rows should be rendered");
+
+    Blaze.remove(table);
+  });
+
+  $('.reactive-table-navigation .rows-per-page input').val(3);
+  $('.reactive-table-navigation .rows-per-page input').trigger('change');
+  Meteor.setTimeout(expectThreeRows, 0);
 }]);
