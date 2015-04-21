@@ -29,6 +29,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
     - [Hidden columns](#hidden-columns)
     - [Dynamic columns](#dynamic-columns)
 - [Using events](#using-events)
+- [Accessing and controlling table state](#accessing-and-controlling-table-state)
 - [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta)
   - [Server-side Settings](#server-side-settings)
 - [Custom Filters](#custom-filters)
@@ -68,7 +69,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 
 * `showFilter`: Boolean. Whether to display the filter box above the table. Default `true`, unless using [custom filters](#custom-filters).
 * `filters`: Array. An array of [custom filter](#custom-filters) ids to use with this table. Default `[]`.
-* `rowsPerPage`: Number.  The desired number of rows per page. Defaults to 10.
+* `rowsPerPage`: Number.  The desired number of rows per page. May also be a [ReactiveVar](http://docs.meteor.com/#/full/reactivevar), see [accessing and controlling table state](#accessing-and-controlling-table-state). Defaults to 10.
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
@@ -335,6 +336,32 @@ Template.posts.events({
     if (e.target.className == "delete") {
       Posts.remove(post._id)
     }
+  }
+});
+```
+
+## Accessing and controlling table state
+
+The table's pagination and column visibility can be controlled by [ReactiveVars](http://docs.meteor.com/#/full/reactivevar). When the value changes, the table will automatically update, and when the user changes the state of the table, the value of the variable will be changed.
+
+These main table settings can be ReactiveVars:
+* currentPage (will contain the 0-indexed page the table is displaying)
+* rowsPerPage
+
+In addition, columns can contain an isVisible ReactiveVar, which will contain a boolean that determines whether the column is displayed.
+
+For example, to save the user's current page to the Session and restore it from the Session:
+```
+Template.myTable.onCreated(function () {
+  this.currentPage = new ReactiveVar(Session.get('current-page') || 0);
+  this.autorun(function () {
+    Session.set('current-page', this.currentPage.get());
+  });
+});
+
+Template.myTable.helpers({
+  tableSettings: function () {
+    return {currentPage: Template.instance().currentPage};
   }
 });
 ```
