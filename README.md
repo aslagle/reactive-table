@@ -350,16 +350,17 @@ These main table settings can be ReactiveVars:
 
 In addition, columns can contain an isVisible ReactiveVar, which will contain a boolean that determines whether the column is displayed.
 
-For example, to save the user's current page to the Session and restore it from the Session:
+For example, to save the user's current page to the Session and restore it from the Session, set up a ReactiveVar in the template containing your reactiveTable:
 ```
-Template.myTable.onCreated(function () {
-  this.currentPage = new ReactiveVar(Session.get('current-page') || 0);
+Template.myTemplate.onCreated(function () {
+  var currentPage = new ReactiveVar(Session.get('current-page') || 0);
+  this.currentPage = currentPage;
   this.autorun(function () {
-    Session.set('current-page', this.currentPage.get());
+    Session.set('current-page', currentPage.get());
   });
 });
 
-Template.myTable.helpers({
+Template.myTemplate.helpers({
   tableSettings: function () {
     return {currentPage: Template.instance().currentPage};
   }
