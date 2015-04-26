@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.7.3",
+  version: "0.7.4",
   name: "aslagle:reactive-table",
   git: "https://github.com/aslagle/reactive-table.git"
 });
@@ -48,6 +48,7 @@ Package.on_test(function (api) {
     api.use(['tinytest', 'test-helpers'], 'client');
     api.add_files('test/helpers.js', ['client', 'server']);
     api.add_files('test/test_collection_argument.js', 'client');
+    api.add_files('test/test_no_data_template.html', 'client');
     api.add_files('test/test_settings.js', 'client');
     api.add_files('test/test_fields_tmpl.html', 'client');
     api.add_files('test/test_fields.js', 'client');

@@ -262,6 +262,47 @@ Tinytest.add('Settings - id', function (test) {
   );
 });
 
+testAsyncMulti('Settings - noDataTmpl', [function (test, expect) {
+  var collection = new Mongo.Collection();
+  var id;
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: collection, noDataTmpl: Template.noData, fields: ['name', 'score']},
+    document.body
+  );
+
+  var expectNoData = expect(function () {
+    test.length($('.no-data'), 1, "no data template should be rendered");
+    test.length($('.reactive-table'), 0, "table should not be rendered");
+
+    Blaze.remove(table);
+  });
+
+  var expectFilteredToNoData = expect(function () {
+    test.length($('.no-data'), 1, "no data template should be rendered");
+    test.length($('.reactive-table'), 0, "table should not be rendered");
+
+    collection.remove(id);
+    Meteor.setTimeout(expectNoData, 0);    
+  })
+
+  var expectTable = expect(function () {
+    test.length($('.no-data'), 0, "no data template should not be rendered");
+    test.length($('.reactive-table tbody tr'), 1, "second page should have one rows");
+
+    $('.reactive-table-filter input').val('g');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectFilteredToNoData, 1000);
+  });
+
+  test.length($('.no-data'), 1, "no data template should be rendered");
+  test.length($('.reactive-table'), 0, "table should not be rendered");
+
+  id = collection.insert({name: 'Ada Lovelace', score: 5});
+  Meteor.setTimeout(expectTable, 0);
+}]);
+
 testAsyncMulti('Settings - currentPage var updates table', [function (test, expect) {
   var page = new ReactiveVar(0);
 
