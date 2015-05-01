@@ -237,6 +237,8 @@ The `object` argument contains the full object, so you can compute a value using
 
 By default, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
 
+Be aware that it is impossible at the moment to filter on virtual fields.
+
 ##### HTML
 
 You can use HTML in a virtual column by creating a Spacebars SafeString:
