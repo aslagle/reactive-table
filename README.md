@@ -334,7 +334,7 @@ Template.posts.events({
     event.preventDefault();
     var post = this;
     // checks if the actual clicked element has the class `delete`
-    if (e.target.className == "delete") {
+    if (event.target.className == "delete") {
       Posts.remove(post._id)
     }
   }
