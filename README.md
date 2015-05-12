@@ -536,6 +536,7 @@ We currently have translations (except the 'Columns' button) for:
 - French (fr)
 - German (de)
 - Hebrew (he)
+- Icelandic (is)
 - Italian (it)
 - Norwegian (no)
 - Polish (pl)
