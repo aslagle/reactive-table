@@ -529,6 +529,7 @@ To set your language to French:
 We currently have translations (except the 'Columns' button) for:
 
 - Brazilian Portuguese (pt-br)
+- Chinese simplified (zh)
 - Croatian (hr)
 - Czech (cs)
 - Dutch (nl)
