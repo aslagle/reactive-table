@@ -191,7 +191,7 @@ if (Meteor.isServer) {
       multisort: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/144'},
       pages: true,
       filter: true,
-      resize: undefined,
+      resize: {support: false, link: 'https://github.com/aldeed/meteor-tabular/issues/146'},
       edit: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/145'},
       responsive: true,
       i18n: undefined,
