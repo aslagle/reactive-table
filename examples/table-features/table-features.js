@@ -195,7 +195,7 @@ if (Meteor.isServer) {
       edit: {support: false, link: 'https://github.com/aldeed/meteor-tabular/issues/145'},
       responsive: true,
       i18n: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/147'},
-      keyboard: undefined,
+      keyboard: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/148'},
       plugins: true,
       meteor: true
     });
