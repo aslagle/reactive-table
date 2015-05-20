@@ -196,7 +196,7 @@ if (Meteor.isServer) {
       responsive: true,
       i18n: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/147'},
       keyboard: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/148'},
-      plugins: true,
+      plugins: {support: true, link: 'http://datatables.net/extensions/index'},
       meteor: true
     });
     
