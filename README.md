@@ -35,6 +35,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
 - [Custom Filters](#custom-filters)
   - [Multiple filters outside a table](#multiple-filters-outside-a-table)
   - [Creating your own filter](#creating-your-own-filter)
+  - [Nested Tables](#nested-tables)
 - [Internationalization](#internationalization)
 
 ## Quick Start
@@ -512,7 +513,63 @@ Template.greaterThanFilter.events({
 });
 ```
 
+### Nested Tables
 
+You can use filters to set up tables within tables – in essence, doing client-side reactive joins. A practical example would be showing a list of users, and then having a “Purchases” column where you then show that user's purchases.
+
+The first step would be specifying the `tmpl` option for the user's Purchases column:
+
+```js
+fields: [
+  {key: 'purchases', label: "Purchases", tmpl: Template.userPurchases}
+]
+```
+
+You will then need to define the `userPurchases` template, which we're including for each row of the main Users table:
+
+```html
+<template name="userPurchases">
+  {{> reactiveTable settings=settings}}
+</template>
+```
+
+Along with its template helper:
+
+```js
+Template.userPurchases.onCreated(function () {
+  var user = this.data;
+  this.filter = new ReactiveTable.Filter("userPurchasesFilter_"+user._id, ["userId"]);
+  this.filter.set(user._id);
+});
+
+
+Template.userPurchases.helpers({
+  settings: function() {
+    var user = this;
+    return {
+      collection: "user-purchases",
+      filters: ["userPurchasesFilter_"+user._id],
+      field: [...]
+    };
+  }
+});
+```
+
+For each iteration of the `userPurchases` template, we're defining a new filter based on the current user's `_id`, and using it to generate a new table containing that user's purchases. 
+
+And finally, the server-side publication:
+
+```js
+ReactiveTable.publish("user-purchases", function () {
+  if(isAdmin(this.userId)){
+    return Purchases;
+  } else {
+    return [];
+  }
+});
+```
+
+Note that the filter will automatically be passed on to the publication and be applied to the collection it returns. 
 
 ## Internationalization
 
