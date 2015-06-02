@@ -446,7 +446,7 @@ testAsyncMulti('Custom Filters - ReactiveTable.Filter with server-side field exc
 
   var expectNoRows = expect(function () {
     test.length($('.reactive-table tbody tr'), 0, "no rows should match");
-    //Blaze.remove(table);
+    Blaze.remove(table);
   });
     
   var expectTwoRowsNoValues = expect(function () {

@@ -88,11 +88,19 @@
           {{/if}}
           <div class="form-inline form-group page-number">
             {{#if isntFirstPage}}
-              <label class="previous-page">&lt;</label>&nbsp;&nbsp;
+              {{#if useFontAwesome}}
+                <i class="previous-page fa fa-caret-left"></i>&nbsp;&nbsp;
+              {{else}}
+                <label class="previous-page">&lt;</label>&nbsp;&nbsp;
+              {{/if}}
             {{/if}}
             <label>{{i18n 'reactiveTable.page'}}&nbsp;<input class="form-control" type="text" value="{{getCurrentPage}}" />&nbsp;{{i18n 'reactiveTable.of'}} {{getPageCount}}</label>
             {{#if isntLastPage}}
-              <label class="next-page">&nbsp;&nbsp;&gt;</label>
+              {{#if useFontAwesome}}
+                &nbsp;&nbsp;<i class="next-page fa fa-caret-right"></i>
+              {{else}}
+                &nbsp;&nbsp;<label class="next-page">&gt;</label>
+              {{/if}}
             {{/if}}
           </div>
         </div>
