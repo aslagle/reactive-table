@@ -25,6 +25,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
     - [Templates](#templates)
     - [Virtual columns](#virtual-columns)
       - [HTML](#html)
+    - [Default sorting](#default-sorting)
     - [Nested objects and arrays](#nested-objects-and-arrays)
     - [Hidden columns](#hidden-columns)
     - [Dynamic columns](#dynamic-columns)
@@ -174,10 +175,6 @@ where the template is defined as:
     
 The `labelData` element is used to set the data context of the label template.
 
-All columns are sortable by default, but sorting can be disabled by setting `sortable` to false:
-
-    { key: 'year', label: 'Year', sortable: false }
-
 
 ##### Column Header CSS Class
 
@@ -236,7 +233,9 @@ If the key exists in the record, it will be passed to `fn` in `value`. Otherwise
 
 The `object` argument contains the full object, so you can compute a value using multiple fields.
 
-By default, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
+By default for client-side collections, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
+
+For server-side collections, sorting is always by value.
 
 Be aware that it is impossible at the moment to filter on virtual fields.
 
@@ -252,13 +251,22 @@ When adding user-generated fields to the HTML, ensure that they have been proper
 
 #### Default sorting
 
-You can use a column as the default sort order by adding `sort` to the field:
+All columns are sortable by default, but sorting can be disabled by setting `sortable` to false:
+
+    { key: 'year', label: 'Year', sortable: false }
+
+Note: currently there must be at least one sortable column.
+
+Default sort order and direction can be controlled by adding `sortOrder` and `sortDirection` to fields:
 
     { fields: [
-        { key: 'year', label: 'Year', sort: 'descending' }
+        { key: 'year', label: 'Year', sortOrder: 0, sortDirection: 'descending' },
+        { key: 'name',  label: 'Name', sortOrder: 1, sortDirection: 'ascending'}
     ] }
 
-It will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order.
+`sortDirection` will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order.
+
+`sortOrder` will give fields with lower sortOrder higher priority in sorting, so the field with the lowest sortOrder will be the primary sort. 
 
 #### Nested objects and arrays
 
@@ -352,7 +360,7 @@ These main table settings can be ReactiveVars:
 * currentPage (will contain the 0-indexed page the table is displaying)
 * rowsPerPage
 
-In addition, columns can contain an isVisible ReactiveVar, which will contain a boolean that determines whether the column is displayed.
+In addition, columns can contain an isVisible ReactiveVar, which will contain a boolean that determines whether the column is displayed. The `sortOrder` and `sortDirection` column options can also be ReactiveVars (`sortDirection` should be `1` or `-1`) if using a ReactiveVar.
 
 For example, to save the user's current page to the Session and restore it from the Session, set up a ReactiveVar in the template containing your reactiveTable:
 ```

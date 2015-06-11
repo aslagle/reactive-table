@@ -41,14 +41,14 @@ testAsyncMulti('Sorting - column', [function (test, expect) {
   var expectSecondColumnDescending = expect(function () {
     test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Nikola Tesla", "2nd column descending first row");
     test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Grace Hopper", "2nd column descending second row");
-    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Marie Curie", "2nd column descending fourth row");
+    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Claude Shannon", "2nd column descending fourth row");
     Blaze.remove(table);
   });
 
   var expectSecondColumn = expect(function () {
     test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Carl Friedrich Gauss", "2nd column first row");
     test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Ada Lovelace", "2nd column second row");
-    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Claude Shannon", "2nd column fourth row");
+    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Marie Curie", "2nd column fourth row");
 
     $('.reactive-table th:nth-child(2)').click();
     Meteor.setTimeout(expectSecondColumnDescending, 0);
@@ -122,7 +122,7 @@ testAsyncMulti('Sorting - server-side', [function (test, expect) {
   var expectSecondColumn = expect(function () {
     test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Carl Friedrich Gauss", "2nd column first row");
     test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Ada Lovelace", "2nd column second row");
-    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Claude Shannon", "2nd column fourth row");
+    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Marie Curie", "2nd column fourth row");
 
     Blaze.remove(table);
   });

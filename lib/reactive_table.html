@@ -39,7 +39,7 @@
           <tr>
             {{#each fields}}
               {{#if isVisible}}
-                {{#if isSortKey}}
+                {{#if isPrimarySortField}}
                   <th class="sortable {{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
                     {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
                     {{#if isAscending}}
