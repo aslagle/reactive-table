@@ -83,7 +83,12 @@
         <div class="reactive-table-navigation">
           {{#if showNavigationRowsPerPage}}
             <div class="form-inline form-group rows-per-page">
-              <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
+              <label>
+                {{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}
+                {{#if showRowCount}}
+                  <span>{{i18n 'reactiveTable.of'}} {{countRows}}</span>
+                {{/if}}
+              </label>
             </div>
           {{/if}}
           <div class="form-inline form-group page-number">
