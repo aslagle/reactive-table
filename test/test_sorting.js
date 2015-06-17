@@ -156,3 +156,39 @@ testAsyncMulti('Sorting - server-side', [function (test, expect) {
 
   Meteor.setTimeout(expectDefaultAscending, 500);
 }]);
+
+testAsyncMulti('Sorting - virtual columns', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: collection,
+      fields: [
+        {key: 'name', label: 'First two letters', fn: function (name) { return name.slice(0, 2); }},
+        {key: 'name', label: 'Second letter', sortByValue: true, fn: function (name) { return name.slice(1, 2); }}
+      ]
+    },
+    document.body
+  );
+  test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ad", "initial first row");
+  test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Ca", "initial second row");
+  test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Gr", "initial fourth row");
+
+  var expectSecondColumnDescending = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ni", "2nd column descending first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Ma", "2nd column descending second row");
+    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Cl", "2nd column descending fourth row");
+    Blaze.remove(table);
+  });
+
+  var expectNoChange = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ad", "2nd column first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Ca", "2nd column second row");
+    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Gr", "2nd column fourth row");
+
+    $('.reactive-table th:nth-child(2)').click();
+    Meteor.setTimeout(expectSecondColumnDescending, 0);
+  });
+
+  $('.reactive-table th:nth-child(2)').click();
+  Meteor.setTimeout(expectNoChange, 0);
+}]);
