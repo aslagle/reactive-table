@@ -84,10 +84,12 @@
           {{#if showNavigationRowsPerPage}}
             <div class="form-inline form-group rows-per-page">
               <label>
-                {{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}
+                <span class="show-label">{{i18n 'reactiveTable.show'}}</span>
+                <input class="form-control" type="text" value="{{getRowsPerPage}}">
                 {{#if showRowCount}}
-                  <span>{{i18n 'reactiveTable.of'}} {{countRows}}</span>
+                  <span>{{i18n 'reactiveTable.of'}} {{showRowCount.totalFilteredRows}}</span>
                 {{/if}}
+                <span class="rowsPerPage-label">{{i18n 'reactiveTable.rowsPerPage'}}</span>
               </label>
             </div>
           {{/if}}
@@ -99,12 +101,17 @@
                 <label class="previous-page">&lt;</label>&nbsp;&nbsp;
               {{/if}}
             {{/if}}
-            <label>{{i18n 'reactiveTable.page'}}&nbsp;<input class="form-control" type="text" value="{{getCurrentPage}}" />&nbsp;{{i18n 'reactiveTable.of'}} {{getPageCount}}</label>
+            <label>
+              <span class="page">{{i18n 'reactiveTable.page'}}</span>
+              <input class="form-control" type="text" value="{{getCurrentPage}}" />
+              <span class="pageCount-of-label">{{i18n 'reactiveTable.of'}}</span>
+              <span class="pageCount-number-label">{{getPageCount}}</span>
+            </label>
             {{#if isntLastPage}}
               {{#if useFontAwesome}}
-                &nbsp;&nbsp;<i class="next-page fa fa-caret-right"></i>
+                <i class="next-page fa fa-caret-right"></i>
               {{else}}
-                &nbsp;&nbsp;<label class="next-page">&gt;</label>
+                <label class="next-page">&gt;</label>
               {{/if}}
             {{/if}}
           </div>
