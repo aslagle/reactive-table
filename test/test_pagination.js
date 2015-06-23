@@ -59,6 +59,39 @@ testAsyncMulti('Pagination - previous/next controls', [function (test, expect) {
   Meteor.setTimeout(expectSecondPage, 0);
 }]);
 
+
+Tinytest.add('Pagination - rows per page', function (test) {
+  var table = Blaze.renderWithData(
+    Template.testTmpl,
+    {collection: rows, array: [1]},
+    document.body
+  );
+  test.equal($('.reactive-table-navigation .rows-per-page .total-row-count').text(), "of 6");
+  Blaze.remove(table);
+});
+
+testAsyncMulti('Pagination - rows per page while filtering', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows},
+    document.body
+  );
+  test.length($('.reactive-table tbody tr'), 6, "initial six rows");
+
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "filtered to two rows");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Carl Friedrich Gauss", "filtered first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Grace Hopper", "filtered second row");
+    test.equal($('.reactive-table-navigation .rows-per-page .total-row-count').text(), "of 2", "Number of rows should be 2");
+    Blaze.remove(table);
+  });
+
+  $('.reactive-table-filter input').val('g');
+  $('.reactive-table-filter input').trigger('input');
+  Meteor.setTimeout(expectTwoRows, 1000);
+}]);
+
+
 testAsyncMulti('Pagination - page input', [function (test, expect) {
   var table = Blaze.renderWithData(
     Template.reactiveTable,

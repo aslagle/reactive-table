@@ -20,7 +20,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
   - [Styling](#styling)
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
-      - [Column Header CSS class](#column-header-css-class) 
+      - [Column Header CSS class](#column-header-css-class)
     - [Cell CSS class](#cell-css-class)
     - [Templates](#templates)
     - [Virtual columns](#virtual-columns)
@@ -73,6 +73,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `filters`: Array. An array of [custom filter](#custom-filters) ids to use with this table. Default `[]`.
 * `rowsPerPage`: Number.  The desired number of rows per page. May also be a [ReactiveVar](http://docs.meteor.com/#/full/reactivevar), see [accessing and controlling table state](#accessing-and-controlling-table-state). Defaults to 10.
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
+* `showRowCount`: Boolean. If the navigation footer is visible, display the total number of rows in the collection. When filtering, the value changes to the total number of rows in the filtered collection. Default 'true'.
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Add `hideToggle` to a field to exclude it from the toggle list. Default `false`.
@@ -172,7 +173,7 @@ where the template is defined as:
     <template name="ageRangeColumnLabel">
       <span>Age {{ageFrom}} to {{ageTo}}</span>
     </template>
-    
+
 The `labelData` element is used to set the data context of the label template.
 
 
@@ -190,7 +191,7 @@ To set the css class for table header **&lt;th&gt;**, use the optional *headerCl
       },
       { key: 'year', label: 'Year' }
     ] }
-    
+
 #### Cell CSS Class
 
 To set the css class for the table cells in a column, add the *cellClass* key to the field settings. This attribute can be a String or a Function. The function arguments will be the value for this key, and the full row object.
@@ -266,7 +267,7 @@ Default sort order and direction can be controlled by adding `sortOrder` and `so
 
 `sortDirection` will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order.
 
-`sortOrder` will give fields with lower sortOrder higher priority in sorting, so the field with the lowest sortOrder will be the primary sort. 
+`sortOrder` will give fields with lower sortOrder higher priority in sorting, so the field with the lowest sortOrder will be the primary sort.
 
 #### Nested objects and arrays
 
@@ -450,7 +451,7 @@ will provide you search results, while
 ```
 will crash on the server, since "me + you" is not a valid regex ("me \\+ you" would be correct).
   > Default is to disable regex and automatically escape the term, since most users wont 'speak' regex and just type in a search term.
-  
+
 ## Custom Filters
 
 reactive-table allows you to add multiple filters, anywhere on the page, and link them to a table instead of using the default filter box.
@@ -461,14 +462,14 @@ reactive-table allows you to add multiple filters, anywhere on the page, and lin
 To create a filter, use the `reactiveTableFilter` template:
 
     {{> reactiveTableFilter id="myFilter" label="Filter" }}
-  
+
 Use the id of the filter in the `filters` argument in your reactiveTable settings.
 
     {
       fields: [...]
       filters: ['myFilter']
     }
-  
+
 `reactiveTableFilter` accepts the following arguments:
 
 * `id`: String. A unique id for the filter, used to link the filter to tables. Also used as the HTML id attribute.
@@ -487,12 +488,12 @@ For even more customization, you can create your own `ReactiveTable.Filter`:
 * `id`: String. A unique id for the filter, used to link the filter to tables.
 * `fields`: Array. Optional array of field keys that this filter should apply to, eg `["firstName", "lastName"]`. Default: `[]`, which will use all fields in the table.
 
-Once created, you can use the filter id in the reactiveTable filters, and call `filter.get()` and `filter.set()` to modify the filter. `set` can accept either a string or a mongo selector (eg `{"$gt": 5}`). 
+Once created, you can use the filter id in the reactiveTable filters, and call `filter.get()` and `filter.set()` to modify the filter. `set` can accept either a string or a mongo selector (eg `{"$gt": 5}`).
 
 To clear the filter, set it to an empty string: `filter.set("")`. For convenience, there is also a `ReactiveTable.clearFilters` function that will clear a list of filter ids:
 
     ReactiveTable.clearFilters(['filter1', 'filter2', 'filter3']);
-  
+
 Here's an example of a custom template using `ReactiveTable.Filter`:
 
 ```
@@ -506,7 +507,7 @@ Here's an example of a custom template using `ReactiveTable.Filter`:
 </template>
 
 Template.greaterThanFilter.created = function () {
-  this.filter = new ReactiveTable.Filter('greater-than-filter', ['score']);  
+  this.filter = new ReactiveTable.Filter('greater-than-filter', ['score']);
 };
 
 Template.greaterThanFilter.events({
@@ -517,7 +518,7 @@ Template.greaterThanFilter.events({
       } else {
         template.filter.set("");
       }
-   } 
+   }
 });
 ```
 
@@ -563,7 +564,7 @@ Template.userPurchases.helpers({
 });
 ```
 
-For each iteration of the `userPurchases` template, we're defining a new filter based on the current user's `_id`, and using it to generate a new table containing that user's purchases. 
+For each iteration of the `userPurchases` template, we're defining a new filter based on the current user's `_id`, and using it to generate a new table containing that user's purchases.
 
 And finally, the server-side publication:
 
@@ -577,7 +578,7 @@ ReactiveTable.publish("user-purchases", function () {
 });
 ```
 
-Note that the filter will automatically be passed on to the publication and be applied to the collection it returns. 
+Note that the filter will automatically be passed on to the publication and be applied to the collection it returns.
 
 ## Internationalization
 
