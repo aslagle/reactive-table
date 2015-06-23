@@ -84,12 +84,13 @@
           {{#if showNavigationRowsPerPage}}
             <div class="form-inline form-group rows-per-page">
               <label>
-                <span class="show-label">{{i18n 'reactiveTable.show'}}</span>
+                <span>{{i18n 'reactiveTable.show'}}</span>
                 <input class="form-control" type="text" value="{{getRowsPerPage}}">
                 {{#if showRowCount}}
-                  <span class="total-row-count">{{i18n 'reactiveTable.of'}} {{showRowCount}}</span>
+                  <span>{{i18n 'reactiveTable.of'}} </span>
+                  <span class="rows-per-page-count">{{getRowCount}}</span>
                 {{/if}}
-                <span class="rowsPerPage-label">{{i18n 'reactiveTable.rowsPerPage'}}</span>
+                <span class="rows-per-page-label">{{i18n 'reactiveTable.rowsPerPage'}}</span>
               </label>
             </div>
           {{/if}}
@@ -102,10 +103,10 @@
               {{/if}}
             {{/if}}
             <label>
-              <span class="page">{{i18n 'reactiveTable.page'}}</span>
+              <span>{{i18n 'reactiveTable.page'}}</span>
               <input class="form-control" type="text" value="{{getCurrentPage}}" />
-              <span class="pageCount-of-label">{{i18n 'reactiveTable.of'}}</span>
-              <span class="pageCount-number">{{getPageCount}}</span>
+              <span>{{i18n 'reactiveTable.of'}}</span>
+              <span class="page-number-count">{{getPageCount}}</span>
             </label>
             {{#if isntLastPage}}
               {{#if useFontAwesome}}

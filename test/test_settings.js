@@ -136,6 +136,36 @@ Tinytest.add('Settings - showNavigationRowsPerPage', function (test) {
   );
 });
 
+
+Tinytest.add('Settings - showRowCount', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        showNavigation: 'always',
+        showNavigationRowsPerPage: true,
+      }
+    },
+    function () {
+      test.length($('.reactive-table-navigation .rows-per-page .rows-per-page-count'), 0, "row count should be hidden");
+    }
+  );
+
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        showNavigation: 'always',
+        showNavigationRowsPerPage: true,
+        showRowCount: true
+      }
+    },
+    function () {
+      test.length($('.reactive-table-navigation .rows-per-page .rows-per-page-count'), 1, "row count should be visible");
+    }
+  );
+});
+
 Tinytest.add('Settings - useFontAwesome', function (test) {
   testTable(
     {collection: rows},
@@ -167,7 +197,7 @@ Tinytest.add('Settings - useFontAwesome', function (test) {
 
   // simulate fontawesome installation
   Package['fortawesome:fontawesome'] = true;
-  
+
   testTable(
     {collection: rows},
     function () {
@@ -284,7 +314,7 @@ testAsyncMulti('Settings - noDataTmpl', [function (test, expect) {
     test.length($('.reactive-table'), 0, "table should not be rendered");
 
     collection.remove(id);
-    Meteor.setTimeout(expectNoData, 0);    
+    Meteor.setTimeout(expectNoData, 0);
   })
 
   var expectTable = expect(function () {

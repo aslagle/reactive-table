@@ -73,7 +73,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `filters`: Array. An array of [custom filter](#custom-filters) ids to use with this table. Default `[]`.
 * `rowsPerPage`: Number.  The desired number of rows per page. May also be a [ReactiveVar](http://docs.meteor.com/#/full/reactivevar), see [accessing and controlling table state](#accessing-and-controlling-table-state). Defaults to 10.
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
-* `showRowCount`: Boolean. If the navigation footer is visible, display the total number of rows in the collection. When filtering, the value changes to the total number of rows in the filtered collection. Default 'true'.
+* `showRowCount`: Boolean. If the navigation footer is visible, display the total number of rows in the collection. When filtering, the value changes to the total number of rows in the filtered collection. Default `false`.
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Add `hideToggle` to a field to exclude it from the toggle list. Default `false`.
