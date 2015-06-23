@@ -471,6 +471,52 @@ testAsyncMulti('Fields - sortDirection ReactiveVar', [function (test, expect) {
   nameDirection.set(-1);
   Meteor.setTimeout(expectDescending, 0);
 }]);
+
+Tinytest.add('Fields - default sort', function (test) {
+  testTable(
+    {
+      collection: rows,
+      fields: [
+        {key: 'name', label: 'Name'},
+        {key: 'score', label: 'Score'}
+      ]
+    },
+    function () {
+      test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "sort should be ascending by first column");
+      test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Carl Friedrich Gauss", "sort should be ascending by first column");
+      test.equal($('.reactive-table tbody tr:nth-child(6) td:first-child').text(), "Nikola Tesla", "sort should be ascending by first column");
+    }
+  );
+
+  testTable(
+    {
+      collection: rows,
+      fields: [
+        {key: 'name', label: 'Name', sortable: false},
+        {key: 'score', label: 'Score'}
+      ]
+    },
+    function () {
+      test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Carl Friedrich Gauss", "sort should be ascending by second column");
+      test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Ada Lovelace", "sort should be ascending by second column");
+      test.equal($('.reactive-table tbody tr:nth-child(6) td:first-child').text(), "Nikola Tesla", "sort should be ascending by second column");
+    }
+  );
+
+  testTable(
+    {
+      collection: rows,
+      fields: [
+        {key: 'name', label: 'Name', sortable: false},
+        {key: 'score', label: 'Score', sortable: false}
+      ]
+    },
+    function () {
+      test.length($('.reactive-table tbody tr'), 6, "rendered table should have 6 rows");
+    }
+  );
+});
+
 Tinytest.add('Fields - default sort DEPRECATED', function (test) {
   _.each(['descending', 'desc', -1], function (sort) {
     testTable(
