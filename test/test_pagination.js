@@ -5,7 +5,7 @@ Tinytest.add('Pagination - initial page', function (test) {
       test.length($('.reactive-table tbody tr'), 2, "two rows should be rendered");
       test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "should be on the first page");
       test.equal($('.reactive-table-navigation .page-number input').val(), "1", "displayed page number should be 1");
-      test.length($('.reactive-table-navigation .page-number label:first-child').text().match(/of\s3/), 1, "displayed page count should be 3");
+      test.length($('.reactive-table-navigation .page-number label .page-number-count').text().match(/3/), 1, "displayed page count should be 3");
     }
   );
 });
@@ -58,6 +58,37 @@ testAsyncMulti('Pagination - previous/next controls', [function (test, expect) {
   $('.reactive-table-navigation .next-page').click();
   Meteor.setTimeout(expectSecondPage, 0);
 }]);
+
+
+Tinytest.add('Pagination - rows per page', function (test) {
+  testTable(
+    {collection: rows, settings: {showRowCount: true}},
+    function() {
+      test.equal($('.reactive-table-navigation .rows-per-page .rows-per-page-count').text(), "6");
+    })
+});
+
+testAsyncMulti('Pagination - rows per page while filtering', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows, settings: {showRowCount: true}},
+    document.body
+  );
+  test.length($('.reactive-table tbody tr'), 6, "initial six rows");
+
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "filtered to two rows");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Carl Friedrich Gauss", "filtered first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Grace Hopper", "filtered second row");
+    test.equal($('.reactive-table-navigation .rows-per-page .rows-per-page-count').text(), "2", "Number of rows should be 2");
+    Blaze.remove(table);
+  });
+
+  $('.reactive-table-filter input').val('g');
+  $('.reactive-table-filter input').trigger('input');
+  Meteor.setTimeout(expectTwoRows, 1000);
+}]);
+
 
 testAsyncMulti('Pagination - page input', [function (test, expect) {
   var table = Blaze.renderWithData(
@@ -146,7 +177,8 @@ testAsyncMulti('Pagination - server-side', [function (test, expect) {
     test.length($('.reactive-table tbody tr'), 2, "two rows should be rendered");
     test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "should be on the first page");
     test.equal($('.reactive-table-navigation .page-number input').val(), "1", "displayed page number should be 1");
-    test.length($('.reactive-table-navigation .page-number label:first-child').text().match(/of\s3/), 1, "displayed page count should be 3");
+    test.length($('.reactive-table-navigation .page-number label .page-number-count').text().match(/3/), 1, "displayed page count should be 3");
+    test.length($('.reactive-table-navigation .page-number label .page-number-count').text().match(/3/), 1, "displayed page count should be 3");
     test.length($('.reactive-table-navigation .previous-page'), 0, "first page shouldn't have previous button");
 
     $('.reactive-table-navigation .next-page').click();

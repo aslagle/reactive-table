@@ -44,6 +44,12 @@
 .reactive-table-navigation .previous-page,
 .reactive-table-navigation .next-page {
     font-size: 130%;
+    margin: 0 5px;
+}
+
+.reactive-table-navigation .previous-page.fa,
+.reactive-table-navigation .next-page.fa {
+    vertical-align: middle;
 }
 
 .reactive-table-navigation .previous-page:hover,
