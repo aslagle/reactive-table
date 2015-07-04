@@ -270,3 +270,33 @@ testAsyncMulti('Sorting - multi-column disabled', [function (test, expect) {
   $('.reactive-table th:first-child').click();
   Meteor.setTimeout(expectFirstColumnDescending, 0);
 }]);
+
+testAsyncMulti('Sorting - nested field', [function (test, expect) {
+  var nestedObjectRows = [
+    {outerObject: {innerObject: 'a'}},
+    {outerObject: {innerObject: 'c'}},
+    {outerObject: {innerObject: 'b'}}
+  ];
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: nestedObjectRows,
+      fields: [{key: 'outerObject.innerObject', label: 'Column', fn: function (val) { return val; }}]
+    },
+    document.body
+  );
+  test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "a", "initial first row");
+  test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "b", "initial second row");
+  test.equal($('.reactive-table tbody tr:nth-child(3) td:first-child').text(), "c", "initial third row");
+
+  var expectDescending = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "c", "descending first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "b", "descending second row");
+    test.equal($('.reactive-table tbody tr:nth-child(3) td:first-child').text(), "a", "descending fourth row");
+
+    Blaze.remove(table);
+  });
+
+  $('.reactive-table th:first-child').click();
+  Meteor.setTimeout(expectDescending, 0);
+}]);
