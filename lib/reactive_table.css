@@ -17,7 +17,6 @@
 
 .reactive-table .sortable, .reactive-table-add-column {
     cursor: pointer;
-    color: black;
 }
 
 .table > thead > tr > th.reactive-table-add-column {
@@ -55,7 +54,6 @@
 .reactive-table-navigation .previous-page:hover,
 .reactive-table-navigation .next-page:hover {
     cursor: pointer;
-    color: black;
 }
 
 .reactive-table .fa-sort-asc {
