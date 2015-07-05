@@ -89,6 +89,34 @@ testAsyncMulti('Pagination - rows per page while filtering', [function (test, ex
   Meteor.setTimeout(expectTwoRows, 1000);
 }]);
 
+testAsyncMulti('Pagination - changing rows per page sets current page to last when past it', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: rows, settings: {rowsPerPage: 2}},
+    document.body
+  );
+
+  var expectFirstPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "should be on first page");
+    test.length($('.reactive-table tbody tr'), 6, "first page should have six rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "1", "displayed page number should be 1");
+
+    Blaze.remove(table);
+  });
+
+  var expectSecondPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Claude Shannon", "should be on the second page");
+    test.length($('.reactive-table tbody tr'), 2, "second page should have two rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "2", "displayed page number should be 2");
+
+    $('.reactive-table-navigation .rows-per-page input').val("6");
+    $('.reactive-table-navigation .rows-per-page input').trigger("change");
+    Meteor.setTimeout(expectFirstPage, 0);
+  });
+
+  $('.reactive-table-navigation .next-page').click();
+  Meteor.setTimeout(expectSecondPage, 0);
+}]);
 
 testAsyncMulti('Pagination - page input', [function (test, expect) {
   var table = Blaze.renderWithData(
