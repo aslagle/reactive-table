@@ -17,12 +17,12 @@
               {{#each fields}}
                 {{#unless hideToggle}}
                   <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
+                    {{#if isVisible}}
+                      <input type="checkbox" checked data-fieldid="{{fieldId}}">
+                    {{else}}
+                      <input type="checkbox" data-fieldid="{{fieldId}}">
+                    {{/if}}
                     <label>
-                      {{#if isVisible}}
-                        <input type="checkbox" checked data-fieldid="{{fieldId}}">
-                      {{else}}
-                        <input type="checkbox" data-fieldid="{{fieldId}}">
-                      {{/if}}
                       {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}
                     </label>
                   </a></li>
