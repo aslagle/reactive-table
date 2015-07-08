@@ -352,13 +352,38 @@ testAsyncMulti('Custom Filters - ReactiveTable.Filter two fields', [function (te
   Meteor.setTimeout(expectInitialRows, 500);
 }]);
 
-testAsyncMulti('Custom Filters - ReactiveTable.Filter mongo selector', [function (test, expect) {
+testAsyncMulti('Custom Filters - ReactiveTable.Filter mongo selector client-side', [function (test, expect) {
   var id = 'filter' + _.uniqueId();
   var filter = new ReactiveTable.Filter(id, ['score']);
   
   var table = Blaze.renderWithData(
     Template.reactiveTable,
     {collection: collection, filters: [id]},
+    document.body
+  );
+    
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "filtered to two rows");
+    Blaze.remove(table);
+  });
+    
+  var expectInitialRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 6, "initial rows");
+      
+    filter.set({'$gte': 10});
+    Meteor.setTimeout(expectTwoRows, 1000);
+  });
+
+  Meteor.setTimeout(expectInitialRows, 500);
+}]);
+
+testAsyncMulti('Custom Filters - ReactiveTable.Filter mongo selector server-side', [function (test, expect) {
+  var id = 'filter' + _.uniqueId();
+  var filter = new ReactiveTable.Filter(id, ['score']);
+  
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'collection', fields: ['name', 'score'], filters: [id]},
     document.body
   );
     
