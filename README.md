@@ -597,6 +597,7 @@ We currently have translations (except the 'Columns' button) for:
 - Chinese simplified (zh)
 - Croatian (hr)
 - Czech (cs)
+- Danish (da)
 - Dutch (nl)
 - Finnish (fi)
 - French (fr)
