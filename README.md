@@ -257,8 +257,6 @@ All columns are sortable by default, but sorting can be disabled by setting `sor
 
     { key: 'year', label: 'Year', sortable: false }
 
-Note: currently there must be at least one sortable column.
-
 Default sort order and direction can be controlled by adding `sortOrder` and `sortDirection` to fields:
 
     { fields: [
