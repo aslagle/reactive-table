@@ -84,6 +84,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover col-sm-12'.
 * `id`: String. Unique id to add to the table element. Default: generated with [_.uniqueId](http://underscorejs.org/#uniqueId).
 * `rowClass`: String or function returning a class name. The row element will be passed as first parameter.
+* `serverArgs` Will be passed to `collection` and `selector` functions on serverside.
 
 #### rowClass examples
 
@@ -385,8 +386,8 @@ Use ReactiveTable.publish on the server to make a collection available to reacti
 
 Arguments:
 - name: The name of the publication
-- collection: A function that returns the collection to publish (or just a collection, if it's insecure).
-- selector: (Optional) A function that returns mongo selector that will limit the results published (or just the selector).
+- collection: A function that returns the collection to publish (or just a collection, if it's insecure). If you've defined `serverArgs` in the settings, `serverArgs` will passed as the first parameter.
+- selector: (Optional) A function that returns mongo selector that will limit the results published (or just the selector). If you've defined `serverArgs` in the settings, `serverArgs` will passed as the first parameter.
 - settings: (Optional) A object with settings on server side's publish function. (Details below)
 
 Inside the functions, `this` is the publish handler object as in [Meteor.publish](http://docs.meteor.com/#/full/meteor_publish), so `this.userId` is available.
@@ -406,7 +407,7 @@ if (Meteor.isServer) {
   ReactiveTable.publish("some-items", Items, {"show": true});
 
   // Publish only to logged in users
-  ReactiveTable.publish("all-items", function () {
+  ReactiveTable.publish("all-items", function (serverArgs) {
     if (this.userId) {
       return Items;
     } else {
@@ -415,7 +416,7 @@ if (Meteor.isServer) {
   });
 
   // Publish only the current user's items
-  ReactiveTable.publish("user-items", Items, function () {
+  ReactiveTable.publish("user-items", Items, function (serverArgs) {
     return {"userId": this.userId};
   });
 }
