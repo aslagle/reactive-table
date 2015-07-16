@@ -329,7 +329,7 @@ Make the event selector be `tr`, and you'll have your row object in `this`:
 
 ```JavaScript
 Template.posts.events({
-  'click .reactive-table tr': function (event) {
+  'click .reactive-table tbody tr': function (event) {
     // set the blog post we'll display details and news for
     var post = this;
     Session.set('post', post);
@@ -337,11 +337,11 @@ Template.posts.events({
 });
 ```
 
-If you want single elements inside a row to become clickable, you still have to target `tr`. Otherwise `this` won't refer to the corresponding object of your targeted row. With this in mind, you have to specify a `target` inside your `'click .reactive-table tr'` eventlistener:
+If you want single elements inside a row to become clickable, you still have to target `tr`. Otherwise `this` won't refer to the corresponding object of your targeted row. With this in mind, you have to specify a `target` inside your `'click .reactive-table tbody tr'` eventlistener:
 
 ```JavaScript
 Template.posts.events({
-  'click .reactive-table tr': function (event) {
+  'click .reactive-table tbody tr': function (event) {
     event.preventDefault();
     var post = this;
     // checks if the actual clicked element has the class `delete`
