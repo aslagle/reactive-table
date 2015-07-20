@@ -17,6 +17,10 @@
 
 .reactive-table .sortable, .reactive-table-add-column {
     cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .table > thead > tr > th.reactive-table-add-column {
