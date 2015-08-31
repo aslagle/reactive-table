@@ -606,6 +606,7 @@ We currently have translations (except the 'Columns' button) for:
 - Icelandic (is)
 - Italian (it)
 - Norwegian (no)
+- Persian (fa)
 - Polish (pl)
 - Russian (ru)
 - Slovak (sk)
