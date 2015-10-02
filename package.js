@@ -35,6 +35,7 @@ Package.on_test(function (api) {
     api.use('reactive-var@1.0.3', 'client');
     api.use("anti:i18n@0.4.3", 'client');
     api.use("mongo", ["server", "client"]);
+    api.use("check", "server");
     api.use("audit-argument-checks", "server");
 
     api.add_files('lib/reactive_table.html', 'client');
