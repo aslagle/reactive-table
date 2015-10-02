@@ -300,3 +300,64 @@ testAsyncMulti('Filtering - server-side field exclusion', [function (test, expec
   Meteor.setTimeout(expectTwoRowsNoValues, 500);
 }]);
 
+testAsyncMulti('Filtering - server-side nested field inclusion', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'nested-filter-inclusion', fields: ['name', 'nested.0.value']},
+    document.body
+  );
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "one row should match");
+    Blaze.remove(table);
+  });
+
+  var expectNoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 0, "no rows should match");
+    
+    $('.reactive-table-filter input').val('2');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectOneRow, 1000);
+  });
+    
+  var expectTwoRowsNestedValues = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "", "first column content");
+    test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "value 1", "second column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "", "first column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:nth-child(2)').text(), "value 2", "second column content");
+      
+    $('.reactive-table-filter input').val('item');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectNoRows, 1000);
+  });
+
+  Meteor.setTimeout(expectTwoRowsNestedValues, 500);
+}]);
+
+testAsyncMulti('Filtering - server-side nested field exclusion', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'nested-filter-exclusion', fields: ['name', 'nested.0.value']},
+    document.body
+  );
+
+  var expectNoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 0, "no rows should match");
+    Blaze.remove(table);
+  });
+    
+  var expectTwoRowsNoValues = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "item 1", "first column content");
+    test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "", "second column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "item 2", "first column content");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:nth-child(2)').text(), "", "second column content");
+      
+    $('.reactive-table-filter input').val('value');
+    $('.reactive-table-filter input').trigger('input');
+    Meteor.setTimeout(expectNoRows, 1000);
+  });
+
+  Meteor.setTimeout(expectTwoRowsNoValues, 500);
+}]);

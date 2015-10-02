@@ -10,3 +10,13 @@ ReactiveTable.publish('filter-regex-enabled', collection, {}, {enableRegex: true
 
 ReactiveTable.publish('filter-inclusion', collection, {}, {fields: {name: 1}});
 ReactiveTable.publish('filter-exclusion', collection, {}, {fields: {value: 0}});
+
+var collectionWithNestedKeys = new Mongo.Collection('filter-nested-keys');
+
+collectionWithNestedKeys.remove({});
+
+collectionWithNestedKeys.insert({'name': 'item 1', 'nested': [{'value': 'value 1'}]});
+collectionWithNestedKeys.insert({'name': 'item 2', 'nested': [{'value': 'value 2'}]});
+
+ReactiveTable.publish('nested-filter-inclusion', collectionWithNestedKeys, {}, {fields: {nested: 1}});
+ReactiveTable.publish('nested-filter-exclusion', collectionWithNestedKeys, {}, {fields: {nested: 0}});
