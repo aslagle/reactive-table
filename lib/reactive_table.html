@@ -23,7 +23,7 @@
                       <input type="checkbox" data-fieldid="{{fieldId}}">
                     {{/if}}
                     <label>
-                      {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}
+                      {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}
                     </label>
                   </a></li>
                 {{/unless}}
@@ -41,7 +41,7 @@
               {{#if isVisible}}
                 {{#if isPrimarySortField}}
                   <th class="sortable {{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
-                    {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
+                    {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
                     {{#if isAscending}}
                       {{#if ../useFontAwesome}}
                         <i class="fa fa-sort-asc"></i>
@@ -58,9 +58,9 @@
                   </th>
                 {{else}}
                   {{#if isSortable}}
-                    <th class="{{getHeaderClass}} sortable" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
+                    <th class="{{getHeaderClass}} sortable" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                   {{else}}
-                    <th class="{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
+                    <th class="{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                   {{/if}}
                 {{/if}}
               {{/if}}
