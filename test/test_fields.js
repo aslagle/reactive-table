@@ -150,6 +150,23 @@ Tinytest.add('Fields - label tmpl', function (test) {
   );
 });
 
+Tinytest.add('Fields - label tmpl no data', function (test) {
+  testTable(
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: 'name', label: Template.testFieldsTmplNoData}
+        ]
+      }
+    },
+    function () {
+      test.length($('.reactive-table th'), 1, "one column should be rendered");
+      test.length($('.reactive-table th:first-child span.test').text().trim().match(/^nodata/), 1, "first column label");
+    }
+  );
+});
+
 
 Tinytest.add('Fields - header class string', function (test) {
   testTable(
