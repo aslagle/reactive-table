@@ -77,7 +77,7 @@
                       {{#if ../../useFontAwesome}}
                         <i class="reactive-table-children-expand fa fa-plus-square-o"></i>
                       {{else}}
-                        <label class="children-expand">&#43;</label>
+                        <label class="reactive-table-children-expand">&#10133;</label>
                       {{/if}}
                     {{/if}}
                     {{#if tmpl}}
@@ -94,7 +94,7 @@
             {{#if ../childrenKey}}
               <tr class="reactive-table-children-container">
                 <td colspan="{{../fields.length}}">
-                  <table class="table table-striped reactive-table-children">
+                  <table class="table reactive-table-children">
                     <thead>
                       <tr>
                         {{#each ../childrenFields}}

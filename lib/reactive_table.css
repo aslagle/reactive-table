@@ -74,7 +74,7 @@
     cursor: pointer;
 }
 
-.reactive-table .reactive-table-children-expand:hover {
+.reactive-table .fa.reactive-table-children-expand:hover {
     font-weight: 800;
 }
 
