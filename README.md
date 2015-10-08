@@ -142,7 +142,8 @@ You can continue to pass some settings as named arguments while grouping the oth
 
 If your data already has an array child element, you can make the row expand to show the child data easily.
 
-This is only recommended for smaller data sets since you could potentially be loading too much data.
+This is only recommended for smaller data sets since you could potentially be loading too much data. You can
+potentially do your own joins and populate the child array with the data from another collection manually.
 
 For example if I had data such as
 
