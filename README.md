@@ -656,6 +656,8 @@ settings = {
 }
 ```
 
+This would result in a normal table, except the column with label defined by `children.expandIconColLabel` would have an expand icon prepend to it
+
 ## Internationalization
 
 Internationalization support is provided using [anti:i18n](https://github.com/anticoders/meteor-i18n).
