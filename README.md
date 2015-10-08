@@ -37,7 +37,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
   - [Multiple filters outside a table](#multiple-filters-outside-a-table)
   - [Creating your own filter](#creating-your-own-filter)
   - [Nested Tables](#nested-tables)
-  - [Children Table](#children-table)
+  - [Child Table](#child-table)
 - [Internationalization](#internationalization)
 
 ## Quick Start
