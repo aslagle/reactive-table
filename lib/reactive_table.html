@@ -91,13 +91,13 @@
                 {{/if}}
               {{/each}}
             </tr>
-            {{#if ../childrenKey}}
+            {{#if ../children}}
               <tr class="reactive-table-children-container">
                 <td colspan="{{../fields.length}}">
                   <table class="table reactive-table-children">
                     <thead>
                       <tr>
-                        {{#each ../childrenFields}}
+                        {{#each ../children.fields}}
                           <th class="{{getHeaderClass}}">
                             {{label}}
                           </th>
@@ -107,7 +107,7 @@
                     <tbody>
                     {{#each getChildrenRows}}
                       <tr>
-                        {{#each ../../childrenFields}}
+                        {{#each ../../children.fields}}
                           <td class="{{getCellClass ..}}">
                             {{#if tmpl}}
                               {{#with ..}}
