@@ -72,20 +72,50 @@
             <tr class="{{../rowClass this}}">
               {{#each ../fields}}
                 {{#if isVisible}}
-                  <td class="{{getCellClass ..}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+                  <td class="{{getCellClass ..}}">
+                    {{#if addChildrenExpandIcon}}
+                      {{#if ../../useFontAwesome}}
+                        <i class="reactive-table-children-expand fa fa-plus-square-o"></i>
+                      {{else}}
+                        <label class="children-expand">&#43;</label>
+                      {{/if}}
+                    {{/if}}
+                    {{#if tmpl}}
+                      {{#with ..}}
+                        {{> ../tmpl}}
+                      {{/with}}
+                    {{else}}
+                      {{getField ..}}
+                    {{/if}}
+                  </td>
                 {{/if}}
               {{/each}}
             </tr>
             {{#if ../childrenKey}}
               <tr class="reactive-table-children-container">
                 <td colspan="{{../fields.length}}">
-                  <table class="reactive-table-children">
+                  <table class="table table-striped reactive-table-children">
+                    <thead>
+                      <tr>
+                        {{#each ../childrenFields}}
+                          <th class="{{getHeaderClass}}">
+                            {{label}}
+                          </th>
+                        {{/each}}
+                      </tr>
+                    </thead>
                     <tbody>
                     {{#each getChildrenRows}}
                       <tr>
                         {{#each ../../childrenFields}}
-                          <td>
-                            {{getChildValue}}
+                          <td class="{{getCellClass ..}}">
+                            {{#if tmpl}}
+                              {{#with ..}}
+                                {{> ../tmpl}}
+                              {{/with}}
+                            {{else}}
+                              {{getField ..}}
+                            {{/if}}
                           </td>
                         {{/each}}
                       </tr>

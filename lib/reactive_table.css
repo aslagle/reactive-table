@@ -70,12 +70,19 @@
     top: 2px;
 }
 
-.reactive-table .child-row {
-    display: none;
+.reactive-table .reactive-table-children-expand {
+    cursor: pointer;
 }
 
+.reactive-table .reactive-table-children-expand:hover {
+    font-weight: 800;
+}
 
+.reactive-table .reactive-table-children-container {
+    display: none;
+}
 
 .reactive-table-children {
     width: 100%;
 }
+
