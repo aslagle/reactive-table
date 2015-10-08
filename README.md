@@ -626,7 +626,7 @@ settings = {
   ],
   children: {
     // define which column to attach the expand icon to, matching by label
-    expandIconColLabel: 'NAME',
+    expandIconColLabel: 'Name',
      
     // the array field containing the child data
     key: 'purchases' 
