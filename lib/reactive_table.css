@@ -61,11 +61,21 @@
 }
 
 .reactive-table .fa-sort-asc {
-	position: relative;
-	top: -2px;
+    position: relative;
+    top: -2px;
 }
 
 .reactive-table .fa-sort-desc {
-	position: relative;
-	top: 2px;
+    position: relative;
+    top: 2px;
+}
+
+.reactive-table .child-row {
+    display: none;
+}
+
+
+
+.reactive-table-children {
+    width: 100%;
 }
