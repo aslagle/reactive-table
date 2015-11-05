@@ -246,7 +246,7 @@ Be aware that it is impossible at the moment to filter on virtual fields.
 You can use HTML in a virtual column by creating a Spacebars SafeString:
 
     fn: function (value) {
-        return new Spacebars.SafeString('<a href="+Routes.route['view'].path({_id:value})+">View</a>');
+        return new Spacebars.SafeString("<a href="+Routes.route['view'].path({_id:value})+">View</a>");
     }
 
 When adding user-generated fields to the HTML, ensure that they have been properly escaped to prevent cross-site scripting vulnerabilities.
