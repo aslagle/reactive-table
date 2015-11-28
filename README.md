@@ -79,6 +79,7 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Add `hideToggle` to a field to exclude it from the toggle list. Default `false`.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `true` if `fortawesome:fontawesome` is installed, else `false`.
 * `enableRegex`: Boolean. Whether to use filter text as a regular expression instead of a regular search term. When true, users won't be able to filter by special characters without escaping them. Default `false`. (Note: Setting this option on the client won't affect server-side filtering - see [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta))
+* `ready`: ReactiveVar(Boolean). When using ReactiveTable.publish on the server, pass in a ReactiveVar for ready on the client and it will be updated to true or false so you can check if the subscription is ready.
 * `noDataTmpl`: Template. Template to render in place of the table when the collection is empty or filtered to 0 rows. Default none (renders table header with no rows).
 * `multiColumnSort`: Boolean. Whether to enable sorting with multiple columns based on the order the user clicks them. Default: `true`.
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover col-sm-12'.
@@ -450,6 +451,7 @@ will provide you search results, while
 ```
 will crash on the server, since "me + you" is not a valid regex ("me \\+ you" would be correct).
   > Default is to disable regex and automatically escape the term, since most users wont 'speak' regex and just type in a search term.
+
 
 ## Custom Filters
 
