@@ -606,6 +606,7 @@ We currently have translations (except the 'Columns' button) for:
 - Finnish (fi)
 - French (fr)
 - German (de)
+- Greek (gr)
 - Hebrew (he)
 - Icelandic (is)
 - Italian (it)
