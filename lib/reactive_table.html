@@ -2,7 +2,7 @@
   {{#with context}}
   {{#if ready}}
     <div class="clearfix">
-      <div class="reactive-table-options col-sm-8 pull-right noprint">
+      <div class="reactive-table-options col-sm-8 pull-right">
         {{#if showFilter}}
           <div class="reactive-table-filter form-group col-sm-8 pull-right">
             {{> reactiveTableFilter id=getFilterId useFontAwesome=useFontAwesome}}
@@ -80,7 +80,7 @@
         </tbody>
       </table>
       {{#if showNavigation}}
-        <div class="reactive-table-navigation noprint">
+        <div class="reactive-table-navigation">
           {{#if showNavigationRowsPerPage}}
             <div class="form-inline form-group rows-per-page">
               <label>
