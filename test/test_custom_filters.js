@@ -193,7 +193,7 @@ testAsyncMulti('Custom Filters - reactiveTableFilter two fields', [function (tes
   Meteor.setTimeout(expectInitialRows, 500);
 }]);
 
-testAsyncMulti('Custom Filters - reactiveTableFilter two filters', [function (test, expect) {
+testAsyncMulti('Custom Filters - reactiveTableFilter two filters client-side', [function (test, expect) {
   var filter1 = Blaze.renderWithData(
     Template.reactiveTableFilter,
     {id: 'name-filter'},
@@ -214,6 +214,7 @@ testAsyncMulti('Custom Filters - reactiveTableFilter two filters', [function (te
   
   var expectTwoRows = expect(function () {
     test.length($('.reactive-table tbody tr'), 2, "filtered to two rows");
+    ReactiveTable.clearFilters(['name-filter', 'score-filter']);
     Blaze.remove(table);
     Blaze.remove(filter1);
     Blaze.remove(filter2);
@@ -234,6 +235,171 @@ testAsyncMulti('Custom Filters - reactiveTableFilter two filters', [function (te
     $('#score-filter input').val('5');
     $('#score-filter input').trigger('input');
     Meteor.setTimeout(expectStillOneRow, 1000);
+  });
+    
+  var expectInitialRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 6, "initial rows");
+      
+    $('#name-filter input').val('Ada');
+    $('#name-filter input').trigger('input');
+    Meteor.setTimeout(expectOneRow, 1000);
+  });
+
+  Meteor.setTimeout(expectInitialRows, 500);
+}]);
+
+testAsyncMulti('Custom Filters - reactiveTableFilter two filters with or client-side', [function (test, expect) {
+  var filter1 = Blaze.renderWithData(
+    Template.reactiveTableFilter,
+    {id: 'name-filter'},
+    document.body
+  );
+  
+  var filter2 = Blaze.renderWithData(
+    Template.reactiveTableFilter,
+    {id: 'score-filter'},
+    document.body
+  );
+  
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: collection, filters: ['name-filter', 'score-filter'], filterOperator: "$or"},
+    document.body
+  );
+  
+  var expectFiveRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 5, "filtered to five rows");
+    ReactiveTable.clearFilters(['name-filter', 'score-filter']);
+    Blaze.remove(table);
+    Blaze.remove(filter1);
+    Blaze.remove(filter2);
+  });
+    
+  var expectThreeRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 3, "filtered to three rows");
+    
+    $('#name-filter input').val('l');
+    $('#name-filter input').trigger('input');
+    Meteor.setTimeout(expectFiveRows, 1000);
+  });
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "filtered first row");
+    
+    $('#score-filter input').val('5');
+    $('#score-filter input').trigger('input');
+    Meteor.setTimeout(expectThreeRows, 1000);
+  });
+    
+  var expectInitialRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 6, "initial rows");
+      
+    $('#name-filter input').val('Ada');
+    $('#name-filter input').trigger('input');
+    Meteor.setTimeout(expectOneRow, 1000);
+  });
+
+  Meteor.setTimeout(expectInitialRows, 500);
+}]);
+
+testAsyncMulti('Custom Filters - reactiveTableFilter two filters server-side', [function (test, expect) {
+  var filter1 = Blaze.renderWithData(
+    Template.reactiveTableFilter,
+    {id: 'name-filter'},
+    document.body
+  );
+  
+  var filter2 = Blaze.renderWithData(
+    Template.reactiveTableFilter,
+    {id: 'score-filter'},
+    document.body
+  );
+  
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'collection', fields: ['name', 'score'], filters: ['name-filter', 'score-filter']},
+    document.body
+  );
+  
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "filtered to two rows");
+    ReactiveTable.clearFilters(['name-filter', 'score-filter']);
+    Blaze.remove(table);
+    Blaze.remove(filter1);
+    Blaze.remove(filter2);
+  });
+    
+  var expectStillOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    
+    $('#name-filter input').val('l');
+    $('#name-filter input').trigger('input');
+    Meteor.setTimeout(expectTwoRows, 1000);
+  });
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "filtered first row");
+    
+    $('#score-filter input').val('5');
+    $('#score-filter input').trigger('input');
+    Meteor.setTimeout(expectStillOneRow, 1000);
+  });
+    
+  var expectInitialRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 6, "initial rows");
+      
+    $('#name-filter input').val('Ada');
+    $('#name-filter input').trigger('input');
+    Meteor.setTimeout(expectOneRow, 1000);
+  });
+
+  Meteor.setTimeout(expectInitialRows, 500);
+}]);
+
+testAsyncMulti('Custom Filters - reactiveTableFilter two filters with or server-side', [function (test, expect) {
+  var filter1 = Blaze.renderWithData(
+    Template.reactiveTableFilter,
+    {id: 'name-filter'},
+    document.body
+  );
+  
+  var filter2 = Blaze.renderWithData(
+    Template.reactiveTableFilter,
+    {id: 'score-filter'},
+    document.body
+  );
+  
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'collection-or-filter', fields: ['name', 'score'], filters: ['name-filter', 'score-filter']},
+    document.body
+  );
+  
+  var expectFiveRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 5, "filtered to five rows");
+    ReactiveTable.clearFilters(['name-filter', 'score-filter']);
+    Blaze.remove(table);
+    Blaze.remove(filter1);
+    Blaze.remove(filter2);
+  });
+    
+  var expectThreeRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 3, "filtered to three rows");
+    
+    $('#name-filter input').val('l');
+    $('#name-filter input').trigger('input');
+    Meteor.setTimeout(expectFiveRows, 1000);
+  });
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "filtered to one row");
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "filtered first row");
+    
+    $('#score-filter input').val('5');
+    $('#score-filter input').trigger('input');
+    Meteor.setTimeout(expectThreeRows, 1000);
   });
     
   var expectInitialRows = expect(function () {
