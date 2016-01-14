@@ -392,6 +392,8 @@ Arguments:
 
 Inside the functions, `this` is the publish handler object as in [Meteor.publish](http://docs.meteor.com/#/full/meteor_publish), so `this.userId` is available.
 
+Note: Although ReactiveTable.publish uses Meteor.publish, it publishes the rows to a special collection that's only accessible inside the reactive-table package. If you want to use your collection directly you'll have to publish it separately as well.
+
 On the client, use the publication name as the collection argument to the reactiveTable template.
 
   {{> reactiveTable collection="name"}}
