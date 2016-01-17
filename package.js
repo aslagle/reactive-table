@@ -14,7 +14,7 @@ Package.on_use(function (api) {
     api.use("anti:i18n@0.4.3", 'client');
     api.use("mongo@1.0.8", ["server", "client"]);
     api.use("check", "server");
-    api.use("reywood:publish-composite", "server");
+    api.use("reywood:publish-composite@1.4.2", "server");
 
     api.use("fortawesome:fontawesome@4.2.0", 'client', {weak: true});
 
@@ -38,7 +38,7 @@ Package.on_test(function (api) {
     api.use("anti:i18n@0.4.3", 'client');
     api.use("mongo", ["server", "client"]);
     api.use("check", "server");
-    api.use("reywood:publish-composite", "server");
+    api.use("reywood:publish-composite@1.4.2", "server");
     api.use("audit-argument-checks", "server");
 
     api.add_files('lib/reactive_table.html', 'client');
