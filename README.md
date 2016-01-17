@@ -1,4 +1,7 @@
 # Reactive Table
+
+VansonLeung Modification: 0.831 - Supports Server-side publishComposite
+
 A reactive table designed for Meteor.
 
 Demo and Feature Comparison: http://reactive-table.meteor.com/
