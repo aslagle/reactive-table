@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.8.23",
+  version: "0.8.231",
   name: "vansonhk:reactive-table",
   git: "https://github.com/VansonLeung/reactive-table.git"
 });
