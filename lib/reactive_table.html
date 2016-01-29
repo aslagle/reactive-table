@@ -40,7 +40,7 @@
             {{#each fields}}
               {{#if isVisible}}
                 {{#if isSortKey}}
-                  <th class="sortable {{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
+                  <th class="{{#if isSortable}}sortable {{/if}}{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
                     {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
                     {{#if isAscending}}
                       {{#if ../useFontAwesome}}
