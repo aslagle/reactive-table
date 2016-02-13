@@ -42,4 +42,6 @@ if (Meteor.isServer) {
   ReactiveTable.publish('selector-function', collection, function () {
     return {score: 5};
   });
+
+  ReactiveTable.publish('collection-or-filter', collection, {}, {filterOperator: "$or"});
 }

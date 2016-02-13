@@ -351,7 +351,7 @@ testAsyncMulti('Reactivity - server-side collection access', [function (test, ex
     {collection: 'reactivity-test-access', fields: ['name', 'value']},
     document.body
   );
-  
+
   var expectDataHidden = expect(function () {
     test.length($('.reactive-table tbody tr'), 0, "table should remove row");
     Blaze.remove(table);

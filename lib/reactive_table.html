@@ -17,13 +17,13 @@
               {{#each fields}}
                 {{#unless hideToggle}}
                   <li role="presentation"><a role="menuitem" tabindex="-1" data-target="#">
+                    {{#if isVisible}}
+                      <input type="checkbox" checked data-fieldid="{{fieldId}}">
+                    {{else}}
+                      <input type="checkbox" data-fieldid="{{fieldId}}">
+                    {{/if}}
                     <label>
-                      {{#if isVisible}}
-                        <input type="checkbox" checked data-fieldid="{{fieldId}}">
-                      {{else}}
-                        <input type="checkbox" data-fieldid="{{fieldId}}">
-                      {{/if}}
-                      {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}
+                      {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}
                     </label>
                   </a></li>
                 {{/unless}}
@@ -39,9 +39,9 @@
           <tr>
             {{#each fields}}
               {{#if isVisible}}
-                {{#if isSortKey}}
+                {{#if isPrimarySortField}}
                   <th class="{{#if isSortable}}sortable {{/if}}{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">
-                    {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
+                    {{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}&nbsp;&nbsp;
                     {{#if isAscending}}
                       {{#if ../useFontAwesome}}
                         <i class="fa fa-sort-asc"></i>
@@ -58,9 +58,9 @@
                   </th>
                 {{else}}
                   {{#if isSortable}}
-                    <th class="{{getHeaderClass}} sortable" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
+                    <th class="{{getHeaderClass}} sortable" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                   {{else}}
-                    <th class="{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
+                    <th class="{{getHeaderClass}}" fieldid="{{getFieldFieldId}}">{{#if labelIsTemplate}}{{#with labelData}}{{> ../label}}{{else}}{{> label}}{{/with}}{{else}}{{getLabel}}{{/if}}</th>
                   {{/if}}
                 {{/if}}
               {{/if}}
@@ -83,16 +83,37 @@
         <div class="reactive-table-navigation">
           {{#if showNavigationRowsPerPage}}
             <div class="form-inline form-group rows-per-page">
-              <label>{{i18n 'reactiveTable.show'}}&nbsp;<input class="form-control" type="text" value="{{getRowsPerPage}}">&nbsp;{{i18n 'reactiveTable.rowsPerPage'}}</label>
+              <label>
+                <span>{{i18n 'reactiveTable.show'}}</span>
+                <input class="form-control" type="text" value="{{getRowsPerPage}}">
+                {{#if showRowCount}}
+                  <span>{{i18n 'reactiveTable.of'}}</span>
+                  <span class="rows-per-page-count">{{getRowCount}}</span>
+                {{/if}}
+                <span class="rows-per-page-label">{{i18n 'reactiveTable.rowsPerPage'}}</span>
+              </label>
             </div>
           {{/if}}
           <div class="form-inline form-group page-number">
             {{#if isntFirstPage}}
-              <label class="previous-page">&lt;</label>&nbsp;&nbsp;
+              {{#if useFontAwesome}}
+                <i class="previous-page fa fa-caret-left"></i>
+              {{else}}
+                <label class="previous-page">&lt;</label>
+              {{/if}}
             {{/if}}
-            <label>{{i18n 'reactiveTable.page'}}&nbsp;<input class="form-control" type="text" value="{{getCurrentPage}}" />&nbsp;{{i18n 'reactiveTable.of'}} {{getPageCount}}</label>
+            <label>
+              <span>{{i18n 'reactiveTable.page'}}</span>
+              <input class="form-control" type="text" value="{{getCurrentPage}}" />
+              <span>{{i18n 'reactiveTable.of'}}</span>
+              <span class="page-number-count">{{getPageCount}}</span>
+            </label>
             {{#if isntLastPage}}
-              <label class="next-page">&nbsp;&nbsp;&gt;</label>
+              {{#if useFontAwesome}}
+                <i class="next-page fa fa-caret-right"></i>
+              {{else}}
+                <label class="next-page">&gt;</label>
+              {{/if}}
             {{/if}}
           </div>
         </div>

@@ -185,5 +185,20 @@ if (Meteor.isServer) {
       meteor: {support: false, link: 'https://atmospherejs.com/?q=backgrid'}
     });
 
+    Tables.insert({
+      name: 'Tabular',
+      url: 'https://github.com/aldeed/meteor-tabular',
+      multisort: {support: false, link: 'https://github.com/aldeed/meteor-tabular/issues/144'},
+      pages: true,
+      filter: true,
+      resize: {support: false, link: 'https://github.com/aldeed/meteor-tabular/issues/146'},
+      edit: {support: false, link: 'https://github.com/aldeed/meteor-tabular/issues/145'},
+      responsive: true,
+      i18n: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/147'},
+      keyboard: {support: undefined, link: 'https://github.com/aldeed/meteor-tabular/issues/148'},
+      plugins: {support: true, link: 'http://datatables.net/extensions/index'},
+      meteor: true
+    });
+    
   });
 }

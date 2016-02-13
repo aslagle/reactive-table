@@ -8,3 +8,4 @@ meteor-platform
 insecure
 aslagle:reactive-table
 twbs:bootstrap
+audit-argument-checks

@@ -17,7 +17,10 @@
 
 .reactive-table .sortable, .reactive-table-add-column {
     cursor: pointer;
-    color: black;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .table > thead > tr > th.reactive-table-add-column {
@@ -44,12 +47,17 @@
 .reactive-table-navigation .previous-page,
 .reactive-table-navigation .next-page {
     font-size: 130%;
+    margin: 0 5px;
+}
+
+.reactive-table-navigation .previous-page.fa,
+.reactive-table-navigation .next-page.fa {
+    vertical-align: middle;
 }
 
 .reactive-table-navigation .previous-page:hover,
 .reactive-table-navigation .next-page:hover {
     cursor: pointer;
-    color: black;
 }
 
 .reactive-table .fa-sort-asc {

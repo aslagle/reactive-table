@@ -1,6 +1,7 @@
 anti:i18n@0.4.3
 application-configuration@1.0.4
-aslagle:reactive-table@0.6.13
+aslagle:reactive-table@0.8.6
+audit-argument-checks@1.0.2
 autoupdate@1.1.4
 base64@1.0.2
 binary-heap@1.0.2

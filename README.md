@@ -20,11 +20,12 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
   - [Styling](#styling)
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
-      - [Column Header CSS class](#column-header-css-class) 
+      - [Column Header CSS class](#column-header-css-class)
     - [Cell CSS class](#cell-css-class)
     - [Templates](#templates)
     - [Virtual columns](#virtual-columns)
       - [HTML](#html)
+    - [Default sorting](#default-sorting)
     - [Nested objects and arrays](#nested-objects-and-arrays)
     - [Hidden columns](#hidden-columns)
     - [Dynamic columns](#dynamic-columns)
@@ -35,6 +36,7 @@ If you're updating to Meteor 0.8.0, note that reactiveTable is now a template wi
 - [Custom Filters](#custom-filters)
   - [Multiple filters outside a table](#multiple-filters-outside-a-table)
   - [Creating your own filter](#creating-your-own-filter)
+  - [Nested Tables](#nested-tables)
 - [Internationalization](#internationalization)
 
 ## Quick Start
@@ -71,12 +73,15 @@ The reactiveTable helper accepts additional arguments that can be used to config
 * `filters`: Array. An array of [custom filter](#custom-filters) ids to use with this table. Default `[]`.
 * `rowsPerPage`: Number.  The desired number of rows per page. May also be a [ReactiveVar](http://docs.meteor.com/#/full/reactivevar), see [accessing and controlling table state](#accessing-and-controlling-table-state). Defaults to 10.
 * `showNavigation`: 'always', 'never' or 'auto'.  The latter shows the navigation footer only if the collection has more rows than `rowsPerPage`.
+* `showRowCount`: Boolean. If the navigation footer is visible, display the total number of rows in the collection. When filtering, the value changes to the total number of rows in the filtered collection. Default `false`.
 * `showNavigationRowsPerPage`: Boolean. If the navigation footer is visible, display rows per page control. Default 'true'.
 * `fields`: Object. Controls the columns; see below.
 * `showColumnToggles`: Boolean. Adds a 'Columns' button to the top right that allows the user to toggle which columns are displayed. (Note: there aren't translations for this button yet - please [add one](#internationalization) if you're using it.) Add `hidden` to fields to hide them unless toggled on, see below. Add `hideToggle` to a field to exclude it from the toggle list. Default `false`.
 * `useFontAwesome`: Boolean. Whether to use [Font Awesome](http://fortawesome.github.io/Font-Awesome/) for icons. Requires the `fortawesome:fontawesome` package to be installed. Default `true` if `fortawesome:fontawesome` is installed, else `false`.
 * `enableRegex`: Boolean. Whether to use filter text as a regular expression instead of a regular search term. When true, users won't be able to filter by special characters without escaping them. Default `false`. (Note: Setting this option on the client won't affect server-side filtering - see [Server-side pagination and filtering](#server-side-pagination-and-filtering-beta))
+* `ready`: ReactiveVar(Boolean). When using ReactiveTable.publish on the server, pass in a ReactiveVar for ready on the client and it will be updated to true or false so you can check if the subscription is ready.
 * `noDataTmpl`: Template. Template to render in place of the table when the collection is empty or filtered to 0 rows. Default none (renders table header with no rows).
+* `multiColumnSort`: Boolean. Whether to enable sorting with multiple columns based on the order the user clicks them. Default: `true`.
 * `class`: String. Classes to add to the table element in addition to 'reactive-table'. Default: 'table table-striped table-hover col-sm-12'.
 * `id`: String. Unique id to add to the table element. Default: generated with [_.uniqueId](http://underscorejs.org/#uniqueId).
 * `rowClass`: String or function returning a class name. The row element will be passed as first parameter.
@@ -170,12 +175,8 @@ where the template is defined as:
     <template name="ageRangeColumnLabel">
       <span>Age {{ageFrom}} to {{ageTo}}</span>
     </template>
-    
+
 The `labelData` element is used to set the data context of the label template.
-
-All columns are sortable by default, but sorting can be disabled by setting `sortable` to false:
-
-    { key: 'year', label: 'Year', sortable: false }
 
 
 ##### Column Header CSS Class
@@ -192,7 +193,7 @@ To set the css class for table header **&lt;th&gt;**, use the optional *headerCl
       },
       { key: 'year', label: 'Year' }
     ] }
-    
+
 #### Cell CSS Class
 
 To set the css class for the table cells in a column, add the *cellClass* key to the field settings. This attribute can be a String or a Function. The function arguments will be the value for this key, and the full row object.
@@ -235,7 +236,9 @@ If the key exists in the record, it will be passed to `fn` in `value`. Otherwise
 
 The `object` argument contains the full object, so you can compute a value using multiple fields.
 
-By default, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
+By default for client-side collections, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
+
+For server-side collections, sorting is always by value.
 
 Be aware that it is impossible at the moment to filter on virtual fields.
 
@@ -244,20 +247,27 @@ Be aware that it is impossible at the moment to filter on virtual fields.
 You can use HTML in a virtual column by creating a Spacebars SafeString:
 
     fn: function (value) {
-        return new Spacebars.SafeString('<a href="+Routes.route['view'].path({_id:value})+">View</a>');
+        return new Spacebars.SafeString("<a href="+Routes.route['view'].path({_id:value})+">View</a>");
     }
 
 When adding user-generated fields to the HTML, ensure that they have been properly escaped to prevent cross-site scripting vulnerabilities.
 
 #### Default sorting
 
-You can use a column as the default sort order by adding `sort` to the field:
+All columns are sortable by default, but sorting can be disabled by setting `sortable` to false:
+
+    { key: 'year', label: 'Year', sortable: false }
+
+Default sort order and direction can be controlled by adding `sortOrder` and `sortDirection` to fields:
 
     { fields: [
-        { key: 'year', label: 'Year', sort: 'descending' }
+        { key: 'year', label: 'Year', sortOrder: 0, sortDirection: 'descending' },
+        { key: 'name',  label: 'Name', sortOrder: 1, sortDirection: 'ascending'}
     ] }
 
-It will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order.
+`sortDirection` will accept any truthy value for ascending order, and `'desc'`, `'descending'` or `-1` for descending order.
+
+`sortOrder` will give fields with lower sortOrder higher priority in sorting, so the field with the lowest sortOrder will be the primary sort.
 
 #### Nested objects and arrays
 
@@ -320,7 +330,7 @@ Make the event selector be `tr`, and you'll have your row object in `this`:
 
 ```JavaScript
 Template.posts.events({
-  'click .reactive-table tr': function (event) {
+  'click .reactive-table tbody tr': function (event) {
     // set the blog post we'll display details and news for
     var post = this;
     Session.set('post', post);
@@ -328,11 +338,11 @@ Template.posts.events({
 });
 ```
 
-If you want single elements inside a row to become clickable, you still have to target `tr`. Otherwise `this` won't refer to the corresponding object of your targeted row. With this in mind, you have to specify a `target` inside your `'click .reactive-table tr'` eventlistener:
+If you want single elements inside a row to become clickable, you still have to target `tr`. Otherwise `this` won't refer to the corresponding object of your targeted row. With this in mind, you have to specify a `target` inside your `'click .reactive-table tbody tr'` eventlistener:
 
 ```JavaScript
 Template.posts.events({
-  'click .reactive-table tr': function (event) {
+  'click .reactive-table tbody tr': function (event) {
     event.preventDefault();
     var post = this;
     // checks if the actual clicked element has the class `delete`
@@ -351,7 +361,7 @@ These main table settings can be ReactiveVars:
 * currentPage (will contain the 0-indexed page the table is displaying)
 * rowsPerPage
 
-In addition, columns can contain an isVisible ReactiveVar, which will contain a boolean that determines whether the column is displayed.
+In addition, columns can contain an isVisible ReactiveVar, which will contain a boolean that determines whether the column is displayed. The `sortOrder` and `sortDirection` column options can also be ReactiveVars (`sortDirection` should be `1` or `-1`) if using a ReactiveVar.
 
 For example, to save the user's current page to the Session and restore it from the Session, set up a ReactiveVar in the template containing your reactiveTable:
 ```
@@ -381,6 +391,8 @@ Arguments:
 - settings: (Optional) A object with settings on server side's publish function. (Details below)
 
 Inside the functions, `this` is the publish handler object as in [Meteor.publish](http://docs.meteor.com/#/full/meteor_publish), so `this.userId` is available.
+
+Note: Although ReactiveTable.publish uses Meteor.publish, it publishes the rows to a special collection that's only accessible inside the reactive-table package. If you want to use your collection directly you'll have to publish it separately as well.
 
 On the client, use the publication name as the collection argument to the reactiveTable template.
 
@@ -441,7 +453,8 @@ will provide you search results, while
 ```
 will crash on the server, since "me + you" is not a valid regex ("me \\+ you" would be correct).
   > Default is to disable regex and automatically escape the term, since most users wont 'speak' regex and just type in a search term.
-  
+
+
 ## Custom Filters
 
 reactive-table allows you to add multiple filters, anywhere on the page, and link them to a table instead of using the default filter box.
@@ -452,20 +465,22 @@ reactive-table allows you to add multiple filters, anywhere on the page, and lin
 To create a filter, use the `reactiveTableFilter` template:
 
     {{> reactiveTableFilter id="myFilter" label="Filter" }}
-  
+
 Use the id of the filter in the `filters` argument in your reactiveTable settings.
 
     {
       fields: [...]
       filters: ['myFilter']
     }
-  
+
 `reactiveTableFilter` accepts the following arguments:
 
 * `id`: String. A unique id for the filter, used to link the filter to tables. Also used as the HTML id attribute.
 * `class`: String. HTML class attribute to apply to the element containing the filter. Default: `input-group`.
 * `label`: String. Label to display with the filter box.
-* `fields`: Array. Optional array of field keys that this filter should apply to, eg `["firstName", "lastName"]`. Default: `[]`, which will use all fields in the table.
+* `fields`: Array. Optional array of field keys that this filter should apply to, eg `["firstName", "lastName"]`. Default: `[]`, which will use all fields in the table. Note that you can't use can't use arrays directly in Spacebars templates - you'll need to write a template helper that returns the array.
+
+By default, the filters are combined with `$and`, but you can set the operator to `$or` with the `filterOperator` setting. Add it to the main reactiveTable settings for client-side collections, or the server-side settings when using server-side filtering and pagination. 
 
 ### Creating your own filter
 
@@ -478,12 +493,12 @@ For even more customization, you can create your own `ReactiveTable.Filter`:
 * `id`: String. A unique id for the filter, used to link the filter to tables.
 * `fields`: Array. Optional array of field keys that this filter should apply to, eg `["firstName", "lastName"]`. Default: `[]`, which will use all fields in the table.
 
-Once created, you can use the filter id in the reactiveTable filters, and call `filter.get()` and `filter.set()` to modify the filter. `set` can accept either a string or a mongo selector (eg `{"$gt": 5}`). 
+Once created, you can use the filter id in the reactiveTable filters, and call `filter.get()` and `filter.set()` to modify the filter. `set` can accept either a string or a mongo selector (eg `{"$gt": 5}`).
 
 To clear the filter, set it to an empty string: `filter.set("")`. For convenience, there is also a `ReactiveTable.clearFilters` function that will clear a list of filter ids:
 
     ReactiveTable.clearFilters(['filter1', 'filter2', 'filter3']);
-  
+
 Here's an example of a custom template using `ReactiveTable.Filter`:
 
 ```
@@ -497,7 +512,7 @@ Here's an example of a custom template using `ReactiveTable.Filter`:
 </template>
 
 Template.greaterThanFilter.created = function () {
-  this.filter = new ReactiveTable.Filter('greater-than-filter', ['score']);  
+  this.filter = new ReactiveTable.Filter('greater-than-filter', ['score']);
 };
 
 Template.greaterThanFilter.events({
@@ -508,11 +523,67 @@ Template.greaterThanFilter.events({
       } else {
         template.filter.set("");
       }
-   } 
+   }
 });
 ```
 
+### Nested Tables
 
+You can use filters to set up tables within tables – in essence, doing client-side reactive joins. A practical example would be showing a list of users, and then having a “Purchases” column where you then show that user's purchases.
+
+The first step would be specifying the `tmpl` option for the user's Purchases column:
+
+```js
+fields: [
+  {key: 'purchases', label: "Purchases", tmpl: Template.userPurchases}
+]
+```
+
+You will then need to define the `userPurchases` template, which we're including for each row of the main Users table:
+
+```html
+<template name="userPurchases">
+  {{> reactiveTable settings=settings}}
+</template>
+```
+
+Along with its template helper:
+
+```js
+Template.userPurchases.onCreated(function () {
+  var user = this.data;
+  this.filter = new ReactiveTable.Filter("userPurchasesFilter_"+user._id, ["userId"]);
+  this.filter.set(user._id);
+});
+
+
+Template.userPurchases.helpers({
+  settings: function() {
+    var user = this;
+    return {
+      collection: "user-purchases",
+      filters: ["userPurchasesFilter_"+user._id],
+      field: [...]
+    };
+  }
+});
+```
+
+For each iteration of the `userPurchases` template, we're defining a new filter based on the current user's `_id`, and using it to generate a new table containing that user's purchases.
+
+And finally, the server-side publication:
+
+```js
+ReactiveTable.publish("user-purchases", function () {
+  if(isAdmin(this.userId)){
+    return Purchases;
+  } else {
+    return [];
+  }
+});
+```
+
+Note that the filter will automatically be passed on to the publication and be applied to the collection it returns.
 
 ## Internationalization
 
@@ -529,15 +600,20 @@ To set your language to French:
 We currently have translations (except the 'Columns' button) for:
 
 - Brazilian Portuguese (pt-br)
+- Chinese simplified (zh)
 - Croatian (hr)
 - Czech (cs)
+- Danish (da)
 - Dutch (nl)
 - Finnish (fi)
 - French (fr)
 - German (de)
+- Greek (gr)
 - Hebrew (he)
+- Icelandic (is)
 - Italian (it)
 - Norwegian (no)
+- Persian (fa)
 - Polish (pl)
 - Russian (ru)
 - Slovak (sk)
