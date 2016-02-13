@@ -228,13 +228,15 @@ You can also compute a function on the attribute's value to display in the table
         {
             key: 'resources',
             label: 'Number of Resources',
-            fn: function (value, object) { return value.length; }
+            fn: function (value, object, key) { return value.length; }
         }
     ] }
 
 If the key exists in the record, it will be passed to `fn` in `value`. Otherwise, `value` will be `null`.
 
 The `object` argument contains the full object, so you can compute a value using multiple fields.
+
+The `key` argument contains the key of the field. This allows you to get the reference point of where the value comes from in case fields are generated dynamically.
 
 By default for client-side collections, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
 
