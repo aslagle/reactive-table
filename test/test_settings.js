@@ -372,6 +372,45 @@ testAsyncMulti('Settings - currentPage var updates table', [function (test, expe
   Meteor.setTimeout(expectLastPage, 0);
 }]);
 
+testAsyncMulti('Settings - currentPage var updates table with server-side collection', [function (test, expect) {
+  var page = new ReactiveVar(0);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: "collection", fields: ["name"], settings: {rowsPerPage: 2, currentPage: page}},
+    document.body
+  );
+
+  var expectFirstPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "should be on first page");
+    test.length($('.reactive-table tbody tr'), 2, "first page should have two rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "1", "displayed page number should be 1");
+
+    Blaze.remove(table);
+  });
+
+  var expectSecondPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Claude Shannon", "should be on the second page");
+    test.length($('.reactive-table tbody tr'), 2, "second page should have two rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "2", "displayed page number should be 2");
+
+    page.set(0);
+    Meteor.setTimeout(expectFirstPage, 500);
+  });
+
+  var expectLastPage = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Marie Curie", "should be on last page");
+    test.length($('.reactive-table tbody tr'), 2, "last page should have two rows");
+    test.equal($('.reactive-table-navigation .page-number input').val(), "3", "displayed page number should be 3");
+
+    page.set(1);
+    Meteor.setTimeout(expectSecondPage, 500);
+  });
+
+  page.set(2);
+  Meteor.setTimeout(expectLastPage, 500);
+}]);
+
 testAsyncMulti('Settings - currentPage var updated from table changes', [function (test, expect) {
   var page = new ReactiveVar(0);
 
@@ -431,6 +470,31 @@ testAsyncMulti('Settings - rowsPerPage var updates table', [function (test, expe
   });
 
   Meteor.setTimeout(expectFiveRows, 0);
+}]);
+
+testAsyncMulti('Settings - rowsPerPage var updates table with server-side collection', [function (test, expect) {
+  var rowsPerPage = new ReactiveVar(5);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: "collection", fields: ["name"], settings: {rowsPerPage: rowsPerPage}},
+    document.body
+  );
+
+  var expectThreeRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 3, "three rows should be rendered");
+
+    Blaze.remove(table);
+  });
+
+  var expectFiveRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 5, "five rows should be rendered");
+
+    rowsPerPage.set(3);
+    Meteor.setTimeout(expectThreeRows, 500);
+  });
+
+  Meteor.setTimeout(expectFiveRows, 500);
 }]);
 
 testAsyncMulti('Settings - rowsPerPage var updated from table changes', [function (test, expect) {
