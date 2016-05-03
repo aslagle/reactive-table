@@ -211,6 +211,11 @@ You can specify a template to use to render cells in a column, by adding `tmpl` 
 
 The template's context will be the full object, so it will have access to all fields.
 
+
+It's useful to note that irregardless of what's displayed by tmpl, the `fn` column field is what's used for sorting. 
+This allows you to handle situations where you want a custom value to sort on (`sortByValue` doesn't work) and still
+want the additional formatting provided by a template.
+
 #### Virtual columns
 
 You can also compute a function on the attribute's value to display in the table, by adding `fn` to the field.

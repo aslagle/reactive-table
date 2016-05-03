@@ -69,3 +69,11 @@
 	position: relative;
 	top: 2px;
 }
+
+.reactive-table .reactive-table-children-container {
+    display: none;
+}
+
+.reactive-table-children {
+    width: 100%;
+}

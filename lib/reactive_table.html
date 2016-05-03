@@ -72,10 +72,59 @@
             <tr class="{{../rowClass this}}">
               {{#each ../fields}}
                 {{#if isVisible}}
-                  <td class="{{getCellClass ..}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+                  <td class="{{getCellClass ..}}">
+                    {{#if tmpl}}
+                     {{#with ..}}
+                       {{> ../tmpl}}
+                     {{/with}}
+                    {{else}}
+                      {{#if addChildrenExpandIcon}}
+                        {{#if ../../useFontAwesome}}
+                          <i class="{{../../childrenExpandIconClass}} fa fa-plus-square-o"></i>
+                        {{else}}
+                          <label class="{{../../childrenExpandIconClass}}">&#10133;</label>
+                        {{/if}}
+                      {{/if}}
+                     {{getField ..}}
+                    {{/if}}
+                   </td>
                 {{/if}}
               {{/each}}
             </tr>
+            {{#if ../children}}
+              <tr class="reactive-table-children-container">
+                <td colspan="{{../fields.length}}">
+                  <table class="table reactive-table-children">
+                    <thead>
+                    <tr>
+                      {{#each ../children.fields}}
+                        <th class="{{getHeaderClass}}">
+                          {{label}}
+                        </th>
+                      {{/each}}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each getChildrenRows}}
+                      <tr>
+                        {{#each ../../children.fields}}
+                          <td class="{{getCellClass ..}}">
+                            {{#if tmpl}}
+                              {{#with ..}}
+                                {{> ../tmpl}}
+                              {{/with}}
+                            {{else}}
+                              {{getField ..}}
+                            {{/if}}
+                          </td>
+                        {{/each}}
+                      </tr>
+                    {{/each}}
+                    </tbody>
+                  </table>
+                </td>
+               </tr>
+              {{/if}}
           {{/each}}
         </tbody>
       </table>
