@@ -167,6 +167,39 @@ Tinytest.add('Fields - label tmpl no data', function (test) {
   );
 });
 
+testAsyncMulti('Fields - label tmpl clickable to sort', [function (test, expect) {
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: rows,
+      settings: {
+        fields: [
+          {key: "name", label: Template.testFieldsTmplNoData}
+        ]
+      }
+    },
+    document.body
+  );
+
+  var expectAscending = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "ascending first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Carl Friedrich Gauss", "ascending second row");
+    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Grace Hopper", "ascending fourth row");
+    Blaze.remove(table);
+  });
+
+  var expectDescending = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Nikola Tesla", "descending first row");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Marie Curie", "descending second row");
+    test.equal($('.reactive-table tbody tr:nth-child(4) td:first-child').text(), "Claude Shannon", "descending fourth row");
+
+    $('span.test').click();
+    Meteor.setTimeout(expectAscending, 0);
+  });
+
+  $('span.test').click();
+  Meteor.setTimeout(expectDescending, 0);
+}]);
 
 Tinytest.add('Fields - header class string', function (test) {
   testTable(
@@ -402,6 +435,43 @@ testAsyncMulti('Fields - sortOrder ReactiveVar', [function (test, expect) {
   Meteor.setTimeout(expectSortByScore, 0);
 }]);
 
+testAsyncMulti('Fields - sortOrder ReactiveVar with server-side collection', [function (test, expect) {
+  var nameOrder = new ReactiveVar(0);
+  var scoreOrder = new ReactiveVar(1);
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: "collection",
+      fields: [
+        {key: 'name', label: 'Name', sortOrder: nameOrder},
+        {key: 'score', label: 'Score', sortOrder: scoreOrder}
+      ]
+    },
+    document.body
+  );
+
+  var expectSortByName = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "sort should be by name");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Carl Friedrich Gauss", "sort should be by name");
+    test.equal($('.reactive-table tbody tr:nth-child(6) td:first-child').text(), "Nikola Tesla", "sort should be by name");
+    test.equal(nameOrder.get(), 0, 'name ReactiveVar should update');
+
+    Blaze.remove(table);
+  });
+
+  var expectSortByScore = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Carl Friedrich Gauss", "sort should be by score");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Ada Lovelace", "sort should be by score");
+    test.equal($('.reactive-table tbody tr:nth-child(6) td:first-child').text(), "Nikola Tesla", "sort should be by score");
+
+    $('.reactive-table th:first-child').click();
+    Meteor.setTimeout(expectSortByName, 500);
+  });
+
+  nameOrder.set(2);
+  Meteor.setTimeout(expectSortByScore, 500);
+}]);
+
 Tinytest.add('Fields - sortDirection', function (test) {
   _.each(['descending', 'desc', -1], function (sort) {
     testTable(
@@ -487,6 +557,41 @@ testAsyncMulti('Fields - sortDirection ReactiveVar', [function (test, expect) {
 
   nameDirection.set(-1);
   Meteor.setTimeout(expectDescending, 0);
+}]);
+
+testAsyncMulti('Fields - sortDirection ReactiveVar with server-side collection', [function (test, expect) {
+  var nameDirection = new ReactiveVar(1);
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {
+      collection: "collection",
+      fields: [
+        {key: 'name', label: 'Name', sortDirection: nameDirection}
+      ]
+    },
+    document.body
+  );
+
+  var expectAscending = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Ada Lovelace", "sort should be ascending");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Carl Friedrich Gauss", "sort should be ascending");
+    test.equal($('.reactive-table tbody tr:nth-child(6) td:first-child').text(), "Nikola Tesla", "sort should be ascending");
+    test.equal(nameDirection.get(), 1, 'ReactiveVar should update');
+
+    Blaze.remove(table);
+  });
+
+  var expectDescending = expect(function () {
+    test.equal($('.reactive-table tbody tr:first-child td:first-child').text(), "Nikola Tesla", "sort should be descending");
+    test.equal($('.reactive-table tbody tr:nth-child(2) td:first-child').text(), "Marie Curie", "sort should be descending");
+    test.equal($('.reactive-table tbody tr:nth-child(6) td:first-child').text(), "Ada Lovelace", "sort should be descending");
+
+    $('.reactive-table th:first-child').click();
+    Meteor.setTimeout(expectAscending, 500);
+  });
+
+  nameDirection.set(-1);
+  Meteor.setTimeout(expectDescending, 500);
 }]);
 
 Tinytest.add('Fields - default sort', function (test) {
