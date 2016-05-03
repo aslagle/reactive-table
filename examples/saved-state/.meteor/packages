@@ -11,3 +11,5 @@ anti:i18n
 twbs:bootstrap-noglyph
 fortawesome:fontawesome
 reactive-var
+standard-minifier-css
+standard-minifier-js

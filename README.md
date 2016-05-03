@@ -1,15 +1,6 @@
 # Reactive Table
-A reactive table designed for Meteor.
+A reactive table for Meteor, using [Blaze](https://github.com/meteor/blaze).
 
-Demo and Feature Comparison: http://reactive-table.meteor.com/
-
-Another Demo: http://reactive-table-leaderboard.meteor.com/
-
-### Note on Versions
-The latest version of reactive-table only supports Meteor version 0.9.0 or higher.
-For Meteor 0.8, use reactive-table version 0.3.21.
-For older versions of Meteor, you can use reactive-table v0.2.5 ([documentation](https://github.com/aslagle/reactive-table/tree/v0.2.5)).
-If you're updating to Meteor 0.8.0, note that reactiveTable is now a template with keyword arguments rather than a helper. The functionality should be the same, but please report bugs in the issues.
 
 ### Table of Contents
 - [Quick Start](#quick-start)
@@ -228,13 +219,15 @@ You can also compute a function on the attribute's value to display in the table
         {
             key: 'resources',
             label: 'Number of Resources',
-            fn: function (value, object) { return value.length; }
+            fn: function (value, object, key) { return value.length; }
         }
     ] }
 
 If the key exists in the record, it will be passed to `fn` in `value`. Otherwise, `value` will be `null`.
 
 The `object` argument contains the full object, so you can compute a value using multiple fields.
+
+The `key` argument contains the key of the field. This allows you to get the reference point of where the value comes from in case fields are generated dynamically.
 
 By default for client-side collections, fields that use `fn` will be sorted by the result of this function. If you want to sort by the field's original value instead (for example, if you are making a date human-readable), set `sortByValue` to `true` on the field object.
 
@@ -391,6 +384,8 @@ Arguments:
 - settings: (Optional) A object with settings on server side's publish function. (Details below)
 
 Inside the functions, `this` is the publish handler object as in [Meteor.publish](http://docs.meteor.com/#/full/meteor_publish), so `this.userId` is available.
+
+Note: Although ReactiveTable.publish uses Meteor.publish, it publishes the rows to a special collection that's only accessible inside the reactive-table package. If you want to use your collection directly you'll have to publish it separately as well.
 
 On the client, use the publication name as the collection argument to the reactiveTable template.
 

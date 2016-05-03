@@ -7,3 +7,5 @@ standard-app-packages
 autopublish
 twbs:bootstrap-noglyph
 aslagle:reactive-table
+standard-minifier-css
+standard-minifier-js

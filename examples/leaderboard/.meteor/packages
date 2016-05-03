@@ -10,3 +10,5 @@ aslagle:reactive-table
 anti:i18n
 twbs:bootstrap-noglyph
 fortawesome:fontawesome
+standard-minifier-css
+standard-minifier-js
