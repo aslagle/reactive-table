@@ -70,6 +70,10 @@
   top: 2px;
 }
 
+.reactive-table .reactive-table-children-expand {
+    cursor: pointer;
+}
+
 .reactive-table .reactive-table-children-container .error {
   color: #d9534f;
 }

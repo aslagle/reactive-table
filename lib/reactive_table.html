@@ -86,9 +86,9 @@
                     {{else}}
                       {{#if expandButton}}
                         {{#if ../../useFontAwesome}}
-                          <i class="{{../../childrenExpandIconClass}} fa fa-plus-square-o"></i>
+                          <i class="{{../../childrenExpandIconClass}} fa fa-plus-square-o" data-id="{{../_id}}"></i>
                         {{else}}
-                          <label class="{{../../childrenExpandIconClass}}">&#10133;</label>
+                          <label class="{{../../childrenExpandIconClass}}" data-id="{{../_id}}">&#10133;</label>
                         {{/if}}
                       {{/if}}
                       {{getField ..}}
@@ -131,8 +131,8 @@
                         </tbody>
                       </table>
                     {{else}}
-                      {{#if getChildrenTmpl}}
-                        {{> getChildrenTmpl getChildrenTmplData}}
+                      {{#if ../children/tmpl}}
+                        {{> ../children/tmpl}}
                       {{else}}
                         <span class="error">if children field exists, you must have defined either tmpl or fields</span>
                       {{/if}}
