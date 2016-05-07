@@ -13,6 +13,8 @@ simply pass in a template for the sub table and handle it yourself.
 - Your data must have a unique `_id` field, if you're using a Collection this shouldn't be an issue
 
 
+---
+
 ### Expand Button Setup
 
 There are 2 implementations of the expand button
@@ -64,7 +66,7 @@ For example I can pass in my own template:
           ...
         ]
 
-And then in my template I can create an event, where `this.expandChildren` and `this.collapseChildren()`
+And then in my template I can create an event, where functions `this.expandChildren` and `this.collapseChildren`
 are accessible. You can save your state however you wish, in my case I am using the DOM.
     
     
@@ -91,6 +93,9 @@ are accessible. You can save your state however you wish, in my case I am using 
     });
     
     
+---
+    
+    
 ### Child/Sub Table Setup
  
 You have two options for the contents of the child table, either a simple table rendered with the default reactive-table fields options
@@ -103,7 +108,9 @@ The child table settings are added with the reactive-table setting `children`
 
 For a child table you need two settings in `children`, these are `dataField` and `fields` 
 
-`dataField` - this must be a field referencing an array of structs, for example if I have the following data
+`dataField` - this must be a field referencing an array of structs, for example if I have the following data, 
+you may notice that `store_locations` is actually an array, I don't reference it in my parent table `fields`
+setting, and plan to use it to iterate over and generate my child table.
  
     [
       {
@@ -122,8 +129,16 @@ For a child table you need two settings in `children`, these are `dataField` and
         store_name: 'Tom\'s Hardware'
         store_locations: [
           {
-            _id: 1001,
+            _id: 2000
+            city: 'Chicago'
+          },
+          {
+            _id: 2001,
             city: 'New York'
+          },
+          {
+            _id: 2002,
+            city: 'Los Angeles'
           }
           ...
         ]
@@ -134,7 +149,8 @@ For a child table you need two settings in `children`, these are `dataField` and
 
 
 `fields` - similar to the `fields` setting on the parent table, all the same functionality is retained such as
-virtual columns, templates and styling options
+virtual columns, templates and styling options. It will iterate over the array referenced by the key `dataField`
+and generate a row for each iteration with the `children.fields` specification.
 
 
     fields: [
