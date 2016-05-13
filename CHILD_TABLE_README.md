@@ -5,8 +5,6 @@ This guide shows how to add child/sub tables, this simply inserts a new row when
 You can control the expand/collapse control and render an array on your data structure or
 simply pass in a template for the sub table and handle it yourself.
 
-*Note: This currently does not work with sorting or server side paging, only use this with static data*
-
 
 **Requirements:**
 
