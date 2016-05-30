@@ -34,7 +34,7 @@
       </div>
     </div>
     {{#unless noData}}
-      <table id="{{id}}" class="{{class}} reactive-table">
+      <table id="{{id}}" class="{{class}} reactive-table-2">
         <thead>
           <tr>
             {{#each fields}}
@@ -99,10 +99,10 @@
             </tr>
             {{#if ../children}}
               {{#if isVisibleChild}}
-                <tr class="reactive-table-children-container">
+                <tr class="reactive-table-2-children-container">
                   <td colspan="{{../fields.length}}">
                     {{#if ../children/fields}}
-                      <table class="table reactive-table-children">
+                      <table class="table reactive-table-2-children">
                         <thead>
                         <tr>
                           {{#each ../children.fields}}
