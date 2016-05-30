@@ -1,6 +1,6 @@
 Tinytest.add('Custom Filters - reactiveTableFilter template rendering', function (test) {
   var filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'test-id'},
     document.body
   );
@@ -11,7 +11,7 @@ Tinytest.add('Custom Filters - reactiveTableFilter template rendering', function
 
 Tinytest.add('Custom Filters - reactiveTableFilter template label', function (test) {
   var filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'test-id', label: 'Test'},
     document.body
   );
@@ -19,7 +19,7 @@ Tinytest.add('Custom Filters - reactiveTableFilter template label', function (te
   Blaze.remove(filter);
   
   filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'test-id'},
     document.body
   );
@@ -29,7 +29,7 @@ Tinytest.add('Custom Filters - reactiveTableFilter template label', function (te
 
 Tinytest.add('Custom Filters - reactiveTableFilter class', function (test) {
   var filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'test-id', class: 'test-class'},
     document.body
   );
@@ -39,7 +39,7 @@ Tinytest.add('Custom Filters - reactiveTableFilter class', function (test) {
 
 testAsyncMulti('Custom Filters - reactiveTableFilter no fields', [function (test, expect) {
   var filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'client-filter'},
     document.body
   );
@@ -78,7 +78,7 @@ testAsyncMulti('Custom Filters - reactiveTableFilter no fields', [function (test
 
 testAsyncMulti('Custom Filters - reactiveTableFilter in server-side table', [function (test, expect) {
   var filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'server-filter'},
     document.body
   );
@@ -117,7 +117,7 @@ testAsyncMulti('Custom Filters - reactiveTableFilter in server-side table', [fun
 
 testAsyncMulti('Custom Filters - reactiveTableFilter one field', [function (test, expect) {
   var filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'name-only', fields: ['name']},
     document.body
   );
@@ -156,7 +156,7 @@ testAsyncMulti('Custom Filters - reactiveTableFilter one field', [function (test
 
 testAsyncMulti('Custom Filters - reactiveTableFilter two fields', [function (test, expect) {
   var filter = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'name-and-score'},
     document.body
   );
@@ -195,13 +195,13 @@ testAsyncMulti('Custom Filters - reactiveTableFilter two fields', [function (tes
 
 testAsyncMulti('Custom Filters - reactiveTableFilter two filters client-side', [function (test, expect) {
   var filter1 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'name-filter'},
     document.body
   );
   
   var filter2 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'score-filter'},
     document.body
   );
@@ -250,13 +250,13 @@ testAsyncMulti('Custom Filters - reactiveTableFilter two filters client-side', [
 
 testAsyncMulti('Custom Filters - reactiveTableFilter two filters with or client-side', [function (test, expect) {
   var filter1 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'name-filter'},
     document.body
   );
   
   var filter2 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'score-filter'},
     document.body
   );
@@ -305,13 +305,13 @@ testAsyncMulti('Custom Filters - reactiveTableFilter two filters with or client-
 
 testAsyncMulti('Custom Filters - reactiveTableFilter two filters server-side', [function (test, expect) {
   var filter1 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'name-filter'},
     document.body
   );
   
   var filter2 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'score-filter'},
     document.body
   );
@@ -358,15 +358,15 @@ testAsyncMulti('Custom Filters - reactiveTableFilter two filters server-side', [
   Meteor.setTimeout(expectInitialRows, 500);
 }]);
 
-testAsyncMulti('Custom Filters - reactiveTableFilter two filters with or server-side', [function (test, expect) {
+testAsyncMulti('Custom Filters - reactiveTableFilter2 two filters with or server-side', [function (test, expect) {
   var filter1 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'name-filter'},
     document.body
   );
   
   var filter2 = Blaze.renderWithData(
-    Template.reactiveTableFilter,
+    Template.reactiveTableFilter2,
     {id: 'score-filter'},
     document.body
   );
