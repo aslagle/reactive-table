@@ -132,7 +132,9 @@
                       </table>
                     {{else}}
                       {{#if ../children/tmpl}}
-                        {{> ../children/tmpl}}
+                        {{#with extendExpandHelpers}}
+                          {{> ../../children/tmpl}}
+                        {{/with}}
                       {{else}}
                         <span class="error">if children field exists, you must have defined either tmpl or fields</span>
                       {{/if}}
