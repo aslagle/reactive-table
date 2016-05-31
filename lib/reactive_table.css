@@ -1,81 +1,85 @@
 .reactive-table-options {
-    padding-right: 0px;
-    margin-right: -5px;
+  padding-right: 0px;
+  margin-right: -5px;
 }
 
 .reactive-table-filter {
-    float: right;
+  float: right;
 }
 
 .reactive-table-columns-dropdown {
-    float: right;
+  float: right;
 }
 
 .reactive-table-columns-dropdown button {
-    float: right;
+  float: right;
 }
 
 .reactive-table-2.sortable, .reactive-table-add-column {
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .table > thead > tr > th.reactive-table-add-column {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .reactive-table-navigation {
-    display: inline-block;
-    width: 100%;
+  display: inline-block;
+  width: 100%;
 }
 
 .reactive-table-navigation .form-inline input {
-    width: 45px;
+  width: 45px;
 }
 
 .reactive-table-navigation .rows-per-page {
-    float: left;
+  float: left;
 }
 
 .reactive-table-navigation .page-number {
-    float: right;
+  float: right;
 }
 
 .reactive-table-navigation .previous-page,
 .reactive-table-navigation .next-page {
-    font-size: 130%;
-    margin: 0 5px;
+  font-size: 130%;
+  margin: 0 5px;
 }
 
 .reactive-table-navigation .previous-page.fa,
 .reactive-table-navigation .next-page.fa {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .reactive-table-navigation .previous-page:hover,
 .reactive-table-navigation .next-page:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.reactive-table-2.fa-sort-asc {
-	position: relative;
-	top: -2px;
+.reactive-table-2 .fa-sort-asc {
+  position: relative;
+  top: -2px;
 }
 
-.reactive-table-2.fa-sort-desc {
-	position: relative;
+.reactive-table-2 .fa-sort-desc {
+  position: relative;
   top: 2px;
 }
 
-.reactive-table-2.reactive-table-2-children-expand {
-    cursor: pointer;
+.reactive-table-2 .reactive-table-2-children-expand {
+  cursor: pointer;
 }
 
-.reactive-table-2.reactive-table-2-children-container .error {
+.reactive-table-2 .reactive-table-2-children-container .error {
   color: #d9534f;
+}
+
+.reactive-table-2 .reactive-table-2-children-container td {
+  padding: 0;
 }
 
 .reactive-table-2-children {
