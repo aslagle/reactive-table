@@ -1,5 +1,5 @@
 
-# Child (Sub) Tables
+# Child (Sub) Tables <sup>BETA</sup>
 
 This guide shows how to add child/sub tables, this simply inserts a new row when expanded.
 You can control the expand/collapse control and render an array on your data structure or
