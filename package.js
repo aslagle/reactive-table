@@ -1,7 +1,7 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
   version: "0.8.29",
-  name: "aslagle:reactive-table-2"
+  name: "aslagle:reactive-table"
 });
 
 Package.on_use(function (api) {
@@ -26,7 +26,7 @@ Package.on_use(function (api) {
     api.add_files('lib/filter.js', ['client', 'server']);
     api.add_files('lib/server.js', 'server');
 
-    api.export("ReactiveTable2", ["client", "server"]);
+    api.export("ReactiveTable", ["client", "server"]);
 });
 
 Package.on_test(function (api) {

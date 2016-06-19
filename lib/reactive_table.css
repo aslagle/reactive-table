@@ -15,7 +15,7 @@
   float: right;
 }
 
-.reactive-table-2.sortable, .reactive-table-add-column {
+.reactive-table.sortable, .reactive-table-add-column {
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -60,28 +60,28 @@
   cursor: pointer;
 }
 
-.reactive-table-2 .fa-sort-asc {
+.reactive-table .fa-sort-asc {
   position: relative;
   top: -2px;
 }
 
-.reactive-table-2 .fa-sort-desc {
+.reactive-table .fa-sort-desc {
   position: relative;
   top: 2px;
 }
 
-.reactive-table-2 .reactive-table-2-children-expand {
+.reactive-table .reactive-table-children-expand {
   cursor: pointer;
 }
 
-.reactive-table-2 .reactive-table-2-children-container .error {
+.reactive-table .reactive-table-children-container .error {
   color: #d9534f;
 }
 
-.reactive-table-2 .reactive-table-2-children-container td {
+.reactive-table .reactive-table-children-container td {
   padding: 0;
 }
 
-.reactive-table-2-children {
+.reactive-table-children {
   width: 100%;
 }
