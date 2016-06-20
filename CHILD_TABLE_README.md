@@ -195,6 +195,17 @@ for you to reference
       tmpl: Template.StoreLocations
     }
     
+    
+### Nested Reactive Tables
+
+You can definitely nest entire reactive tables now with the tmpl option, in the above example Template.StoreLocations could
+simple insert another reactive table
+
+*However if you use the `expandButton` option for controls, you need to a specify a new setting `childrenExpandIconClass` on the settings object
+you pass into reactive table, this ensures the expand icons don't conflict, I'm using a DOM $.find to toggle these for now*
+
+
+
 
 
 
