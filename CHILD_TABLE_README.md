@@ -8,7 +8,8 @@ simply pass in a template for the sub table and handle it yourself.
 
 **Requirements:**
 
-- Your data must have a unique `_id` field, if you're using a Collection this shouldn't be an issue
+- Your data must have a unique `_id` field, if you're using a Collection this shouldn't be an issue, 
+otherwise add the field and you can use `Meteor.uuid()` for example. 
 
 
 ---
@@ -200,11 +201,11 @@ for you to reference
     
 ### Nested Reactive Tables
 
-You can definitely nest entire reactive tables now with the tmpl option, in the above example Template.StoreLocations could
-simple insert another reactive table
+You can definitely nest entire reactive tables now with the `tmpl` option, in the above example Template.StoreLocations could
+simply insert another reactive table
 
 *However if you use the `expandButton` option for controls, you need to a specify a new setting `childrenExpandIconClass` on the settings object
-you pass into reactive table, this ensures the expand icons don't conflict, I'm using a DOM $.find to toggle these for now*
+you pass into reactive table, this ensures the expand icons don't conflict, I'm using a DOM $.find CSS to toggle these for now*
 
 
 
