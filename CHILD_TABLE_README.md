@@ -46,10 +46,12 @@ This respects the virtual column's `fn` function, if you use this it will prepen
 #### Custom Expand Button Template
 
 First `expandButton` must be set to true, and if you are using a Template, 
-we will automatically pass in to the template data two helper functions
+we will automatically pass in to the template data two helper functions, please note the underscore prefix
+to avoid collisions. In fact the *\_.extend* I use to add these helpers prioritizes your data first, so you 
+can override these completely.
  
-- `expandChildren` - show the child / sub table
-- `collapseChildren` - hide the above
+- `_expandChildren` - show the child / sub table
+- `_collapseChildren` - hide the above
 
 For example I can pass in my own template:
 
@@ -64,7 +66,7 @@ For example I can pass in my own template:
           ...
         ]
 
-And then in my template I can create an event, where functions `this.expandChildren` and `this.collapseChildren`
+And then in my template I can create an event, where functions `this._expandChildren` and `this._collapseChildren`
 are accessible. You can save your state however you wish, in my case I am using the DOM.
     
     
@@ -78,12 +80,12 @@ are accessible. You can save your state however you wish, in my case I am using 
         if (!!divContainer.data('expanded')) {
           iconExpand.removeClass( 'fa-minus-square-o' ).addClass( 'fa-plus-square-o' );
           divContainer.data('expanded', false);
-          this.collapseChildren();
+          this._collapseChildren();
         }
         else {
           iconExpand.removeClass( 'fa-plus-square-o' ).addClass( 'fa-minus-square-o' );
           divContainer.data('expanded', true);
-          this.expandChildren();
+          this._expandChildren();
         }
     
       }
