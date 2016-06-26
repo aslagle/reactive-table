@@ -625,6 +625,39 @@ testAsyncMulti('Custom Filters - ReactiveTable.Filter with server-side field inc
   Meteor.setTimeout(expectTwoRowsNoValues, 500);
 }]);
 
+testAsyncMulti('Custom Filters - ReactiveTable.Filter with server-side nested field inclusion', [function (test, expect) {
+  var filterId = 'test' + _.uniqueId();
+  var filter = new ReactiveTable.Filter(filterId, ['nested.1.value']);
+
+  var table = Blaze.renderWithData(
+    Template.reactiveTable,
+    {collection: 'nested-filter-inclusion-with-array', fields: ['name', 'nested.1.value'], filters: [filterId]},
+    document.body
+  );
+
+  var expectNoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 0, "no rows should match");
+    Blaze.remove(table);
+  });
+
+  var expectOneRow = expect(function () {
+    test.length($('.reactive-table tbody tr'), 1, "one row should match");
+    test.equal($('.reactive-table tbody tr:first-child td:nth-child(2)').text(), "other");
+
+    filter.set("value");
+    Meteor.setTimeout(expectNoRows, 1000);
+  });
+    
+  var expectTwoRows = expect(function () {
+    test.length($('.reactive-table tbody tr'), 2, "initial two rows");
+      
+    filter.set("other");
+    Meteor.setTimeout(expectOneRow, 1000);
+  });
+
+  Meteor.setTimeout(expectTwoRows, 500);
+}]);
+
 testAsyncMulti('Custom Filters - ReactiveTable.Filter with server-side field exclusion', [function (test, expect) {
   var filterId = 'test' + _.uniqueId();
   var filter = new ReactiveTable.Filter(filterId, ['name']);
