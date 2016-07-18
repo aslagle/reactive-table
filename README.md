@@ -596,6 +596,7 @@ We currently have translations (except the 'Columns' button) for:
 
 - Brazilian Portuguese (pt-br)
 - Chinese simplified (zh)
+- Chinese traditional (zh-tw)
 - Croatian (hr)
 - Czech (cs)
 - Danish (da)
