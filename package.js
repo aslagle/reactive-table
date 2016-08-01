@@ -1,6 +1,6 @@
 Package.describe({
   summary: "A reactive table designed for Meteor",
-  version: "0.8.33",
+  version: "0.8.34",
   name: "aslagle:reactive-table",
   git: "https://github.com/aslagle/reactive-table.git"
 });

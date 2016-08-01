@@ -428,6 +428,8 @@ The following options are available in the settings argument to ReactiveTable.pu
   Whether to use filter text as a regular expression instead of a regular search term. When true, users will be able to enter regular expressions to filter the table, but your application may be vulnerable to a [ReDoS](http://en.wikipedia.org/wiki/ReDoS) attack. Also, when true, users won't be able to use special characters in filter text without escaping them.
 - disablePageCountReactivity (Boolean - *default=* **false**):
   Whether to disable reactive updates of the displayed page count. Setting this to true will improve performance and is a good idea if you don't need the page count to automatically update.
+- disableRowReactivity (Boolean - *default=* **false**):
+  Whether to disable reactive updates of the displayed rows (which rows are displayed and their contents). Setting both this and disablePageCountReactivity to true will disable all reactivity.
 
 Regex Examples:
 A user filters with "me + you"
