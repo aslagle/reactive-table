@@ -342,6 +342,22 @@ Tinytest.add('Fields - virtual column sorting', function (test) {
   );
 });
 
+Tinytest.add('Fields - sortFn', function (test) {
+  testTable(
+    {
+      collection: rows,
+      fields: [
+        {key: 'name', label: 'Sorted by Letters 2&3', sortFn: function (name) { return name.slice(1, 3); }}
+      ]
+    },
+    function () {
+      test.equal($('.reactive-table tbody tr:first-child td').text(), "Marie Curie", "table should be sorted by fn by display full field");
+      test.equal($('.reactive-table tbody tr:nth-child(2) td').text(), "Carl Friedrich Gauss", "table should be sorted by fn but display full field");
+      test.equal($('.reactive-table tbody tr:nth-child(4) td').text(), "Nikola Tesla", "table should be sorted by fn but display full field");
+    }
+  );
+});
+
 Tinytest.add('Fields - virtual column html', function (test) {
   testTable(
     {
