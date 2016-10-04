@@ -235,6 +235,9 @@ For server-side collections, sorting is always by value.
 
 Be aware that it is impossible at the moment to filter on virtual fields.
 
+In case of a need for a more sophisticated algorithm, use `sortFn`. This function behaves similarly to `fn`
+but does not affect the visible cell value.
+
 ##### HTML
 
 You can use HTML in a virtual column by creating a Spacebars SafeString:
@@ -477,7 +480,7 @@ Use the id of the filter in the `filters` argument in your reactiveTable setting
 * `label`: String. Label to display with the filter box.
 * `fields`: Array. Optional array of field keys that this filter should apply to, eg `["firstName", "lastName"]`. Default: `[]`, which will use all fields in the table. Note that you can't use can't use arrays directly in Spacebars templates - you'll need to write a template helper that returns the array.
 
-By default, the filters are combined with `$and`, but you can set the operator to `$or` with the `filterOperator` setting. Add it to the main reactiveTable settings for client-side collections, or the server-side settings when using server-side filtering and pagination. 
+By default, the filters are combined with `$and`, but you can set the operator to `$or` with the `filterOperator` setting. Add it to the main reactiveTable settings for client-side collections, or the server-side settings when using server-side filtering and pagination.
 
 ### Creating your own filter
 
