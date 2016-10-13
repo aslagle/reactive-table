@@ -600,6 +600,7 @@ To set your language to French:
 We currently have translations (except the 'Columns' button) for:
 
 - Brazilian Portuguese (pt-br)
+- Bulgarian (bg)
 - Chinese simplified (zh)
 - Chinese traditional (zh-tw)
 - Croatian (hr)
