@@ -614,6 +614,7 @@ We currently have translations (except the 'Columns' button) for:
 - Hebrew (he)
 - Icelandic (is)
 - Italian (it)
+- Macedonian (mk)
 - Norwegian (no)
 - Persian (fa)
 - Polish (pl)
