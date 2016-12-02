@@ -69,7 +69,7 @@
         </thead>
         <tbody>
           {{#each sortedRows}}
-            <tr class="{{../rowClass this}} reactive-table-row">
+              <tr class="{{../rowClass this}} reactive-table-row">
               {{#each ../fields}}
                 {{#if isVisible}}
                   <td class="{{getCellClass ..}}">
@@ -86,7 +86,13 @@
                     {{else}}
                       {{#if expandButton}}
                         {{#if ../../useFontAwesome}}
-                          <i class="{{../../childrenExpandIconClass}} fa fa-plus-square-o" data-id="{{../_id}}"></i>
+                            {{#if ../../children}}
+                                {{#if isVisibleChild ../_id}}
+                                    <i class="{{../../childrenExpandIconClass}} {{getCollapseIcon}}" data-id="{{../_id}}"></i>
+                                {{else}}
+                                    <i class="{{../../childrenExpandIconClass}} {{getExpandIcon}}" data-id="{{../_id}}"></i>
+                                {{/if}}
+                            {{/if}}
                         {{else}}
                           <label class="{{../../childrenExpandIconClass}}" data-id="{{../_id}}">&#10133;</label>
                         {{/if}}
