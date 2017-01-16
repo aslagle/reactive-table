@@ -618,6 +618,7 @@ We currently have translations (except the 'Columns' button) for:
 - Norwegian (no)
 - Persian (fa)
 - Polish (pl)
+- Portuguese (pt)
 - Russian (ru)
 - Slovak (sk)
 - Spanish (es)
