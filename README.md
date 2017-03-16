@@ -8,6 +8,7 @@ A reactive table for Meteor, using [Blaze](https://github.com/meteor/blaze).
   - [Settings](#settings)
     - [rowClass Examples](#rowclass-examples)
     - [Settings Object](#settings-object)
+    - [Child Table](#child-table)
   - [Styling](#styling)
   - [Setting columns](#setting-columns)
     - [Setting column headers](#setting-column-headers)
@@ -125,6 +126,90 @@ Define the settings in a helper for the template that calls reactiveTable:
 You can continue to pass some settings as named arguments while grouping the others into the settings object:
 
     {{> reactiveTable collection=collection fields=fields settings=settings}}
+
+
+
+
+### Child Table
+
+If your data already has an array child element, you can make the row expand to show the child data easily.
+
+This is only recommended for smaller data sets since you could potentially be loading too much data. You can
+potentially do your own joins and populate the child array with the data from another collection manually.
+
+For example if I had data such as
+
+```js
+{
+  user_id: '12345',
+  name: 'John Smith',
+  purchases: [
+    {
+      purchase_id: 888,
+      item_name: 'Book',
+      qty: 1,
+      price: 8.88
+    },
+    {
+      purchase_id: 889,
+      item_name: 'Pencil',
+      qty: 12,
+      price: 0.79
+    }
+  ]
+}
+```
+
+I could expose the underlying `purchases` with
+
+```js
+settings = {
+  fields: [
+    {
+      key: 'user_id',
+      label: 'Customer #',
+    },
+    {
+      key: 'name',
+      label: 'Name',
+    }
+  ],
+  children: {
+    // define which column to attach the expand icon to, matching by label
+    expandIconColLabel: 'Name',
+     
+    // the array field containing the child data
+    key: 'purchases' 
+    
+    // supports typical field options
+    fields: [
+      {
+        key: 'item_name',
+        label: 'Item',
+        headerClass: 'col-item-name',
+        cellClass: 'col-item-name',
+        tmpl: Template.PurchaseItemName
+      },
+      {
+        key: 'qty',
+        label: 'Qty'
+      },
+      {
+        key: 'price',
+        label: 'Price',
+        fn: function( price, childData ){
+          return ...;
+        }
+      }
+    ]
+  }
+}
+```
+
+This would result in a normal table, except the column with label defined by `children.expandIconColLabel` would have an expand icon prepend to it
+
+
+
 
 ### Styling
 
@@ -584,6 +669,7 @@ ReactiveTable.publish("user-purchases", function () {
 ```
 
 Note that the filter will automatically be passed on to the publication and be applied to the collection it returns.
+
 
 ## Internationalization
 
