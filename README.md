@@ -619,6 +619,7 @@ We currently have translations (except the 'Columns' button) for:
 - Persian (fa)
 - Polish (pl)
 - Portuguese (pt)
+- Romanian (ro)
 - Russian (ru)
 - Slovak (sk)
 - Spanish (es)
