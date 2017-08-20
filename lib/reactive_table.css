@@ -46,8 +46,9 @@
 
 .reactive-table-navigation .previous-page,
 .reactive-table-navigation .next-page {
-  font-size: 130%;
-  margin: 0 5px;
+    font-size: 130%;
+    margin: 0 5px;
+    padding: 0.5em;
 }
 
 .reactive-table-navigation .previous-page.fa,

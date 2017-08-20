@@ -15,8 +15,10 @@ var collectionWithNestedKeys = new Mongo.Collection('filter-nested-keys');
 
 collectionWithNestedKeys.remove({});
 
-collectionWithNestedKeys.insert({'name': 'item 1', 'nested': [{'value': 'value 1'}]});
+collectionWithNestedKeys.insert({'name': 'item 1', 'nested': [{'value': 'value 1'}, {'value': 'other'}]});
 collectionWithNestedKeys.insert({'name': 'item 2', 'nested': [{'value': 'value 2'}]});
 
 ReactiveTable.publish('nested-filter-inclusion', collectionWithNestedKeys, {}, {fields: {nested: 1}});
 ReactiveTable.publish('nested-filter-exclusion', collectionWithNestedKeys, {}, {fields: {nested: 0}});
+
+ReactiveTable.publish('nested-filter-inclusion-with-array', collectionWithNestedKeys, {}, {fields: {"nested.value": 1}})

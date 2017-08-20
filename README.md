@@ -240,6 +240,9 @@ For server-side collections, sorting is always by value.
 
 Be aware that it is impossible at the moment to filter on virtual fields.
 
+In case of a need for a more sophisticated algorithm, use `sortFn`. This function behaves similarly to `fn`
+but does not affect the visible cell value.
+
 ##### HTML
 
 You can use HTML in a virtual column by creating a Spacebars SafeString:
@@ -433,6 +436,8 @@ The following options are available in the settings argument to ReactiveTable.pu
   Whether to use filter text as a regular expression instead of a regular search term. When true, users will be able to enter regular expressions to filter the table, but your application may be vulnerable to a [ReDoS](http://en.wikipedia.org/wiki/ReDoS) attack. Also, when true, users won't be able to use special characters in filter text without escaping them.
 - disablePageCountReactivity (Boolean - *default=* **false**):
   Whether to disable reactive updates of the displayed page count. Setting this to true will improve performance and is a good idea if you don't need the page count to automatically update.
+- disableRowReactivity (Boolean - *default=* **false**):
+  Whether to disable reactive updates of the displayed rows (which rows are displayed and their contents). Setting both this and disablePageCountReactivity to true will disable all reactivity.
 
 Regex Examples:
 A user filters with "me + you"
@@ -480,7 +485,7 @@ Use the id of the filter in the `filters` argument in your reactiveTable setting
 * `label`: String. Label to display with the filter box.
 * `fields`: Array. Optional array of field keys that this filter should apply to, eg `["firstName", "lastName"]`. Default: `[]`, which will use all fields in the table. Note that you can't use can't use arrays directly in Spacebars templates - you'll need to write a template helper that returns the array.
 
-By default, the filters are combined with `$and`, but you can set the operator to `$or` with the `filterOperator` setting. Add it to the main reactiveTable settings for client-side collections, or the server-side settings when using server-side filtering and pagination. 
+By default, the filters are combined with `$and`, but you can set the operator to `$or` with the `filterOperator` setting. Add it to the main reactiveTable settings for client-side collections, or the server-side settings when using server-side filtering and pagination.
 
 ### Creating your own filter
 
@@ -600,7 +605,9 @@ To set your language to French:
 We currently have translations (except the 'Columns' button) for:
 
 - Brazilian Portuguese (pt-br)
+- Bulgarian (bg)
 - Chinese simplified (zh)
+- Chinese traditional (zh-tw)
 - Croatian (hr)
 - Czech (cs)
 - Danish (da)
@@ -612,9 +619,12 @@ We currently have translations (except the 'Columns' button) for:
 - Hebrew (he)
 - Icelandic (is)
 - Italian (it)
+- Macedonian (mk)
 - Norwegian (no)
 - Persian (fa)
 - Polish (pl)
+- Portuguese (pt)
+- Romanian (ro)
 - Russian (ru)
 - Slovak (sk)
 - Spanish (es)
