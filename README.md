@@ -599,6 +599,7 @@ To set your language to French:
 
 We currently have translations (except the 'Columns' button) for:
 
+- Arabic (ar)
 - Brazilian Portuguese (pt-br)
 - Bulgarian (bg)
 - Chinese simplified (zh)
