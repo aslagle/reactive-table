@@ -69,13 +69,86 @@
         </thead>
         <tbody>
           {{#each sortedRows}}
-            <tr class="{{../rowClass this}}">
+              <tr class="{{../rowClass this}} reactive-table-row">
               {{#each ../fields}}
                 {{#if isVisible}}
-                  <td class="{{getCellClass ..}}">{{#if tmpl}}{{#with ..}}{{> ../tmpl}}{{/with}}{{else}}{{getField ..}}{{/if}}</td>
+                  <td class="{{getCellClass ..}}">
+                    {{#if tmpl}}
+                      {{#with ..}}
+                        {{#if ../expandButton}}
+                          {{#with extendExpandHelpers}}
+                            {{> ../../tmpl}}
+                          {{/with}}
+                        {{else}}
+                          {{> ../tmpl}}
+                        {{/if}}
+                      {{/with}}
+                    {{else}}
+                      {{#if expandButton}}
+                        {{#if ../../useFontAwesome}}
+                            {{#if ../../children}}
+                                {{#if isVisibleChild ../_id}}
+                                    <i class="{{../../childrenExpandIconClass}} {{getCollapseIcon}}" data-id="{{../_id}}"></i>
+                                {{else}}
+                                    <i class="{{../../childrenExpandIconClass}} {{getExpandIcon}}" data-id="{{../_id}}"></i>
+                                {{/if}}
+                            {{/if}}
+                        {{else}}
+                          <label class="{{../../childrenExpandIconClass}}" data-id="{{../_id}}">&#10133;</label>
+                        {{/if}}
+                      {{/if}}
+                      {{getField ..}}
+                    {{/if}}
+                   </td>
                 {{/if}}
               {{/each}}
             </tr>
+            {{#if ../children}}
+              {{#if isVisibleChild}}
+                <tr class="reactive-table-children-container">
+                  <td colspan="{{../fields.length}}">
+                    {{#if ../children/fields}}
+                      <table class="table reactive-table-children">
+                        <thead>
+                        <tr>
+                          {{#each ../children.fields}}
+                            <th class="{{getHeaderClass}}">
+                              {{label}}
+                            </th>
+                          {{/each}}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each getChildrenRows}}
+                          <tr>
+                            {{#each ../../children.fields}}
+                              <td class="{{getCellClass ..}}">
+                                {{#if tmpl}}
+                                  {{#with ..}}
+                                    {{> ../tmpl}}
+                                  {{/with}}
+                                {{else}}
+                                  {{getField ..}}
+                                {{/if}}
+                              </td>
+                            {{/each}}
+                          </tr>
+                        {{/each}}
+                        </tbody>
+                      </table>
+                    {{else}}
+                      {{#if ../children/tmpl}}
+                        {{#with extendExpandHelpers}}
+                          {{> ../../children/tmpl}}
+                        {{/with}}
+                      {{else}}
+                        <span class="error">if children field exists, you must have defined either tmpl or fields</span>
+                      {{/if}}
+                    {{/if}}
+                  </td>
+                 </tr>
+                {{/if}}
+              {{/if}}
           {{/each}}
         </tbody>
       </table>
